@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- 白背景 -->
+  <rect width="32" height="32" rx="6" fill="white"/>
+  <!-- クリッピングマスク（角丸に合わせる） -->
+  <clipPath id="c">
+    <rect width="32" height="32" rx="6"/>
+  </clipPath>
+  <!-- 斜めストライプ3本（左下→右上、primary-700相当の青） -->
+  <g clip-path="url(#c)">
+    <!-- ストライプ 1（左） -->
+    <polygon points="-4,32 8,32 24,0 12,0" fill="#4338ca"/>
+    <!-- ストライプ 2（中央） -->
+    <polygon points="8,32 16,32 32,0 24,0" fill="#4f46e5"/>
+    <!-- ストライプ 3（右） -->
+    <polygon points="20,32 28,32 36,0 28,0" fill="#6366f1"/>
+  </g>
+</svg>

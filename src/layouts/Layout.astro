@@ -1,0 +1,93 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = '名古屋を中心に中小企業の働き方改革を支援する社労士事務所。男性育休の導入支援、就業規則の見直し、DX・AIによる業務改善まで一貫してサポートします。' } = Astro.props;
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const navLinks = [
+  { href: '/',        label: 'トップ' },
+  { href: '/price',   label: '料金表' },
+  { href: '/contact', label: 'お問い合わせ' },
+];
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <title>{title} | おびかわ社労士事務所</title>
+  </head>
+  <body class="font-sans bg-white text-gray-800 antialiased">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-100">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <a href="/" class="flex items-center">
+            <img src="/logo.png" alt="おびかわ社労士事務所" class="h-10 w-auto object-contain" />
+          </a>
+          <div class="flex items-center gap-1 sm:gap-2">
+            {navLinks.map(({ href, label }) => {
+              const isActive = href === '/' ? pathname === '/' : pathname.startsWith(href);
+              return (
+                <a
+                  href={href}
+                  class={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                    isActive
+                      ? 'text-primary-700 bg-primary-50'
+                      : 'text-gray-600 hover:text-primary-700 hover:bg-primary-50'
+                  }`}
+                >
+                  {label}
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <main>
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12 mt-20">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <h3 class="text-white font-semibold text-lg mb-3">おびかわ社労士事務所</h3>
+            <p class="text-sm leading-relaxed">男性育休・就業規則・DX支援を通じ、中小企業の働き方改革を支える名古屋の社労士事務所です。</p>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold mb-3">ページ</h4>
+            <ul class="space-y-2 text-sm">
+              <li><a href="/" class="hover:text-white transition-colors">トップページ</a></li>
+              <li><a href="/price" class="hover:text-white transition-colors">料金表</a></li>
+              <li><a href="/contact" class="hover:text-white transition-colors">お問い合わせ</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold mb-3">事務所情報</h4>
+            <address class="not-italic text-sm space-y-1">
+              <p>〒460-0008</p>
+              <p>愛知県名古屋市中区栄5-26-39</p>
+              <p>GS栄ビル3F</p>
+            </address>
+          </div>
+        </div>
+        <div class="border-t border-gray-700 mt-10 pt-6 text-center text-xs text-gray-500">
+          <p>&copy; {new Date().getFullYear()} おびかわ社労士事務所. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

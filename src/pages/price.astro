@@ -1,0 +1,334 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const retainerRows = [
+  { size: '1人～4人',   planA: '11,000円～',   planB: '11,000円～' },
+  { size: '5人～9人',   planA: '22,000円～',   planB: '16,500円～' },
+  { size: '10人～19人', planA: '33,000円～',   planB: '22,000円～' },
+  { size: '20人～29人', planA: '44,000円～',   planB: '33,000円～' },
+  { size: '30人～49人', planA: '55,500円～',   planB: '44,000円～' },
+  { size: '50人～99人', planA: '88,000円～',   planB: '77,000円～' },
+  { size: '100人以上',  planA: '別途お見積り', planB: '別途お見積り' },
+];
+
+const additionalRows = [
+  { name: '給与計算業務',       fee: '月額11,000円＋1,100円×給与計算人数～' },
+  { name: '賞与計算業務',       fee: '給与計算業務の1ヶ月分～' },
+  { name: '年末調整関連業務',   fee: '給与計算業務の2ヶ月分～' },
+  { name: '労働保険の年度更新業務', fee: '顧問契約Aの1ヶ月分～' },
+];
+
+const rulesRows = [
+  { name: '就業規則（賃金規定）の作成・大幅な変更', fee: '330,000円～' },
+  { name: 'その他規定の作成・大幅な変更',           fee: '330,000円～' },
+  { name: '就業規則の法改正対応',                   fee: '3,300円/月' },
+];
+
+const overtime36Rows = [
+  { name: '36協定の作成／特別条項', fee: '22,000円～' },
+  { name: '過半数代表選出',         fee: '33,000円～' },
+];
+
+const procedureRows = [
+  { category: '入退社時',       detail: '入社・退社の社会保険・雇用保険手続き、離職票作成', fee: '5,500円/件',  note: '入社と退社それぞれ個別にカウント' },
+  { category: '扶養に関する手続き', detail: '健康保険被扶養者（追加・削除）手続き',        fee: '5,500円/件',  note: '家族1名ごとに1件' },
+  { category: '氏名・住所変更', detail: '社会保険・雇用保険の氏名・住所変更届',           fee: '5,500円/件',  note: '変更内容ごとに1件' },
+  { category: '昇給・降給',     detail: '社会保険月額変更届（随時改定）',                 fee: '5,500円/件',  note: '従業員ごとに1件' },
+  { category: '賞与支給',       detail: '社会保険賞与支払届',                             fee: '5,500円/件',  note: '賞与支給月ごとに1件' },
+  { category: '出産・育児休業', detail: '産休申出書、出産手当金、育児休業給付金申請等',   fee: '5,500円/件',  note: '各手続きごとに1件' },
+  { category: '介護休業',       detail: '介護休業申出書、給付金申請等',                   fee: '5,500円/件',  note: '各手続きごとに1件' },
+  { category: '長期病気休業',   detail: '健康保険傷病手当金支給申請',                     fee: '11,000円/件', note: '長期休業の場合' },
+  { category: '労災手続き',     detail: '療養・休業補償給付申請、通勤災害給付申請等',     fee: '11,000円/件', note: '各手続きごとに1件' },
+  { category: '定年・再雇用',   detail: '60歳到達時賃金登録証明書、高年齢雇用継続給付金申請', fee: '11,000円/件', note: '各手続きごとに1件' },
+  { category: '36協定届',       detail: '時間外労働・休日労働に関する協定届',             fee: '11,000円/件', note: '各手続きごとに1件' },
+];
+---
+
+<Layout title="料金表（消費税込み）" description="おびかわ社労士事務所の料金表です。顧問契約・就業規則・手続き業務など消費税込みの料金を掲載しています。">
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-primary-800 to-primary-600 text-white py-16 px-4">
+    <div class="max-w-5xl mx-auto text-center">
+      <p class="text-primary-200 text-sm font-medium tracking-widest uppercase mb-3">Price</p>
+      <h1 class="text-4xl font-bold">料金表</h1>
+      <p class="mt-3 text-primary-200 text-sm">消費税込み</p>
+      <p class="mt-4 text-primary-100 max-w-xl mx-auto">
+        契約内容によって料金が変わりますので、契約前に必ずお見積りさせていただきます。<br />
+        初回相談は無料です。お気軽にご連絡ください。
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+
+    <!-- ===== セクション1：顧問契約 ===== -->
+    <section>
+      <div class="flex items-center gap-3 mb-2">
+        <div class="w-10 h-10 bg-primary-100 rounded-xl flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5 text-primary-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-900">顧問契約</h2>
+      </div>
+
+      <!-- 説明 -->
+      <ul class="mb-6 space-y-1.5 text-sm text-gray-600 pl-1">
+        <li class="flex items-start gap-2"><span class="text-primary-500 mt-0.5">•</span>顧問契約Aは社会保険の手続き業務と相談業務を行う契約です</li>
+        <li class="flex items-start gap-2"><span class="text-primary-500 mt-0.5">•</span>顧問契約Bは社会保険の手続きは行わず、相談業務のみを行う契約です</li>
+        <li class="flex items-start gap-2"><span class="text-primary-500 mt-0.5">•</span>契約内容によって料金が変わりますので、契約前に必ずお見積りさせていただきます</li>
+      </ul>
+
+      <!-- 料金表 -->
+      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mb-4">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="bg-gray-50 border-b border-gray-100">
+                <th class="text-left px-5 py-3.5 font-semibold text-gray-600 w-1/3">規模</th>
+                <th class="text-right px-5 py-3.5 font-semibold text-gray-600 w-1/3">
+                  <span class="inline-flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-primary-600 inline-block"></span>
+                    顧問契約A（月額）
+                  </span>
+                </th>
+                <th class="text-right px-5 py-3.5 font-semibold text-gray-600 w-1/3">
+                  <span class="inline-flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-indigo-400 inline-block"></span>
+                    顧問契約B（月額）
+                  </span>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+              {retainerRows.map((row, i) => (
+                <tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
+                  <td class="px-5 py-3.5 font-medium text-gray-800">{row.size}</td>
+                  <td class="px-5 py-3.5 text-right">
+                    {row.planA === '別途お見積り'
+                      ? <span class="text-gray-400 text-xs">{row.planA}</span>
+                      : <span class="font-semibold text-primary-700">{row.planA}</span>
+                    }
+                  </td>
+                  <td class="px-5 py-3.5 text-right">
+                    {row.planB === '別途お見積り'
+                      ? <span class="text-gray-400 text-xs">{row.planB}</span>
+                      : <span class="font-semibold text-indigo-600">{row.planB}</span>
+                    }
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="text-xs text-gray-500 mb-8">※ 人数には、代表及び役員の方を含みます</p>
+
+      <!-- 相談業務・手続き業務の説明 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div class="bg-indigo-50 rounded-2xl p-6 border border-indigo-100">
+          <h3 class="font-bold text-gray-900 mb-3 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-indigo-500 inline-block"></span>
+            相談業務の内容（A・B 共通）
+          </h3>
+          <ul class="space-y-2 text-sm text-gray-700">
+            <li class="flex items-start gap-2">
+              <span class="text-indigo-400 mt-0.5 shrink-0">•</span>
+              月に1回、事業所へ訪問（希望者のみ）
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-indigo-400 mt-0.5 shrink-0">•</span>
+              従業員とのトラブル、法改正への対応、ハラスメント、人事戦略、リスク管理、DX等
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-indigo-400 mt-0.5 shrink-0">•</span>
+              対応方法：電話、メール、チャット、Teams等
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-primary-50 rounded-2xl p-6 border border-primary-100">
+          <h3 class="font-bold text-gray-900 mb-3 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-primary-600 inline-block"></span>
+            顧問契約Aの手続き業務
+          </h3>
+          <p class="text-sm text-gray-700 leading-relaxed">
+            従業員の入退社、出産、育児休業、家族の扶養、病気による休職、仕事中のケガ、昇給時 等
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="border-gray-100" />
+
+    <!-- ===== セクション2：個別業務契約 ===== -->
+    <section>
+      <div class="flex items-center gap-3 mb-2">
+        <div class="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 11h.01M12 11h.01M15 11h.01M4 19h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-900">個別業務契約</h2>
+      </div>
+      <p class="text-sm text-gray-500 mb-6">顧問契約Aのお客様向け</p>
+
+      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="bg-gray-50 border-b border-gray-100">
+                <th class="text-left px-5 py-3.5 font-semibold text-gray-600 w-2/5">業務内容</th>
+                <th class="text-left px-5 py-3.5 font-semibold text-gray-600">料金</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+              {additionalRows.map((row, i) => (
+                <tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
+                  <td class="px-5 py-4 font-medium text-gray-800">{row.name}</td>
+                  <td class="px-5 py-4 text-gray-700">{row.fee}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <hr class="border-gray-100" />
+
+    <!-- ===== セクション3：就業規則 ===== -->
+    <section>
+      <div class="flex items-center gap-3 mb-2">
+        <div class="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-900">就業規則の作成・変更業務</h2>
+      </div>
+      <p class="text-sm text-gray-500 mb-6">&nbsp;</p>
+
+      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mb-4">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="bg-gray-50 border-b border-gray-100">
+                <th class="text-left px-5 py-3.5 font-semibold text-gray-600 w-3/5">業務内容</th>
+                <th class="text-right px-5 py-3.5 font-semibold text-gray-600">料金</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+              {rulesRows.map((row, i) => (
+                <tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
+                  <td class="px-5 py-4 font-medium text-gray-800">{row.name}</td>
+                  <td class="px-5 py-4 text-right font-semibold text-amber-700">{row.fee}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="bg-amber-50 border border-amber-100 rounded-xl px-5 py-4 text-sm text-gray-700 space-y-1.5">
+        <p class="flex items-start gap-2"><span class="text-amber-500 mt-0.5 shrink-0">•</span>作成・変更の理由、業務内容、希望内容をヒアリングの上、お見積りします</p>
+        <p class="flex items-start gap-2"><span class="text-amber-500 mt-0.5 shrink-0">•</span>作成・大幅変更にかかる期間は、お打ち合わせから約4ヶ月を予定</p>
+        <p class="flex items-start gap-2"><span class="text-amber-500 mt-0.5 shrink-0">•</span>育児介護休業規程、旅費規程、福利厚生規定等は別料金</p>
+      </div>
+    </section>
+
+    <hr class="border-gray-100" />
+
+    <!-- ===== セクション4：36協定 ===== -->
+    <section>
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-900">36協定の作成・変更業務</h2>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="bg-gray-50 border-b border-gray-100">
+                <th class="text-left px-5 py-3.5 font-semibold text-gray-600 w-3/5">業務内容</th>
+                <th class="text-right px-5 py-3.5 font-semibold text-gray-600">料金</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+              {overtime36Rows.map((row, i) => (
+                <tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
+                  <td class="px-5 py-4 font-medium text-gray-800">{row.name}</td>
+                  <td class="px-5 py-4 text-right font-semibold text-red-600">{row.fee}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <hr class="border-gray-100" />
+
+    <!-- ===== セクション5：手続き業務 ===== -->
+    <section>
+      <div class="flex items-center gap-3 mb-2">
+        <div class="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-900">手続き業務</h2>
+      </div>
+      <p class="text-sm text-gray-500 mb-6">顧問契約Bのお客様向け</p>
+
+      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mb-4">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="bg-gray-50 border-b border-gray-100">
+                <th class="text-left px-5 py-3.5 font-semibold text-gray-600 w-28">種別</th>
+                <th class="text-left px-5 py-3.5 font-semibold text-gray-600">手続き内容</th>
+                <th class="text-right px-5 py-3.5 font-semibold text-gray-600 whitespace-nowrap">料金</th>
+                <th class="text-left px-5 py-3.5 font-semibold text-gray-600 hidden md:table-cell">備考</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+              {procedureRows.map((row, i) => (
+                <tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
+                  <td class="px-5 py-3.5 font-medium text-gray-800 align-top whitespace-nowrap">{row.category}</td>
+                  <td class="px-5 py-3.5 text-gray-700 align-top">{row.detail}</td>
+                  <td class="px-5 py-3.5 text-right font-semibold text-purple-700 align-top whitespace-nowrap">{row.fee}</td>
+                  <td class="px-5 py-3.5 text-gray-500 text-xs align-top hidden md:table-cell">{row.note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <!-- モバイル備考はtitleで代替（テーブル内に折りたたまれるのでSP向けに別途表示） -->
+      </div>
+
+      <p class="text-xs text-gray-500">※ その他の対応については、都度お見積りさせていただきます</p>
+    </section>
+
+  </div>
+
+  <!-- ===== CTA ===== -->
+  <section class="py-16 px-4 bg-primary-800 text-white mt-4">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-2xl font-bold mb-3">料金についてご不明な点はお気軽に</h2>
+      <p class="text-primary-200 mb-8">
+        ご状況に合わせたお見積りを無料で承ります。<br />
+        まずはお気軽にご相談ください。
+      </p>
+      <a href="/contact" class="inline-block bg-white text-primary-700 font-bold px-10 py-4 rounded-lg hover:bg-primary-50 transition-colors">
+        料金についてのご相談はこちら
+      </a>
+    </div>
+  </section>
+
+</Layout>

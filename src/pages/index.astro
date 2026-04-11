@@ -1,0 +1,390 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="名古屋の社労士｜男性育休・就業規則・DX支援なら大日川社労士事務所"
+  description="名古屋を中心に中小企業の働き方改革を支援する社労士事務所。男性育休の導入支援、就業規則の見直し、DX・AIによる業務改善まで一貫してサポートします。"
+>
+
+  <!-- ===== ファーストビュー ===== -->
+  <section class="bg-gradient-to-br from-primary-800 to-primary-600 text-white py-24 px-4">
+    <div class="max-w-5xl mx-auto">
+      <div class="max-w-3xl">
+        <p class="text-primary-200 text-sm font-medium tracking-widest uppercase mb-5">おびかわ社労士事務所</p>
+        <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-6">
+          休める会社が、<br />
+          選ばれる会社になる。
+        </h1>
+        <p class="text-primary-100 text-lg leading-relaxed mb-10">
+          就業規則の見直しから、DX・AI活用まで。<br />
+          中小企業の採用力・定着率アップを一貫してサポートします。
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="/contact" class="inline-block bg-white text-primary-700 font-bold px-8 py-4 rounded-lg hover:bg-primary-50 transition-colors text-center">
+            無料相談はこちら
+          </a>
+          <a href="#services" class="inline-block border border-white/60 text-white font-semibold px-8 py-4 rounded-lg hover:bg-white/10 transition-colors text-center">
+            サービスを見る
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== お悩みセクション ===== -->
+  <section class="py-20 px-4 bg-gray-50">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="text-primary-600 font-semibold text-sm tracking-wide uppercase mb-2">Problems</p>
+        <h2 class="text-3xl font-bold text-gray-900">このようなお悩みはありませんか</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto mb-10">
+        {[
+          '男性育休を取りやすい会社にしたいが、何から始めればいいかわからない',
+          '就業規則が古く、実態に合っていない',
+          '人手不足で業務が回らない',
+          'DXやAIに興味はあるが、具体的にどう進めればよいかわからない',
+        ].map((problem) => (
+          <div class="flex items-start gap-3 bg-white rounded-xl px-6 py-5 border border-gray-100 shadow-sm">
+            <span class="mt-1 shrink-0 w-5 h-5 rounded-full bg-primary-100 flex items-center justify-center">
+              <svg class="w-3 h-3 text-primary-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+              </svg>
+            </span>
+            <p class="text-sm text-gray-700 leading-relaxed">{problem}</p>
+          </div>
+        ))}
+      </div>
+
+      <p class="text-center text-primary-700 font-semibold text-lg">
+        その課題、制度設計と業務改善の両面から解決できます。
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== 強みセクション ===== -->
+  <section class="py-20 px-4">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-14">
+        <p class="text-primary-600 font-semibold text-sm tracking-wide uppercase mb-2">Strengths</p>
+        <h2 class="text-3xl font-bold text-gray-900">当事務所の強み</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-pink-50 rounded-xl flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900">男性育休支援に強い社労士</h3>
+          </div>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            育児・介護休業法に対応した制度設計だけでなく、実際に取得しやすい運用まで支援します。助成金活用も含めてトータルにサポートします。
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900">就業規則の専門家</h3>
+          </div>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            リスク回避だけでなく、「働きやすさ」と「企業成長」を両立する規程を設計します。法改正対応から多様な働き方の導入まで対応します。
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2h-2" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900">DX・AIによる業務改善支援</h3>
+          </div>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            RPAやAIを活用し、業務の効率化・属人化解消・生産性向上を実現します。社労士視点で「何を自動化すべきか」から一緒に考えます。
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900">行政事業での支援実績</h3>
+          </div>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            働き方改革推進支援センターや自治体事業を通じて、多数の中小企業を支援しています。公的機関との連携実績が信頼の証です。
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== サービスセクション ===== -->
+  <section id="services" class="py-20 px-4 bg-gray-50">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-14">
+        <p class="text-primary-600 font-semibold text-sm tracking-wide uppercase mb-2">Services</p>
+        <h2 class="text-3xl font-bold text-gray-900">サービス</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- Service 1 -->
+        <div class="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col">
+          <div class="bg-pink-600 px-6 py-5">
+            <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center mb-3">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </div>
+            <h3 class="text-white font-bold text-lg">男性育休導入支援</h3>
+          </div>
+          <div class="px-6 py-6 flex-1 flex flex-col">
+            <ul class="space-y-2 mb-5 flex-1">
+              {['制度設計（就業規則改定）', '社内説明・面談支援', '助成金活用サポート'].map((item) => (
+                <li class="flex items-center gap-2 text-sm text-gray-700">
+                  <span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p class="text-xs text-pink-600 font-semibold border-t border-gray-100 pt-4 mt-auto">
+              「制度だけ」で終わらず、取得できる会社へ
+            </p>
+          </div>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col">
+          <div class="bg-primary-700 px-6 py-5">
+            <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center mb-3">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <h3 class="text-white font-bold text-lg">就業規則・制度設計</h3>
+          </div>
+          <div class="px-6 py-6 flex-1 flex flex-col">
+            <ul class="space-y-2 mb-5 flex-1">
+              {['両立支援（育児・治療）', '多様な働き方（短時間正社員・週休3日など）', '法改正対応'].map((item) => (
+                <li class="flex items-center gap-2 text-sm text-gray-700">
+                  <span class="w-1.5 h-1.5 rounded-full bg-primary-400 shrink-0"></span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p class="text-xs text-primary-600 font-semibold border-t border-gray-100 pt-4 mt-auto">
+              リスク回避＋働きやすさを両立
+            </p>
+          </div>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col">
+          <div class="bg-indigo-600 px-6 py-5">
+            <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center mb-3">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h3 class="text-white font-bold text-lg">DX・業務改善支援</h3>
+          </div>
+          <div class="px-6 py-6 flex-1 flex flex-col">
+            <ul class="space-y-2 mb-5 flex-1">
+              {['業務の見える化', 'RPA・AI導入支援', '業務フロー改善'].map((item) => (
+                <li class="flex items-center gap-2 text-sm text-gray-700">
+                  <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0"></span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p class="text-xs text-indigo-600 font-semibold border-t border-gray-100 pt-4 mt-auto">
+              人手不足でも回る仕組みづくり
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="text-center mt-8">
+        <a href="/price" class="inline-block border border-primary-600 text-primary-700 font-semibold px-8 py-3 rounded-lg hover:bg-primary-50 transition-colors text-sm">
+          料金表を見る →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== プロフィール ===== -->
+  <section class="py-20 px-4">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-14">
+        <p class="text-primary-600 font-semibold text-sm tracking-wide uppercase mb-2">Profile</p>
+        <h2 class="text-3xl font-bold text-gray-900">プロフィール</h2>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden max-w-3xl mx-auto">
+        <div class="flex flex-col sm:flex-row gap-0">
+
+          <!-- 写真（左） -->
+          <div class="sm:w-52 shrink-0 flex items-center justify-center bg-gray-50 p-8">
+            <img
+              src="/profile.png"
+              alt="大日川 聡一（おびかわ としかず）"
+              class="w-36 h-36 rounded-full object-cover shadow-md"
+            />
+          </div>
+
+          <!-- テキスト（右） -->
+          <div class="flex-1 px-8 py-8">
+            <p class="text-xs font-semibold text-primary-600 tracking-wide mb-1">社会保険労務士</p>
+            <h3 class="text-xl font-bold text-gray-900 mb-0.5">大日川 聡一</h3>
+            <p class="text-sm text-gray-500 mb-4">おびかわ としかず</p>
+
+            <div class="flex flex-wrap gap-2 mb-5">
+              {['社会保険労務士', '両立支援コーディネーター', '健康経営エキスパートアドバイザー'].map((q) => (
+                <span class="text-xs bg-primary-50 text-primary-700 px-3 py-1 rounded-full font-medium">{q}</span>
+              ))}
+            </div>
+
+            <div class="space-y-3 text-sm text-gray-600 leading-relaxed">
+              <p>メディア企業の社内SEとして、RPAの導入で年間1200時間の業務削減を実現。</p>
+              <p class="text-primary-700 font-semibold">「人を増やさなくても、仕組みで解決できる」</p>
+              <p>その確信から、IT×労務の社労士として開業。制度を作るだけでなく、現場で実際に回る仕組みまで一緒に作ることにこだわっています。</p>
+            </div>
+
+            <div class="mt-5 flex items-center gap-2 text-xs text-gray-500">
+              <svg class="w-4 h-4 text-primary-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+              <span>愛知働き方改革推進支援センター 専門家</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== セミナー・研修実績 ===== -->
+  <section class="py-20 px-4">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-14">
+        <p class="text-primary-600 font-semibold text-sm tracking-wide uppercase mb-2">Seminar &amp; Training</p>
+        <h2 class="text-3xl font-bold text-gray-900">セミナー・研修実績</h2>
+        <p class="mt-3 text-gray-500">実務に直結する内容でご好評をいただいています</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        {[
+          {
+            title: '働き方改革 × DX・AI セミナー',
+            desc: 'AIや自動化ツールを活用した業務改善と、法令対応を組み合わせた実践的な内容をご提供しています。',
+            icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2h-2',
+            color: 'bg-indigo-50 text-indigo-600',
+          },
+          {
+            title: '男性育休導入セミナー',
+            desc: '取得率向上のための制度・運用・文化づくりを、法改正の最新情報を交えて解説します。',
+            icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
+            color: 'bg-pink-50 text-pink-600',
+          },
+          {
+            title: '採用・労務管理セミナー',
+            desc: '中小企業が実践できる採用力強化と、トラブルを未然に防ぐ労務管理のポイントをお伝えします。',
+            icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
+            color: 'bg-amber-50 text-amber-600',
+          },
+        ].map((seminar) => (
+          <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+            <div class={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 ${seminar.color}`}>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={seminar.icon} />
+              </svg>
+            </div>
+            <h3 class="font-bold text-gray-900 mb-2">{seminar.title}</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">{seminar.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ご相談の流れ ===== -->
+  <section class="py-20 px-4 bg-gray-50">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-14">
+        <p class="text-primary-600 font-semibold text-sm tracking-wide uppercase mb-2">Flow</p>
+        <h2 class="text-3xl font-bold text-gray-900">ご相談の流れ</h2>
+      </div>
+
+      <div class="max-w-3xl mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-0 relative">
+          <!-- Connector line (desktop) -->
+          <div class="hidden sm:block absolute top-10 left-[12.5%] right-[12.5%] h-0.5 bg-primary-200 z-0"></div>
+
+          {[
+            { step: '01', title: 'お問い合わせ', desc: 'フォームまたはお電話でご連絡ください' },
+            { step: '02', title: 'ヒアリング', desc: '現状の課題や目標を丁寧にお聞きします' },
+            { step: '03', title: 'ご提案', desc: '最適な支援内容とお見積りをご提示します' },
+            { step: '04', title: '支援開始', desc: 'ご契約後、速やかに支援をスタートします' },
+          ].map((flow) => (
+            <div class="flex flex-col items-center text-center relative z-10 px-2 mb-8 sm:mb-0">
+              <div class="w-20 h-20 rounded-full bg-primary-700 flex flex-col items-center justify-center text-white mb-4 shadow-md">
+                <span class="text-xs font-semibold text-primary-200 leading-none">STEP</span>
+                <span class="text-xl font-bold leading-tight">{flow.step}</span>
+              </div>
+              <h3 class="font-bold text-gray-900 mb-1">{flow.title}</h3>
+              <p class="text-xs text-gray-500 leading-relaxed">{flow.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== お問い合わせCTA ===== -->
+  <section class="py-20 px-4 bg-primary-800 text-white">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="text-primary-200 text-sm font-semibold tracking-wide uppercase mb-3">Free Consultation</p>
+      <h2 class="text-3xl font-bold mb-6">無料相談受付中</h2>
+
+      <div class="flex flex-col sm:flex-row gap-3 justify-center mb-8 text-sm">
+        {[
+          '男性育休を進めたい',
+          '就業規則を見直したい',
+          '業務を効率化したい',
+        ].map((item) => (
+          <span class="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">
+            <svg class="w-4 h-4 text-primary-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            {item}
+          </span>
+        ))}
+      </div>
+
+      <p class="text-primary-200 mb-8">
+        まずはお気軽にご相談ください。
+      </p>
+      <a href="/contact" class="inline-block bg-white text-primary-700 font-bold px-12 py-4 rounded-lg hover:bg-primary-50 transition-colors text-lg">
+        お問い合わせはこちら
+      </a>
+    </div>
+  </section>
+
+</Layout>
