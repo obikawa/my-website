@@ -7,9 +7,10 @@ export interface Props {
 const { title, description = '名古屋を中心に中小企業の働き方改革を支援する社労士事務所。男性育休の導入支援、就業規則の見直し、DX・AIによる業務改善まで一貫してサポートします。' } = Astro.props;
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 const navLinks = [
-  { href: '/',        label: 'トップ' },
-  { href: '/price',   label: '料金表' },
-  { href: '/contact', label: 'お問い合わせ' },
+  { href: '/',               label: 'トップ' },
+  { href: '/price',          label: '料金表' },
+  { href: '/minimum-wage',   label: '最低賃金チェック' },
+  { href: '/contact',        label: 'お問い合わせ' },
 ];
 ---
 

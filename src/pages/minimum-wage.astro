@@ -1,0 +1,568 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="最低賃金チェック"
+  description="月給・日給・歩合給を時間額に換算し、都道府県の最低賃金をクリアしているか判定するシミュレーターです。"
+>
+
+  <section class="bg-gradient-to-br from-primary-800 to-primary-600 text-white py-16 px-4">
+    <div class="max-w-5xl mx-auto text-center">
+      <p class="text-primary-200 text-sm font-medium tracking-widest uppercase mb-3">Minimum Wage Check</p>
+      <h1 class="text-4xl font-bold">最低賃金チェックツール</h1>
+      <p class="mt-4 text-primary-100 max-w-xl mx-auto">
+        月給・日給・歩合給を時間額に換算し、都道府県の最低賃金をクリアしているか確認できます。
+      </p>
+    </div>
+  </section>
+
+  <section class="py-12 px-4">
+    <div class="max-w-4xl mx-auto">
+      <div class="wage-tool">
+
+        <div class="wt-card">
+
+          <div class="wt-section">
+            <div class="wt-section-title">基本設定</div>
+            <div class="wt-grid-base">
+              <div><label>都道府県</label><select id="prefSelect" onchange="updateMinWage()"></select></div>
+              <div><label>発効日</label><input type="text" id="effectiveDate" readonly style="background:#f8f9fa; color:#4338ca; font-weight:bold; cursor:default;" /></div>
+              <div><label>最低賃金（時間額）</label><input type="number" id="minWage" /></div>
+              <div><label>1日の所定労働時間</label><input type="number" id="dailyHours" value="8" onchange="manualDayChange()" /></div>
+            </div>
+          </div>
+
+          <div class="wt-section">
+            <div class="wt-section-title">年間所定労働日数の算出</div>
+            <div class="wt-calendar-area">
+              <div class="wt-grid-base">
+                <div><label>起算日</label><input type="date" id="startDate" value="2026-04-01" onchange="autoCalcCalendar()" /></div>
+                <div><label>締切日</label><input type="date" id="endDate" value="2027-03-31" onchange="autoCalcCalendar()" /></div>
+                <div><label>日曜日の数</label><input type="number" id="countSun" onchange="manualDayChange()" /></div>
+                <div><label>土曜日の数</label><input type="number" id="countSat" onchange="manualDayChange()" /></div>
+                <div><label>祝日の数</label><input type="number" id="countHol" onchange="manualDayChange()" /></div>
+              </div>
+              <div class="wt-grid-base">
+                <div><label>夏休み（日数）</label><input type="number" id="countSummer" value="0" onchange="manualDayChange()" /></div>
+                <div><label>年末年始（日数）</label><input type="number" id="countWinter" value="0" onchange="manualDayChange()" /></div>
+                <div style="flex:2"></div>
+              </div>
+              <div class="wt-result-row">
+                <div class="wt-result-box">
+                  <label>期間内総日数</label>
+                  <input type="number" id="totalDays" />
+                </div>
+                <div class="wt-result-box wt-result-holiday">
+                  <label>年間休日数</label>
+                  <input type="number" id="totalHolidays" />
+                </div>
+                <div class="wt-result-box wt-result-working">
+                  <label>年間所定労働日数</label>
+                  <input type="number" id="annualDays" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wt-exclude-guide">
+            <strong>⚠️ 最低賃金の対象とならない手当（入力しないでください）</strong>
+            <ul>
+              <li>精皆勤手当、通勤手当、家族手当</li>
+              <li>残業代（時間外・深夜・休日割増賃金）</li>
+              <li>賞与（ボーナス）、臨時賃金</li>
+            </ul>
+          </div>
+
+          <div class="wt-section">
+            <div class="wt-section-title">1. 月給制</div>
+            <div class="wt-grid-base">
+              <div><label>基本給（月額）</label><input type="number" id="mBase" class="clearable" placeholder="0" /></div>
+              <div class="wt-allowance-grid">
+                <input type="number" class="clearable m-allow" placeholder="手当1" />
+                <input type="number" class="clearable m-allow" placeholder="手当2" />
+                <input type="number" class="clearable m-allow" placeholder="手当3" />
+                <input type="number" class="clearable m-allow" placeholder="手当4" />
+              </div>
+            </div>
+          </div>
+
+          <div class="wt-section">
+            <div class="wt-section-title">2. 日給制</div>
+            <div class="wt-grid-base">
+              <div><label>日給額</label><input type="number" id="dBase" class="clearable" placeholder="0" /></div>
+              <div class="wt-allowance-grid">
+                <input type="number" class="clearable d-allow" placeholder="手当1（月額）" />
+                <input type="number" class="clearable d-allow" placeholder="手当2（月額）" />
+                <input type="number" class="clearable d-allow" placeholder="手当3（月額）" />
+                <input type="number" class="clearable d-allow" placeholder="手当4（月額）" />
+              </div>
+            </div>
+          </div>
+
+          <div class="wt-section">
+            <div class="wt-section-title">3. 歩合給制（タクシー等）</div>
+            <div class="wt-highlight-fixed">
+              <label>【固定給部分】</label>
+              <div class="wt-grid-base">
+                <input type="number" id="pFixedBase" class="clearable" placeholder="固定基本給" />
+                <input type="number" id="pFAllow1" class="clearable" placeholder="固定手当1" />
+                <input type="number" id="pFAllow2" class="clearable" placeholder="固定手当2" />
+                <div><label>月間所定労働時間</label><input type="number" id="mFixedHours" class="clearable" placeholder="例: 170" /></div>
+              </div>
+            </div>
+            <div class="wt-highlight-piece">
+              <label>【歩合給部分】</label>
+              <div class="wt-grid-base">
+                <input type="number" id="pPieceBase" class="clearable" placeholder="歩合給総額" />
+                <div></div>
+                <div></div>
+                <div><label>月間総労働時間</label><input type="number" id="mTotalHours" class="clearable" placeholder="例: 200" /></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wt-button-container">
+            <button class="wt-calc-btn" onclick="calculate()">判定を実行する</button>
+            <button class="wt-clear-btn" onclick="clearData()">データをクリア</button>
+          </div>
+
+          <div id="result"></div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style is:global>
+  .wage-tool { font-size: 14px; }
+
+  .wt-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border: 1px solid #eee;
+  }
+
+  .wt-section {
+    border: 1px solid #dcdfe6;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background: #fff;
+  }
+
+  .wt-section-title {
+    background: #3730a3;
+    color: white;
+    padding: 6px 15px;
+    margin: -15px -15px 15px -15px;
+    border-radius: 10px 10px 0 0;
+    font-weight: bold;
+    font-size: 0.9em;
+  }
+
+  .wage-tool label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 4px;
+    font-size: 0.8em;
+    color: #606266;
+  }
+
+  .wage-tool input[type="number"],
+  .wage-tool input[type="date"],
+  .wage-tool select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #dcdfe6;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+
+  .wt-grid-base {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .wt-allowance-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .wt-calendar-area {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  .wt-result-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+  }
+
+  .wt-result-box {
+    background: #eef2ff;
+    border: 1px solid #c7d2fe;
+    padding: 8px;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .wt-result-box input {
+    border: none;
+    background: transparent;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #4338ca;
+    text-align: center;
+    pointer-events: none;
+    width: 100%;
+  }
+
+  .wt-result-holiday { background: #fff0f6; border-color: #ffdeeb; }
+  .wt-result-holiday input { color: #d6336c; }
+
+  .wt-result-working { background: #f8f9fa; border-color: #dee2e6; }
+  .wt-result-working input { color: #495057; }
+
+  .wt-exclude-guide {
+    background: #fdf2f2;
+    border: 1px solid #fbd5d5;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 0.85em;
+  }
+
+  .wt-exclude-guide ul {
+    margin: 5px 0 0 20px;
+    padding: 0;
+    color: #b91c1c;
+    font-weight: bold;
+  }
+
+  .wt-highlight-fixed {
+    background: #fffcf0;
+    border: 1px solid #ffec99;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  .wt-highlight-piece {
+    background: #eef2ff;
+    border: 1px solid #c7d2fe;
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  .wt-button-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+  }
+
+  .wt-button-container button {
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: 0.2s;
+  }
+
+  .wt-calc-btn {
+    background: #4338ca;
+    box-shadow: 0 4px #312e81;
+    flex: 2;
+  }
+
+  .wt-calc-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px #312e81;
+  }
+
+  .wt-clear-btn {
+    background: #909399;
+    flex: 1;
+  }
+
+  #result {
+    margin-top: 25px;
+    padding: 30px;
+    border-radius: 12px;
+    display: none;
+    text-align: center;
+  }
+
+  #result.pass { background: #f0f9eb; border: 2px solid #67c23a; }
+  #result.fail { background: #fff5f5; border: 2px solid #f56c6c; }
+
+  .判定ラベル { font-size: 1.2em; font-weight: bold; margin-bottom: 15px; }
+
+  .comparison-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+  }
+
+  .my-wage { font-size: 3em; font-weight: 900; }
+  .inequality { font-size: 2.5em; font-weight: bold; color: #909399; }
+
+  .pref-wage-box {
+    text-align: left;
+    border-left: 3px solid #ddd;
+    padding-left: 15px;
+  }
+
+  .pref-wage-val { font-size: 2.5em; font-weight: bold; color: #303133; }
+  .pref-label { font-size: 0.8em; color: #606266; font-weight: bold; margin-bottom: -5px; display: block; }
+
+  .formula-display {
+    margin-top: 25px;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 1.1em;
+    color: #444;
+    text-align: left;
+    line-height: 1.8;
+  }
+
+  .formula-line { margin-bottom: 8px; border-bottom: 1px dashed #eee; }
+</style>
+
+<script is:inline>
+// 令和7年度 地域別最低賃金（発効日付き）
+// 出典: 厚生労働省 令和7年度地域別最低賃金答申状況
+const wageData = {
+  "北海道": { wage: 1075, date: "2025-10-04" },
+  "青森":   { wage: 1029, date: "2025-11-21" },
+  "岩手":   { wage: 1031, date: "2025-12-01" },
+  "宮城":   { wage: 1038, date: "2025-10-04" },
+  "秋田":   { wage: 1031, date: "2026-03-31" },
+  "山形":   { wage: 1032, date: "2025-12-23" },
+  "福島":   { wage: 1033, date: "2026-01-01" },
+  "茨城":   { wage: 1074, date: "2025-10-12" },
+  "栃木":   { wage: 1068, date: "2025-10-01" },
+  "群馬":   { wage: 1063, date: "2026-03-01" },
+  "埼玉":   { wage: 1141, date: "2025-11-01" },
+  "千葉":   { wage: 1140, date: "2025-10-03" },
+  "東京":   { wage: 1226, date: "2025-10-03" },
+  "神奈川": { wage: 1225, date: "2025-10-04" },
+  "新潟":   { wage: 1050, date: "2025-10-02" },
+  "富山":   { wage: 1062, date: "2025-10-12" },
+  "石川":   { wage: 1054, date: "2025-10-08" },
+  "福井":   { wage: 1053, date: "2025-10-08" },
+  "山梨":   { wage: 1052, date: "2025-12-01" },
+  "長野":   { wage: 1061, date: "2025-10-03" },
+  "岐阜":   { wage: 1065, date: "2025-10-18" },
+  "静岡":   { wage: 1097, date: "2025-11-01" },
+  "愛知":   { wage: 1140, date: "2025-10-18" },
+  "三重":   { wage: 1087, date: "2025-11-21" },
+  "滋賀":   { wage: 1080, date: "2025-10-05" },
+  "京都":   { wage: 1122, date: "2025-11-21" },
+  "大阪":   { wage: 1177, date: "2025-10-16" },
+  "兵庫":   { wage: 1116, date: "2025-10-04" },
+  "奈良":   { wage: 1051, date: "2025-11-16" },
+  "和歌山": { wage: 1045, date: "2025-11-01" },
+  "鳥取":   { wage: 1030, date: "2025-10-04" },
+  "島根":   { wage: 1033, date: "2025-11-17" },
+  "岡山":   { wage: 1047, date: "2025-12-01" },
+  "広島":   { wage: 1085, date: "2025-11-01" },
+  "山口":   { wage: 1043, date: "2025-10-16" },
+  "徳島":   { wage: 1046, date: "2026-01-01" },
+  "香川":   { wage: 1036, date: "2025-10-18" },
+  "愛媛":   { wage: 1033, date: "2025-12-01" },
+  "高知":   { wage: 1023, date: "2025-12-01" },
+  "福岡":   { wage: 1057, date: "2025-11-16" },
+  "佐賀":   { wage: 1030, date: "2025-11-21" },
+  "長崎":   { wage: 1031, date: "2025-12-01" },
+  "熊本":   { wage: 1034, date: "2026-01-01" },
+  "大分":   { wage: 1035, date: "2026-01-01" },
+  "宮崎":   { wage: 1023, date: "2025-11-16" },
+  "鹿児島": { wage: 1026, date: "2025-11-01" },
+  "沖縄":   { wage: 1023, date: "2025-12-01" }
+};
+
+function toJpDate(dateStr) {
+  const d = new Date(dateStr + 'T00:00:00');
+  const reiwa = d.getFullYear() - 2018;
+  return '令和' + reiwa + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日から';
+}
+
+window.onload = function() {
+  const select = document.getElementById('prefSelect');
+  Object.keys(wageData).forEach(function(p) {
+    const o = document.createElement('option');
+    o.value = p;
+    o.innerHTML = p;
+    if (p === "愛知") o.selected = true;
+    select.appendChild(o);
+  });
+  updateMinWage();
+  autoCalcCalendar();
+};
+
+function updateMinWage() {
+  const p = document.getElementById('prefSelect').value;
+  if (!p || !wageData[p]) return;
+  document.getElementById('minWage').value = wageData[p].wage;
+  document.getElementById('effectiveDate').value = toJpDate(wageData[p].date);
+}
+
+function autoCalcCalendar() {
+  const start = new Date(document.getElementById('startDate').value);
+  const end = new Date(document.getElementById('endDate').value);
+  if (isNaN(start) || isNaN(end) || start > end) return;
+  const total = Math.floor((end - start) / (1000 * 60 * 60 * 24)) + 1;
+  document.getElementById('totalDays').value = total;
+  let sun = 0, sat = 0;
+  let curr = new Date(start);
+  while (curr <= end) {
+    if (curr.getDay() === 0) sun++;
+    if (curr.getDay() === 6) sat++;
+    curr.setDate(curr.getDate() + 1);
+  }
+  document.getElementById('countSun').value = sun;
+  document.getElementById('countSat').value = sat;
+  document.getElementById('countHol').value = 16;
+  manualDayChange();
+}
+
+function manualDayChange() {
+  const total = parseInt(document.getElementById('totalDays').value) || 0;
+  const sun   = parseInt(document.getElementById('countSun').value) || 0;
+  const sat   = parseInt(document.getElementById('countSat').value) || 0;
+  const hol   = parseInt(document.getElementById('countHol').value) || 0;
+  const sum   = parseInt(document.getElementById('countSummer').value) || 0;
+  const win   = parseInt(document.getElementById('countWinter').value) || 0;
+  const holidays = sun + sat + hol + sum + win;
+  document.getElementById('totalHolidays').value = holidays;
+  document.getElementById('annualDays').value = total - holidays;
+}
+
+function clearData() {
+  document.querySelectorAll('.clearable').forEach(function(i) { i.value = ""; });
+  document.getElementById('result').style.display = 'none';
+}
+
+function calculate() {
+  const min    = parseFloat(document.getElementById('minWage').value) || 0;
+  const pref   = document.getElementById('prefSelect').value;
+  const annDays = parseFloat(document.getElementById('annualDays').value) || 0;
+  const dHours = parseFloat(document.getElementById('dailyHours').value) || 0;
+
+  let totalH = 0;
+  let formulaLines = [];
+
+  // 月給制
+  let mSum = parseFloat(document.getElementById('mBase').value) || 0;
+  let mAllowList = [];
+  document.querySelectorAll('.m-allow').forEach(function(i) {
+    const val = parseFloat(i.value) || 0;
+    if (val > 0) { mSum += val; mAllowList.push(val); }
+  });
+  if (mSum > 0) {
+    const mVal = (mSum * 12) / (annDays * dHours);
+    totalH += mVal;
+    const allowStr = mAllowList.length > 0 ? ' + ' + mAllowList.join(' + ') : '';
+    formulaLines.push('<div class="formula-line">【月給換算】(' + (document.getElementById('mBase').value || 0) + allowStr + ') × 12ヶ月 ÷ (' + annDays + '日 × ' + dHours + '時間) = ' + mVal.toFixed(1) + '円</div>');
+  }
+
+  // 日給制
+  const dBase = parseFloat(document.getElementById('dBase').value) || 0;
+  if (dBase > 0) {
+    const dVal = dBase / dHours;
+    totalH += dVal;
+    formulaLines.push('<div class="formula-line">【日給換算】' + dBase + '円 ÷ ' + dHours + '時間 = ' + dVal.toFixed(1) + '円</div>');
+  }
+  let dASum = 0;
+  let dAllowList = [];
+  document.querySelectorAll('.d-allow').forEach(function(i) {
+    const val = parseFloat(i.value) || 0;
+    if (val > 0) { dASum += val; dAllowList.push(val); }
+  });
+  if (dASum > 0) {
+    const daVal = (dASum * 12) / (annDays * dHours);
+    totalH += daVal;
+    formulaLines.push('<div class="formula-line">【日給付随手当換算】(' + dAllowList.join(' + ') + '円) × 12ヶ月 ÷ (' + annDays + '日 × ' + dHours + '時間) = ' + daVal.toFixed(1) + '円</div>');
+  }
+
+  // 歩合給制（固定給＋歩合給を合算して換算）
+  const fSum = (parseFloat(document.getElementById('pFixedBase').value) || 0)
+             + (parseFloat(document.getElementById('pFAllow1').value) || 0)
+             + (parseFloat(document.getElementById('pFAllow2').value) || 0);
+  const fH  = parseFloat(document.getElementById('mFixedHours').value) || 0;
+  const pB  = parseFloat(document.getElementById('pPieceBase').value) || 0;
+  const pTH = parseFloat(document.getElementById('mTotalHours').value) || 0;
+
+  if (fSum > 0 || pB > 0) {
+    let fVal = 0, pVal = 0;
+    let pieceLines = [];
+
+    if (fSum > 0 && fH > 0) {
+      fVal = fSum / fH;
+      pieceLines.push('固定給 ' + fSum.toLocaleString() + '円 ÷ 月間所定労働時間 ' + fH + '時間 = ' + fVal.toFixed(1) + '円');
+    }
+    if (pB > 0 && pTH > 0) {
+      pVal = pB / pTH;
+      pieceLines.push('歩合給 ' + pB.toLocaleString() + '円 ÷ 月間総労働時間 ' + pTH + '時間 = ' + pVal.toFixed(1) + '円');
+    }
+
+    const pieceTotal = fVal + pVal;
+    totalH += pieceTotal;
+
+    let pieceFormula = pieceLines.join('<br>');
+    if (fVal > 0 && pVal > 0) {
+      pieceFormula += '<br><strong>' + fVal.toFixed(1) + '円 + ' + pVal.toFixed(1) + '円 = ' + pieceTotal.toFixed(1) + '円</strong>';
+    }
+    formulaLines.push('<div class="formula-line">【歩合給制換算】<br>' + pieceFormula + '</div>');
+  }
+
+  const res = document.getElementById('result');
+  const val = Math.round(totalH * 10) / 10;
+  res.style.display = 'block';
+
+  const isPass = val >= min;
+  res.className = isPass ? 'pass' : 'fail';
+  const myWageColor = isPass ? '#4338ca' : '#e74c3c';
+  const sign = isPass ? '＞' : '＜';
+
+  const resultHTML =
+    '<div class="判定ラベル">判定結果：' + (isPass ? '適正 ✅' : '不足 ⚠️') + '</div>' +
+    '<div class="comparison-container">' +
+      '<div class="my-wage" style="color:' + myWageColor + ';">' + val.toLocaleString() + '円</div>' +
+      '<div class="inequality">' + sign + '</div>' +
+      '<div class="pref-wage-box">' +
+        '<span class="pref-label">' + pref + ' 最低賃金</span>' +
+        '<span class="pref-wage-val">' + min.toLocaleString() + '円</span>' +
+      '</div>' +
+    '</div>';
+
+  const formulaHTML = formulaLines.length > 0
+    ? formulaLines.join('') + '<div style="text-align:right; font-weight:bold; border-top:2px solid #333; padding-top:10px; font-size:1.2em;">合計換算額：' + val.toLocaleString() + '円</div>'
+    : '0円';
+
+  res.innerHTML = resultHTML + '<div class="formula-display"><strong>詳細計算式:</strong><br>' + formulaHTML + '</div>';
+}
+</script>
