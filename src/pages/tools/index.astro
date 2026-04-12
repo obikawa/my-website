@@ -1,0 +1,47 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="お役立ちツール"
+  description="おびかわ社労士事務所が提供する無料シミュレーションツール。最低賃金チェッカー・産後パパ育休 社会保険料免除チェッカーをご利用いただけます。"
+>
+
+  <section class="bg-gradient-to-br from-primary-800 to-primary-600 text-white py-16 px-4">
+    <div class="max-w-5xl mx-auto text-center">
+      <p class="text-primary-200 text-sm font-medium tracking-widest uppercase mb-3">Free Tools</p>
+      <h1 class="text-4xl font-bold">お役立ちツール</h1>
+      <p class="mt-4 text-primary-100 max-w-xl mx-auto">
+        社労士が監修した無料シミュレーションツールです。<br />
+        日々の実務や制度確認にご活用ください。
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16 px-4">
+    <div class="max-w-3xl mx-auto">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+        <a href="/minimum-wage" class="group bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col">
+          <div class="w-12 h-12 bg-primary-50 rounded-xl flex items-center justify-center mb-4 text-2xl">💰</div>
+          <h2 class="text-lg font-bold text-gray-900 mb-2">最低賃金チェッカー</h2>
+          <p class="text-sm text-gray-600 leading-relaxed flex-1">
+            月給・日給・歩合給を時間額に換算し、都道府県の最低賃金をクリアしているか判定します。令和7年度の発効日付きデータに対応。
+          </p>
+          <span class="mt-5 text-primary-700 text-sm font-semibold group-hover:underline">チェックする →</span>
+        </a>
+
+        <a href="/tools/papa-ikukyu/" class="group bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col">
+          <div class="w-12 h-12 bg-pink-50 rounded-xl flex items-center justify-center mb-4 text-2xl">👶</div>
+          <h2 class="text-lg font-bold text-gray-900 mb-2">産後パパ育休<br />社会保険料免除チェッカー</h2>
+          <p class="text-sm text-gray-600 leading-relaxed flex-1">
+            カレンダーで育休期間を選ぶだけで、社会保険料が免除されるか自動判定。2ヶ月分の免除を狙う最適な取り方もわかります。
+          </p>
+          <span class="mt-5 text-pink-600 text-sm font-semibold group-hover:underline">チェックする →</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+</Layout>

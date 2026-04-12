@@ -2,15 +2,17 @@
 export interface Props {
   title: string;
   description?: string;
+  fullTitle?: string;
 }
 
-const { title, description = '名古屋を中心に中小企業の働き方改革を支援する社労士事務所。男性育休の導入支援、就業規則の見直し、DX・AIによる業務改善まで一貫してサポートします。' } = Astro.props;
+const { title, description = '名古屋を中心に中小企業の働き方改革を支援する社労士事務所。男性育休の導入支援、就業規則の見直し、DX・AIによる業務改善まで一貫してサポートします。', fullTitle } = Astro.props;
+const pageTitle = fullTitle ?? `${title} | おびかわ社労士事務所`;
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 const navLinks = [
-  { href: '/',               label: 'トップ' },
-  { href: '/price',          label: '料金表' },
-  { href: '/minimum-wage',   label: '最低賃金チェック' },
-  { href: '/contact',        label: 'お問い合わせ' },
+  { href: '/',        label: 'トップ' },
+  { href: '/price',   label: '料金表' },
+  { href: '/tools/',  label: 'ツール' },
+  { href: '/contact', label: 'お問い合わせ' },
 ];
 ---
 
@@ -24,7 +26,7 @@ const navLinks = [
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <title>{title} | おびかわ社労士事務所</title>
+    <title>{pageTitle}</title>
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6HLXWWR9P4"></script>
     <script>
@@ -33,6 +35,7 @@ const navLinks = [
       gtag('js', new Date());
       gtag('config', 'G-6HLXWWR9P4');
     </script>
+    <slot name="head" />
   </head>
   <body class="font-sans bg-white text-gray-800 antialiased">
     <!-- Navigation -->
@@ -71,7 +74,7 @@ const navLinks = [
     <!-- Footer -->
     <footer class="bg-gray-900 text-gray-300 py-12 mt-20">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           <div>
             <h3 class="text-white font-semibold text-lg mb-3">おびかわ社労士事務所</h3>
             <p class="text-sm leading-relaxed">男性育休・就業規則・DX支援を通じ、中小企業の働き方改革を支える名古屋の社労士事務所です。</p>
@@ -82,6 +85,13 @@ const navLinks = [
               <li><a href="/" class="hover:text-white transition-colors">トップページ</a></li>
               <li><a href="/price" class="hover:text-white transition-colors">料金表</a></li>
               <li><a href="/contact" class="hover:text-white transition-colors">お問い合わせ</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold mb-3">お役立ちツール</h4>
+            <ul class="space-y-2 text-sm">
+              <li><a href="/minimum-wage" class="hover:text-white transition-colors">最低賃金チェック</a></li>
+              <li><a href="/tools/papa-ikukyu/" class="hover:text-white transition-colors">産後パパ育休チェッカー</a></li>
             </ul>
           </div>
           <div>

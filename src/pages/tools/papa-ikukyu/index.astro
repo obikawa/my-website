@@ -1,0 +1,215 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ParentalLeaveChecker from '../../../components/ParentalLeaveChecker.jsx';
+
+const webAppSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "産後パパ育休 社会保険料免除チェッカー",
+  "description": "産後パパ育休の取得期間を入力するだけで、社会保険料が免除されるか自動判定できる無料ツール",
+  "url": "https://nagoyasakae.com/tools/papa-ikukyu/",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "All",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "JPY"
+  },
+  "provider": {
+    "@type": "ProfessionalService",
+    "name": "おびかわ社労士事務所",
+    "url": "https://nagoyasakae.com/",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "名古屋市中区",
+      "addressRegion": "愛知県",
+      "addressCountry": "JP"
+    }
+  }
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "産後パパ育休で社会保険料は免除されますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "はい。産後パパ育休（出生時育児休業）を取得した場合、一定の条件を満たすと健康保険料・厚生年金保険料が免除されます。免除の条件は「月末日が育休期間に含まれる」または「同月内に14日以上の育休を取得する」のいずれかです。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "産後パパ育休で2ヶ月分の社会保険料を免除するにはどうすればいいですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "産後パパ育休を2回に分割し、それぞれ別の月で取得することで、2ヶ月分の社会保険料免除が可能です。ただし、1回目の終了日が月末、2回目の開始日が翌月初の場合、連続した1つの育休とみなされる可能性があるため注意が必要です。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "産後パパ育休の社会保険料免除で賞与も免除されますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "産後パパ育休のみでは、賞与の社会保険料免除条件（連続1ヶ月超の育休取得）を満たせません。産後パパ育休は最大28日のため、賞与の保険料免除を受けるには通常の育児休業と組み合わせる必要があります。"
+      }
+    }
+  ]
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://nagoyasakae.com/" },
+    { "@type": "ListItem", "position": 2, "name": "お役立ちツール", "item": "https://nagoyasakae.com/tools/" },
+    { "@type": "ListItem", "position": 3, "name": "産後パパ育休 社会保険料免除チェッカー", "item": "https://nagoyasakae.com/tools/papa-ikukyu/" }
+  ]
+};
+---
+
+<Layout
+  fullTitle="産後パパ育休 社会保険料免除チェッカー｜無料シミュレーション｜おびかわ社労士事務所"
+  title="産後パパ育休 社会保険料免除チェッカー"
+  description="産後パパ育休（出生時育児休業）の取得期間をカレンダーで選ぶだけで、社会保険料（健康保険・厚生年金）が免除されるか自動判定。2ヶ月分の免除を狙う最適な取得方法がわかります。名古屋市中区の社会保険労務士が提供する無料ツール。"
+>
+
+  <Fragment slot="head">
+    <meta name="keywords" content="産後パパ育休,社会保険料免除,出生時育児休業,育休,社会保険料,健康保険料,厚生年金,免除,チェッカー,シミュレーション,14日以上,月末,社労士,名古屋" />
+    <meta property="og:title" content="産後パパ育休 社会保険料免除チェッカー｜おびかわ社労士事務所" />
+    <meta property="og:description" content="カレンダーで育休期間を選ぶだけで、社会保険料が免除されるか自動判定。2ヶ月分の免除を狙う最適な取得方法がわかります。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://nagoyasakae.com/tools/papa-ikukyu/" />
+    <meta property="og:site_name" content="おびかわ社労士事務所" />
+    <link rel="canonical" href="https://nagoyasakae.com/tools/papa-ikukyu/" />
+    <script type="application/ld+json" set:html={JSON.stringify(webAppSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <!-- ===== ヒーロー ===== -->
+  <section class="bg-gradient-to-br from-primary-800 to-primary-600 text-white py-16 px-4">
+    <div class="max-w-5xl mx-auto text-center">
+      <p class="text-primary-200 text-sm font-medium tracking-widest uppercase mb-3">Social Insurance Check</p>
+      <h1 class="text-4xl font-bold leading-tight">
+        産後パパ育休<br />社会保険料免除チェッカー
+      </h1>
+      <p class="mt-4 text-primary-100 max-w-xl mx-auto">
+        カレンダーで育休期間を選ぶだけで、<br class="sm:hidden" />社会保険料が免除されるか自動判定できます。
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== パンくずリスト ===== -->
+  <nav aria-label="パンくずリスト" class="border-b border-gray-100 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <ol class="flex flex-wrap items-center gap-1.5 text-sm text-gray-500">
+        <li><a href="/" class="hover:text-primary-700 transition-colors">ホーム</a></li>
+        <li class="text-gray-300" aria-hidden="true">›</li>
+        <li><a href="/tools/" class="hover:text-primary-700 transition-colors">お役立ちツール</a></li>
+        <li class="text-gray-300" aria-hidden="true">›</li>
+        <li class="text-gray-700 font-medium">産後パパ育休 社会保険料免除チェッカー</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- ===== メインコンテンツ ===== -->
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- リード文 -->
+    <p class="text-gray-700 leading-relaxed mb-10 text-base">
+      産後パパ育休（出生時育児休業）を取得する際、取得期間によって社会保険料（健康保険料・厚生年金保険料）が免除されるかどうかが変わります。このツールでは、カレンダーで育休期間を選ぶだけで、免除の可否を自動で判定できます。
+    </p>
+
+    <!-- 免除条件の解説 -->
+    <section class="mb-12 bg-gray-50 rounded-2xl p-8 border border-gray-100">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">社会保険料が免除される条件</h2>
+
+      <div class="mb-6">
+        <h3 class="text-base font-bold text-gray-800 mb-3 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-primary-600 inline-block"></span>
+          月額保険料の免除条件（いずれかを満たす場合）
+        </h3>
+        <ul class="space-y-2 text-sm text-gray-700 leading-relaxed pl-4">
+          <li>・月末日が育休期間に含まれている場合、その月の保険料が免除</li>
+          <li>・同じ月内で育休の開始日と終了日があり、育休日数が<strong>14日以上</strong>の場合、その月の保険料が免除<br />
+            <span class="text-gray-500 text-xs pl-2">（就業日数は14日から除外されます。土日祝は含めてカウントします）</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="mb-6">
+        <h3 class="text-base font-bold text-gray-800 mb-3 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-amber-500 inline-block"></span>
+          賞与の保険料について
+        </h3>
+        <p class="text-sm text-gray-700 leading-relaxed pl-4">
+          産後パパ育休は最大28日間のため、賞与にかかる社会保険料の免除条件（連続1ヶ月超の育休取得）を単独では満たしません。賞与の保険料免除を受けるには、通常の育児休業と組み合わせる必要があります。
+        </p>
+      </div>
+
+      <div>
+        <h3 class="text-base font-bold text-gray-800 mb-3 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-green-500 inline-block"></span>
+          2ヶ月分の免除を狙うポイント
+        </h3>
+        <p class="text-sm text-gray-700 leading-relaxed pl-4">
+          産後パパ育休は2回に分割して取得できます。それぞれ別の月で取得すれば、2ヶ月分の社会保険料免除が可能です。ただし、1回目の終了が月末日・2回目の開始が翌月1日のように連続している場合は「1つの連続した育休」とみなされ、2ヶ月分の免除にならない可能性があります。
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== チェッカー ===== -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-gray-900 mb-2 text-center">免除判定シミュレーター</h2>
+      <p class="text-sm text-gray-500 text-center mb-8">カレンダーで育休期間を選択すると自動で判定します</p>
+      <ParentalLeaveChecker client:load />
+    </section>
+
+    <!-- ===== よくある質問 ===== -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">よくある質問</h2>
+      <div class="space-y-6">
+
+        <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
+          <h3 class="font-bold text-gray-900 mb-2">Q. 月末1日だけ育休を取得しても免除されますか？</h3>
+          <p class="text-sm text-gray-700 leading-relaxed">
+            はい、月末日が育休期間に含まれていれば、その月の給与にかかる社会保険料は免除されます。
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
+          <h3 class="font-bold text-gray-900 mb-2">Q. 14日の計算に土日祝は含まれますか？</h3>
+          <p class="text-sm text-gray-700 leading-relaxed">
+            はい、土日祝日も含めてカウントします。ただし、産後パパ育休中に就業した日数は除外されます。
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
+          <h3 class="font-bold text-gray-900 mb-2">Q. このツールの結果は正式なものですか？</h3>
+          <p class="text-sm text-gray-700 leading-relaxed">
+            本ツールは令和4年10月施行の法改正に基づく簡易チェックです。最終的な判断は必ず管轄の年金事務所にご確認ください。
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== 相談CTA ===== -->
+    <section class="bg-primary-50 rounded-2xl border border-primary-100 p-8 text-center">
+      <h2 class="text-xl font-bold text-gray-900 mb-3">産後パパ育休・社会保険のご相談はお気軽に</h2>
+      <p class="text-sm text-gray-700 leading-relaxed mb-6">
+        おびかわ社労士事務所では、産後パパ育休の取得方法や社会保険料の免除に関するご相談を承っております。<br />
+        「うちの会社ではどう対応すればいい？」「従業員から育休の相談があったけど、どう案内すればいい？」<br />
+        など、お気軽にお問い合わせください。
+      </p>
+      <a href="/contact" class="inline-block bg-primary-700 text-white font-bold px-10 py-4 rounded-lg hover:bg-primary-800 transition-colors">
+        お問い合わせはこちら
+      </a>
+    </section>
+
+  </div>
+
+</Layout>
