@@ -1,0 +1,687 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="産後パパ育休 賃金シミュレーター"
+  description="育休期間を選ぶだけで、育児休業給付金・社会保険料免除を踏まえた2ヶ月分の手取りをシミュレーションできます。おびかわ社労士事務所が提供する無料ツールです。"
+>
+  <div class="wage-sim-root">
+    <div class="container">
+      <div class="page-header">
+        <div class="eyebrow">WAGE SIMULATION</div>
+        <h1>産後パパ育休 賃金シミュレーター</h1>
+        <p>育休期間を選ぶだけで、育児休業給付金・社会保険料免除を踏まえた<br>2ヶ月分の手取りがシミュレーションできます。</p>
+      </div>
+
+      <!-- ① 基本情報 -->
+      <div class="card">
+        <h2>① 給与・基本情報を入力</h2>
+        <p style="font-size:13px;color:var(--ws-text-sub);margin:0 0 16px;">月給を入力すると、標準報酬月額・住民税などが自動で概算されます。正確な金額がわかる場合は個別に修正してください。</p>
+        <div class="form-grid">
+          <div class="field">
+            <label>月給（基本給＋固定手当）</label>
+            <div class="input-row"><input type="number" id="baseSalary" value="250000" step="1000"><span class="unit">円</span></div>
+            <span class="hint">税込みの固定的賃金の総額</span>
+          </div>
+          <div class="field">
+            <label>賃金締め日</label>
+            <select id="cutoffDay"><option value="31" selected>末日締め</option><option value="25">25日締め</option><option value="20">20日締め</option><option value="15">15日締め</option><option value="10">10日締め</option></select>
+            <span class="hint">賃金計算期間を自動算出</span>
+          </div>
+          <div class="field">
+            <label>扶養親族の数</label>
+            <select id="dependents"><option value="0">0人</option><option value="1" selected>1人</option><option value="2">2人</option><option value="3">3人</option><option value="4">4人</option></select>
+            <span class="hint">源泉所得税・住民税の概算に使用</span>
+          </div>
+        </div>
+        <div id="autoCalcPreview" style="background:var(--ws-primary-soft);border-radius:8px;padding:16px;margin-top:16px;font-size:13px;">
+          <div style="font-weight:700;color:var(--ws-primary);margin-bottom:8px;font-size:12px;letter-spacing:.05em;">▼ 自動計算された値（月給から推定）</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;">
+            <div>標準報酬月額: <strong id="autoShiho">—</strong></div>
+            <div>健康保険料: <strong id="autoHealth">—</strong></div>
+            <div>厚生年金: <strong id="autoPension">—</strong></div>
+            <div>住民税（概算）: <strong id="autoJumin">—</strong></div>
+          </div>
+        </div>
+        <details class="help" style="margin-top:16px;">
+          <summary>▶ 各項目を個別に変更する（正確な金額がわかる場合）</summary>
+          <div style="background:#fff;padding:16px;border:1px solid var(--ws-border);border-radius:6px;">
+            <p style="font-size:12px;color:var(--ws-text-sub);margin:0 0 12px;">給与明細や決定通知書の値を入力してください。変更すると自動計算は上書きされます。</p>
+            <div class="form-grid">
+              <div class="field">
+                <label>標準報酬月額</label>
+                <div class="input-row"><input type="number" id="shihoMonthly" value="260000" step="1000"><span class="unit">円</span></div>
+                <span class="hint">手動変更時は <span id="shihoAutoLabel" style="color:var(--ws-primary);font-weight:600;">自動</span></span>
+              </div>
+              <div class="field">
+                <label>住民税（月額）</label>
+                <div class="input-row"><input type="number" id="zyuminTax" value="10000" step="500"><span class="unit">円</span></div>
+                <span class="hint">手動変更時は <span id="juminAutoLabel" style="color:var(--ws-primary);font-weight:600;">自動</span></span>
+              </div>
+              <div class="field">
+                <label>健康保険料率（従業員負担%）</label>
+                <div class="input-row"><input type="number" id="healthRate" value="5.015" step="0.001"><span class="unit">%</span></div>
+                <span class="hint">協会けんぽ愛知 折半4.965%。介護加算時は増</span>
+              </div>
+            </div>
+            <p style="font-size:11px;color:var(--ws-text-sub);margin:12px 0 0;">住民税の概算: 月給×12ヶ月から給与所得控除・基礎控除・社保控除・扶養控除を差し引いた課税所得×10%+均等割5,000円で計算しています。実際は市区町村により異なります。</p>
+          </div>
+        </details>
+      </div>
+
+      <!-- ①-b 休日設定 -->
+      <div class="card">
+        <h2>①-b 休日設定</h2>
+        <p style="font-size:13px;color:var(--ws-text-sub);margin:0 0 16px;">所定労働日数の計算に使います。会社のカレンダーに合わせて設定してください。</p>
+        <div class="form-grid">
+          <div class="field">
+            <label>土曜日の扱い</label>
+            <div class="radio-pills" id="satMode">
+              <label class="active"><input type="radio" name="sat" value="all_off" checked>毎週休み</label>
+              <label><input type="radio" name="sat" value="biweekly">隔週休み</label>
+              <label><input type="radio" name="sat" value="all_on">毎週出勤</label>
+            </div>
+            <span class="hint" id="satHint">完全週休2日制</span>
+          </div>
+          <div class="field">
+            <label>祝日の扱い</label>
+            <label class="check-row"><input type="checkbox" id="holidayOff" checked> 祝日を休日にする</label>
+            <span class="hint">チェックを外すと祝日も所定労働日になります</span>
+          </div>
+        </div>
+        <div id="satCustomArea" style="display:none;margin-top:16px;">
+          <p style="font-size:13px;color:var(--ws-text-sub);margin:0 0 8px;"><strong>隔週土曜の設定：</strong>出勤する土曜日をクリックしてください（クリックで出勤⇔休みを切替）</p>
+        </div>
+        <h3>休日カレンダー（確認・個別編集）</h3>
+        <p style="font-size:12px;color:var(--ws-text-sub);margin:0 0 8px;">日付をクリックすると休日⇔出勤日を個別に切り替えられます。<span style="background:#f0f0f0;padding:2px 6px;border-radius:4px;">グレー背景</span> = 休日、<span style="color:var(--ws-holiday);font-weight:700;">赤文字</span> = 祝日</p>
+        <div class="hol-calendars" id="holCalendars"></div>
+        <div class="hol-result" id="holResult"></div>
+      </div>
+
+      <!-- ② 育休期間 -->
+      <div class="card">
+        <h2>② 育休期間を選択</h2>
+        <div style="margin-bottom:8px;font-size:13px;color:var(--ws-text-sub);">取得回数（産後パパ育休は最大2回まで分割取得可）</div>
+        <div class="count-toggle" id="countToggle">
+          <button type="button" data-count="1">1回で取得</button>
+          <button type="button" data-count="2" class="active">2回に分割</button>
+        </div>
+        <div class="period-tabs" id="periodTabs">
+          <button type="button" class="period-tab active" data-period="1"><span class="p-dot"></span>1回目<span class="p-count" id="p1Count">（0日）</span><span class="p-clear" id="p1Clear" title="クリア">×</span></button>
+          <button type="button" class="period-tab" data-period="2" id="period2Tab"><span class="p-dot"></span>2回目<span class="p-count" id="p2Count">（0日）</span><span class="p-clear" id="p2Clear" title="クリア">×</span></button>
+        </div>
+        <div class="current-picking" id="currentPicking"><span class="pick-label" id="pickLabel">1回目</span><span id="pickInstruction">の育休期間の<strong>開始日</strong>をタップしてください</span></div>
+        <div class="calendar-controls">
+          <button type="button" id="prevMonth">‹</button>
+          <span class="month-label" id="monthLabel"></span>
+          <button type="button" id="nextMonth">›</button>
+        </div>
+        <div class="calendars">
+          <div class="cal" id="cal1"><div class="cal-header" id="cal1Title"></div><table><thead><tr><th class="sun">日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th class="sat">土</th></tr></thead><tbody id="cal1Body"></tbody></table></div>
+          <div class="cal" id="cal2"><div class="cal-header" id="cal2Title"></div><table><thead><tr><th class="sun">日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th class="sat">土</th></tr></thead><tbody id="cal2Body"></tbody></table></div>
+        </div>
+        <div class="cal-legend">
+          <span><span class="leg-dot p1"></span>1回目</span>
+          <span><span class="leg-dot p2"></span>2回目</span>
+          <span><span class="leg-dot eom"></span>月末日</span>
+          <span class="leg-hol">赤 = 祝日・休日</span>
+        </div>
+        <div class="period-summary">
+          <div class="ps-item p1"><div class="ps-label">1回目</div><div id="p1Summary"><span style="color:var(--ws-text-sub);font-style:italic">未選択</span></div></div>
+          <div class="ps-item p2" id="p2SummaryItem"><div class="ps-label">2回目</div><div id="p2Summary"><span style="color:var(--ws-text-sub);font-style:italic">未選択</span></div></div>
+        </div>
+        <div class="days-counter">合計取得日数：<strong id="totalDays">0</strong>日 / 最大28日<div class="warning" id="daysWarning" style="display:none"></div></div>
+        <div class="pay-period-info" id="payPeriodInfo"></div>
+        <div class="judgment-badges" id="judgmentBadges"></div>
+        <div class="form-grid" style="margin-top:20px">
+          <div class="field"><label>育休中の就業日数（1ヶ月目）</label><div class="input-row"><input type="number" id="workInLeave1" value="0" min="0"><span class="unit">日</span></div><span class="hint">14日カウントから除外</span></div>
+          <div class="field"><label>育休中の就業日数（2ヶ月目）</label><div class="input-row"><input type="number" id="workInLeave2" value="0" min="0"><span class="unit">日</span></div></div>
+          <div class="field"><label>出生後休業支援給付金</label><select id="shienKyuhu"><option value="1" selected>対象（配偶者も育休取得等）</option><option value="0">対象外</option></select><span class="hint">2025年4月〜。67%→80%相当に</span></div>
+        </div>
+      </div>
+
+      <!-- ③ 結果 -->
+      <div class="card">
+        <h2>③ シミュレーション結果</h2>
+        <div id="capWarning" class="note cap-warn" style="display:none"><div class="note-title">⚠ 育児休業給付金の上限に該当</div><div id="capWarningMsg"></div></div>
+        <div class="comparison-grid">
+          <div class="comp-card current"><div class="comp-title">現状（通常月）</div><div class="comp-subtitle">育休を取得しない場合</div><div class="comp-amount" id="amtCurrent">¥0</div><div class="breakdown" id="bdCurrent"></div></div>
+          <div class="comp-card month1"><div class="comp-title">育休1ヶ月目</div><div class="comp-subtitle" id="month1Label">—</div><div class="comp-amount" id="amtMonth1">¥0</div><div class="comp-diff" id="diffMonth1">—</div><div class="breakdown" id="bdMonth1"></div></div>
+          <div class="comp-card month2"><div class="comp-title">育休2ヶ月目</div><div class="comp-subtitle" id="month2Label">—</div><div class="comp-amount" id="amtMonth2">¥0</div><div class="comp-diff" id="diffMonth2">—</div><div class="breakdown" id="bdMonth2"></div></div>
+        </div>
+        <div class="highlight-box" id="highlightBox" style="display:none"><div class="hl-title">★ 2ヶ月分の社会保険料が免除される取り方の場合</div><div class="hl-amount" id="hlAmount">—</div><div class="hl-desc" id="hlDesc"></div></div>
+        <div class="note"><div class="note-title">💡 ポイント</div><div id="mainMessage">育休期間を選ぶとシミュレーションが表示されます。</div></div>
+        <h3>計算の前提条件</h3>
+        <ul class="assumptions">
+          <li>欠勤控除 = 月給 ÷ 賃金計算期間の所定労働日数 × 育休中の所定労働日の欠勤日数</li>
+          <li>所定労働日数 = 賃金計算期間の暦日 − 休日設定で指定した休日</li>
+          <li>厚生年金 18.3% 折半 = 9.15%、雇用保険 0.55%（2025年度）</li>
+          <li>源泉所得税は「令和7年分 月額表・甲欄」で概算</li>
+          <li>育児休業給付金 = 賃金日額 × 日数 × 67%（<strong>日額上限 16,110円</strong>）</li>
+          <li>出生後休業支援給付金 = 賃金日額 × 最大28日 × 13%（2025年4月〜）</li>
+          <li>社保免除: ①月末含む or ②同月内14日以上</li>
+          <li>住民税は育休中も免除なし</li>
+        </ul>
+        <p style="font-size:11px;color:var(--ws-text-sub);margin-top:20px">※ 簡易計算です。実際の支給額は会社規程・ハローワーク審査により異なります。</p>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style is:global>
+  .wage-sim-root {
+    --ws-bg: #f8f9fa;
+    --ws-card: #fff;
+    --ws-text: #1a2332;
+    --ws-text-sub: #5a6578;
+    --ws-border: #e3e7ed;
+    --ws-primary: #1d4fa3;
+    --ws-primary-soft: #eaf1fb;
+    --ws-accent: #f59e0b;
+    --ws-accent-soft: #fef5e6;
+    --ws-danger: #d14343;
+    --ws-success: #0e8a5f;
+    --ws-success-soft: #e6f5ef;
+    --ws-period1: #1d4fa3;
+    --ws-period1-soft: #eaf1fb;
+    --ws-period2: #7b3ff2;
+    --ws-period2-soft: #f2ebfe;
+    --ws-holiday: #c94040;
+    --ws-holiday-soft: #fde8e8;
+    --ws-shadow: 0 4px 20px rgba(29,79,163,.08);
+    --ws-radius: 10px;
+    background: var(--ws-bg);
+    color: var(--ws-text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .wage-sim-root .container { max-width: 980px; margin: 0 auto; padding: 32px 20px 60px; }
+  .wage-sim-root .page-header { text-align: center; margin-bottom: 32px; }
+  .wage-sim-root .page-header .eyebrow { font-size: 12px; letter-spacing: .2em; color: var(--ws-primary); font-weight: 600; margin-bottom: 8px; }
+  .wage-sim-root .page-header h1 { font-size: 26px; margin: 0 0 12px; }
+  .wage-sim-root .page-header p { color: var(--ws-text-sub); margin: 0; }
+  .wage-sim-root .card { background: var(--ws-card); border-radius: var(--ws-radius); padding: 28px; box-shadow: var(--ws-shadow); margin-bottom: 24px; border: 1px solid var(--ws-border); }
+  .wage-sim-root .card h2 { font-size: 18px; margin: 0 0 20px; padding-bottom: 12px; border-bottom: 2px solid var(--ws-primary); display: inline-block; }
+  .wage-sim-root .card h3 { font-size: 15px; margin: 20px 0 12px; color: var(--ws-primary); }
+  .wage-sim-root .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .wage-sim-root .field { display: flex; flex-direction: column; }
+  .wage-sim-root .field label { font-size: 13px; color: var(--ws-text-sub); margin-bottom: 6px; font-weight: 600; }
+  .wage-sim-root .field .hint { font-size: 11px; color: var(--ws-text-sub); margin-top: 4px; }
+  .wage-sim-root .field input[type="number"], .wage-sim-root .field select { padding: 10px 12px; border: 1px solid var(--ws-border); border-radius: 6px; font-size: 15px; background: #fff; font-family: inherit; transition: border .15s; }
+  .wage-sim-root .field input:focus, .wage-sim-root .field select:focus { outline: none; border-color: var(--ws-primary); box-shadow: 0 0 0 3px var(--ws-primary-soft); }
+  .wage-sim-root .input-row { display: flex; align-items: center; gap: 6px; }
+  .wage-sim-root .input-row input { flex: 1; }
+  .wage-sim-root .input-row .unit { font-size: 13px; color: var(--ws-text-sub); }
+  .wage-sim-root .check-row { display: flex; align-items: center; gap: 8px; margin: 6px 0; font-size: 13px; cursor: pointer; }
+  .wage-sim-root .check-row input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--ws-primary); }
+  .wage-sim-root .radio-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .wage-sim-root .radio-pills label { padding: 8px 16px; border: 1px solid var(--ws-border); border-radius: 999px; cursor: pointer; font-size: 13px; transition: all .15s; background: #fff; font-weight: 500; }
+  .wage-sim-root .radio-pills label.active { background: var(--ws-primary); color: #fff; border-color: var(--ws-primary); }
+  .wage-sim-root .radio-pills input { display: none; }
+  .wage-sim-root .hol-calendars { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px; }
+  .wage-sim-root .hol-cal { border: 1px solid var(--ws-border); border-radius: 8px; padding: 10px; background: #fff; font-size: 12px; }
+  .wage-sim-root .hol-cal .hc-header { text-align: center; font-weight: 600; font-size: 12px; margin-bottom: 6px; color: var(--ws-primary); }
+  .wage-sim-root .hol-cal table { width: 100%; border-collapse: collapse; }
+  .wage-sim-root .hol-cal th { padding: 4px 0; font-weight: 600; color: var(--ws-text-sub); font-size: 10px; }
+  .wage-sim-root .hol-cal th.sun { color: var(--ws-holiday); }
+  .wage-sim-root .hol-cal th.sat { color: #2a7fc4; }
+  .wage-sim-root .hol-cal td { padding: 0; text-align: center; height: 28px; }
+  .wage-sim-root .hol-cal td.empty { cursor: default; }
+  .wage-sim-root .hol-cal td .hd { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; font-size: 11px; transition: all .1s; cursor: pointer; position: relative; }
+  .wage-sim-root .hol-cal td .hd.off { background: #f0f0f0; color: var(--ws-text-sub); }
+  .wage-sim-root .hol-cal td .hd.holiday-mark { color: var(--ws-holiday); font-weight: 700; }
+  .wage-sim-root .hol-cal td .hd.sat-day { color: #2a7fc4; }
+  .wage-sim-root .hol-cal td .hd.sun-day { color: var(--ws-holiday); }
+  .wage-sim-root .hol-cal td .hd.custom-off { background: var(--ws-holiday-soft); color: var(--ws-holiday); font-weight: 600; }
+  .wage-sim-root .hol-cal td:hover .hd { opacity: .7; }
+  .wage-sim-root .hol-result { margin-top: 10px; font-size: 12px; color: var(--ws-text-sub); text-align: center; }
+  .wage-sim-root .hol-result strong { color: var(--ws-primary); }
+  .wage-sim-root .count-toggle { display: inline-flex; background: var(--ws-bg); border: 1px solid var(--ws-border); border-radius: 999px; padding: 4px; margin-bottom: 20px; }
+  .wage-sim-root .count-toggle button { background: transparent; border: none; padding: 8px 20px; border-radius: 999px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--ws-text-sub); transition: all .15s; font-family: inherit; }
+  .wage-sim-root .count-toggle button.active { background: var(--ws-primary); color: #fff; }
+  .wage-sim-root .period-tabs { display: flex; gap: 8px; margin-bottom: 16px; border-bottom: 2px solid var(--ws-border); }
+  .wage-sim-root .period-tab { padding: 10px 20px; background: transparent; border: none; border-bottom: 3px solid transparent; margin-bottom: -2px; cursor: pointer; font-size: 14px; font-weight: 600; color: var(--ws-text-sub); transition: all .15s; font-family: inherit; display: flex; align-items: center; gap: 8px; }
+  .wage-sim-root .period-tab.active[data-period="1"] { color: var(--ws-period1); border-bottom-color: var(--ws-period1); }
+  .wage-sim-root .period-tab.active[data-period="2"] { color: var(--ws-period2); border-bottom-color: var(--ws-period2); }
+  .wage-sim-root .period-tab .p-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
+  .wage-sim-root .period-tab[data-period="1"] .p-dot { background: var(--ws-period1); }
+  .wage-sim-root .period-tab[data-period="2"] .p-dot { background: var(--ws-period2); }
+  .wage-sim-root .period-tab .p-count { font-size: 11px; opacity: .7; font-weight: normal; }
+  .wage-sim-root .period-tab .p-clear { display: inline-block; width: 18px; height: 18px; border-radius: 50%; background: var(--ws-border); color: var(--ws-text-sub); font-size: 11px; line-height: 18px; text-align: center; margin-left: 4px; cursor: pointer; transition: all .15s; }
+  .wage-sim-root .period-tab .p-clear:hover { background: var(--ws-danger); color: #fff; }
+  .wage-sim-root .current-picking { background: linear-gradient(135deg, var(--ws-primary-soft), #f4f8fd); border-radius: 8px; padding: 14px 16px; margin-bottom: 14px; font-size: 13px; display: flex; align-items: center; gap: 10px; }
+  .wage-sim-root .current-picking.p2 { background: linear-gradient(135deg, var(--ws-period2-soft), #f9f5ff); }
+  .wage-sim-root .current-picking .pick-label { font-weight: 700; color: var(--ws-primary); }
+  .wage-sim-root .current-picking.p2 .pick-label { color: var(--ws-period2); }
+  .wage-sim-root .calendar-controls { display: flex; justify-content: center; align-items: center; gap: 16px; margin-bottom: 12px; }
+  .wage-sim-root .calendar-controls button { background: #fff; border: 1px solid var(--ws-border); border-radius: 6px; padding: 6px 14px; cursor: pointer; font-size: 18px; color: var(--ws-primary); transition: all .15s; font-family: inherit; }
+  .wage-sim-root .calendar-controls button:hover { background: var(--ws-primary-soft); }
+  .wage-sim-root .calendar-controls .month-label { font-weight: 600; font-size: 15px; }
+  .wage-sim-root .calendars { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .wage-sim-root .cal { border: 1px solid var(--ws-border); border-radius: 8px; padding: 12px; background: #fff; }
+  .wage-sim-root .cal .cal-header { text-align: center; font-weight: 600; font-size: 13px; margin-bottom: 8px; color: var(--ws-primary); }
+  .wage-sim-root .cal table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .wage-sim-root .cal th { padding: 6px 0; font-weight: 600; color: var(--ws-text-sub); font-size: 11px; }
+  .wage-sim-root .cal th.sun { color: var(--ws-holiday); }
+  .wage-sim-root .cal th.sat { color: #2a7fc4; }
+  .wage-sim-root .cal td { padding: 0; text-align: center; height: 32px; cursor: pointer; }
+  .wage-sim-root .cal td.empty { cursor: default; }
+  .wage-sim-root .cal td .day { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; font-size: 13px; transition: all .1s; }
+  .wage-sim-root .cal td:hover .day { background: var(--ws-primary-soft); }
+  .wage-sim-root .cal td .day.sel-1 { background: var(--ws-period1); color: #fff; font-weight: 600; }
+  .wage-sim-root .cal td .day.sel-2 { background: var(--ws-period2); color: #fff; font-weight: 600; }
+  .wage-sim-root .cal td .day.eom { border: 2px solid var(--ws-accent); font-weight: 600; }
+  .wage-sim-root .cal td .day.eom.sel-1, .wage-sim-root .cal td .day.eom.sel-2 { border-color: var(--ws-accent); }
+  .wage-sim-root .cal td .day.hol-day { color: var(--ws-holiday); }
+  .wage-sim-root .cal td .day.off-day { background: #f5f5f5; }
+  .wage-sim-root .cal-legend { display: flex; justify-content: center; gap: 14px; margin-top: 8px; font-size: 11px; color: var(--ws-text-sub); flex-wrap: wrap; }
+  .wage-sim-root .cal-legend .leg-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; vertical-align: middle; margin-right: 4px; }
+  .wage-sim-root .cal-legend .leg-dot.p1 { background: var(--ws-period1); }
+  .wage-sim-root .cal-legend .leg-dot.p2 { background: var(--ws-period2); }
+  .wage-sim-root .cal-legend .leg-dot.eom { border: 2px solid var(--ws-accent); background: #fff; }
+  .wage-sim-root .cal-legend .leg-hol { color: var(--ws-holiday); font-weight: 600; }
+  .wage-sim-root .period-summary { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+  .wage-sim-root .period-summary .ps-item { flex: 1; min-width: 200px; padding: 10px 14px; border-radius: 6px; font-size: 12px; background: #fff; border: 1px solid var(--ws-border); }
+  .wage-sim-root .period-summary .ps-item.p1 { border-left: 3px solid var(--ws-period1); }
+  .wage-sim-root .period-summary .ps-item.p2 { border-left: 3px solid var(--ws-period2); }
+  .wage-sim-root .period-summary .ps-item .ps-label { font-weight: 700; font-size: 11px; margin-bottom: 4px; color: var(--ws-text-sub); letter-spacing: .05em; }
+  .wage-sim-root .period-summary .ps-item.p1 .ps-label { color: var(--ws-period1); }
+  .wage-sim-root .period-summary .ps-item.p2 .ps-label { color: var(--ws-period2); }
+  .wage-sim-root .days-counter { text-align: center; margin: 14px 0; font-size: 14px; }
+  .wage-sim-root .days-counter strong { color: var(--ws-primary); font-size: 20px; margin: 0 4px; }
+  .wage-sim-root .days-counter .warning { font-size: 12px; margin-top: 4px; font-weight: 600; }
+  .wage-sim-root .judgment-badges { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .wage-sim-root .judgment-badges > div { flex: 1; min-width: 180px; padding: 10px 14px; border-radius: 6px; font-size: 13px; border: 1px solid var(--ws-border); }
+  .wage-sim-root .judgment-badges .j-exempt { background: var(--ws-success-soft); color: var(--ws-success); border-color: #b8ddc9; font-weight: 600; }
+  .wage-sim-root .judgment-badges .j-no { background: #f7f7f7; color: var(--ws-text-sub); }
+  .wage-sim-root .pay-period-info { background: var(--ws-primary-soft); border-radius: 6px; padding: 12px 16px; margin: 16px 0; font-size: 13px; }
+  .wage-sim-root .pay-period-info strong { color: var(--ws-primary); }
+  .wage-sim-root .comparison-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
+  .wage-sim-root .comp-card { background: #fff; border: 1px solid var(--ws-border); border-radius: 8px; padding: 18px; }
+  .wage-sim-root .comp-card.current { border-top: 4px solid var(--ws-text-sub); }
+  .wage-sim-root .comp-card.month1 { border-top: 4px solid var(--ws-primary); background: #fafcff; }
+  .wage-sim-root .comp-card.month2 { border-top: 4px solid var(--ws-accent); background: #fffcf5; }
+  .wage-sim-root .comp-card .comp-title { font-size: 13px; color: var(--ws-text-sub); font-weight: 600; margin-bottom: 4px; }
+  .wage-sim-root .comp-card .comp-subtitle { font-size: 11px; color: var(--ws-text-sub); margin-bottom: 12px; }
+  .wage-sim-root .comp-card .comp-amount { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .wage-sim-root .comp-card.month1 .comp-amount { color: var(--ws-primary); }
+  .wage-sim-root .comp-card.month2 .comp-amount { color: #c97a00; }
+  .wage-sim-root .comp-card .comp-diff { display: inline-block; font-size: 12px; padding: 2px 8px; border-radius: 4px; margin-bottom: 12px; font-weight: 600; }
+  .wage-sim-root .comp-card .comp-diff.up { background: var(--ws-success-soft); color: var(--ws-success); }
+  .wage-sim-root .comp-card .comp-diff.down { background: #fde8e8; color: var(--ws-danger); }
+  .wage-sim-root .comp-card .breakdown { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--ws-border); font-size: 12px; }
+  .wage-sim-root .comp-card .breakdown .bk-row { display: flex; justify-content: space-between; padding: 3px 0; color: var(--ws-text-sub); }
+  .wage-sim-root .comp-card .breakdown .bk-row.exempt { color: var(--ws-success); }
+  .wage-sim-root .comp-card .breakdown .bk-row.exempt::after { content: " (免除)"; font-size: 10px; }
+  .wage-sim-root .comp-card .breakdown .bk-row strong { color: var(--ws-text); font-weight: 600; }
+  .wage-sim-root .comp-card .breakdown hr { border: none; border-top: 1px solid var(--ws-border); margin: 6px 0; }
+  .wage-sim-root .highlight-box { background: linear-gradient(135deg, #fef5e6, #fff9f0); border: 2px solid var(--ws-accent); border-radius: 10px; padding: 20px; margin-top: 20px; text-align: center; }
+  .wage-sim-root .highlight-box .hl-title { font-size: 13px; color: #a06400; font-weight: 600; margin-bottom: 6px; }
+  .wage-sim-root .highlight-box .hl-amount { font-size: 32px; font-weight: 700; color: #c97a00; line-height: 1.2; }
+  .wage-sim-root .highlight-box .hl-desc { font-size: 13px; color: var(--ws-text-sub); margin-top: 8px; }
+  .wage-sim-root .note { background: var(--ws-accent-soft); border-left: 4px solid var(--ws-accent); padding: 14px 16px; border-radius: 4px; font-size: 13px; margin-top: 20px; }
+  .wage-sim-root .note .note-title { font-weight: 700; margin-bottom: 6px; color: #a06400; }
+  .wage-sim-root .note.cap-warn { background: #fff3e0; border-left-color: #e67700; }
+  .wage-sim-root .note.cap-warn .note-title { color: #e67700; }
+  .wage-sim-root .assumptions { font-size: 12px; color: var(--ws-text-sub); line-height: 1.8; padding-left: 18px; }
+  .wage-sim-root .assumptions li { margin-bottom: 4px; }
+  .wage-sim-root details.help { margin-top: 12px; font-size: 13px; }
+  .wage-sim-root details.help summary { cursor: pointer; color: var(--ws-primary); font-weight: 600; padding: 6px 0; }
+  .wage-sim-root details.help div { padding: 10px 14px; background: var(--ws-primary-soft); border-radius: 6px; margin-top: 6px; font-size: 13px; }
+  @media (max-width: 700px) {
+    .wage-sim-root .hol-calendars { grid-template-columns: 1fr; }
+    .wage-sim-root .page-header h1 { font-size: 22px; }
+    .wage-sim-root .card { padding: 20px; }
+    .wage-sim-root .calendars { grid-template-columns: 1fr; }
+    .wage-sim-root .comparison-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script is:inline>
+(function() {
+/* ===== 祝日データ（2025〜2027年） ===== */
+const HOLIDAYS={
+  '2025-01-01':'元日','2025-01-13':'成人の日','2025-02-11':'建国記念の日','2025-02-23':'天皇誕生日','2025-02-24':'振替休日',
+  '2025-03-20':'春分の日','2025-04-29':'昭和の日','2025-05-03':'憲法記念日','2025-05-04':'みどりの日','2025-05-05':'こどもの日','2025-05-06':'振替休日',
+  '2025-07-21':'海の日','2025-08-11':'山の日','2025-09-15':'敬老の日','2025-09-23':'秋分の日',
+  '2025-10-13':'スポーツの日','2025-11-03':'文化の日','2025-11-23':'勤労感謝の日','2025-11-24':'振替休日',
+  '2026-01-01':'元日','2026-01-12':'成人の日','2026-02-11':'建国記念の日','2026-02-23':'天皇誕生日',
+  '2026-03-20':'春分の日','2026-04-29':'昭和の日','2026-05-03':'憲法記念日','2026-05-04':'みどりの日','2026-05-05':'こどもの日','2026-05-06':'振替休日',
+  '2026-07-20':'海の日','2026-08-11':'山の日','2026-09-21':'敬老の日','2026-09-22':'国民の休日','2026-09-23':'秋分の日',
+  '2026-10-12':'スポーツの日','2026-11-03':'文化の日','2026-11-23':'勤労感謝の日',
+  '2027-01-01':'元日','2027-01-11':'成人の日','2027-02-11':'建国記念の日','2027-02-23':'天皇誕生日',
+  '2027-03-21':'春分の日','2027-03-22':'振替休日','2027-04-29':'昭和の日','2027-05-03':'憲法記念日','2027-05-04':'みどりの日','2027-05-05':'こどもの日',
+  '2027-07-19':'海の日','2027-08-11':'山の日','2027-09-20':'敬老の日','2027-09-23':'秋分の日',
+  '2027-10-11':'スポーツの日','2027-11-03':'文化の日','2027-11-23':'勤労感謝の日'
+};
+function isNationalHoliday(y,m,d){return !!HOLIDAYS[`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`];}
+function getHolidayName(y,m,d){return HOLIDAYS[`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`]||null;}
+
+/* ===== 税テーブル ===== */
+const TT=[[0,88e3,0,0,0,0,0],[88e3,89e3,130,0,0,0,0],[89e3,9e4,180,0,0,0,0],[9e4,91e3,230,0,0,0,0],[91e3,92e3,290,0,0,0,0],[92e3,93e3,340,0,0,0,0],[93e3,94e3,390,0,0,0,0],[94e3,95e3,440,0,0,0,0],[95e3,96e3,490,0,0,0,0],[96e3,97e3,540,0,0,0,0],[97e3,98e3,590,0,0,0,0],[98e3,99e3,640,0,0,0,0],[99e3,101e3,720,0,0,0,0],[101e3,103e3,830,0,0,0,0],[103e3,105e3,930,0,0,0,0],[105e3,107e3,1030,0,0,0,0],[107e3,109e3,1130,0,0,0,0],[109e3,111e3,1240,0,0,0,0],[111e3,113e3,1340,0,0,0,0],[113e3,115e3,1440,0,0,0,0],[115e3,117e3,1540,0,0,0,0],[117e3,119e3,1640,0,0,0,0],[119e3,121e3,1750,120,0,0,0],[121e3,123e3,1850,220,0,0,0],[123e3,125e3,1950,330,0,0,0],[125e3,127e3,2050,430,0,0,0],[127e3,129e3,2150,530,0,0,0],[129e3,131e3,2260,630,0,0,0],[131e3,133e3,2360,740,0,0,0],[133e3,135e3,2460,840,0,0,0],[135e3,137e3,2550,930,0,0,0],[137e3,139e3,2610,990,0,0,0],[139e3,141e3,2680,1050,0,0,0],[141e3,143e3,2740,1110,0,0,0],[143e3,145e3,2800,1170,0,0,0],[145e3,147e3,2860,1240,0,0,0],[147e3,149e3,2920,1300,0,0,0],[149e3,151e3,2980,1360,0,0,0],[151e3,153e3,3050,1430,0,0,0],[153e3,155e3,3120,1500,0,0,0],[155e3,157e3,3200,1570,0,0,0],[157e3,159e3,3270,1640,0,0,0],[159e3,161e3,3340,1720,100,0,0],[161e3,163e3,3410,1790,170,0,0],[163e3,165e3,3480,1860,250,0,0],[165e3,167e3,3550,1930,320,0,0],[167e3,169e3,3620,2e3,390,0,0],[169e3,171e3,3700,2070,460,0,0],[171e3,173e3,3770,2140,530,0,0],[173e3,175e3,3840,2220,600,0,0],[175e3,177e3,3910,2290,670,0,0],[177e3,179e3,3980,2360,750,0,0],[179e3,181e3,4050,2430,820,0,0],[181e3,183e3,4120,2500,890,0,0],[183e3,185e3,4200,2570,960,0,0],[185e3,187e3,4270,2640,1030,0,0],[187e3,189e3,4340,2720,1100,0,0],[189e3,191e3,4410,2790,1170,0,0],[191e3,193e3,4480,2860,1250,130,0],[193e3,195e3,4550,2930,1320,200,0],[195e3,197e3,4630,3e3,1390,280,0],[197e3,199e3,4700,3070,1460,350,0],[199e3,201e3,4770,3140,1530,420,0],[201e3,203e3,4840,3220,1600,490,0],[203e3,205e3,4910,3290,1670,560,0],[205e3,207e3,4980,3360,1750,630,0],[207e3,209e3,5050,3430,1820,710,0],[209e3,211e3,5130,3500,1890,780,0],[211e3,213e3,5200,3570,1960,850,0],[213e3,215e3,5270,3640,2030,920,0],[215e3,217e3,5340,3720,2100,990,0],[217e3,219e3,5410,3790,2170,1060,0],[219e3,221e3,5480,3860,2250,1140,30],[221e3,224e3,5560,3950,2340,1230,110],[224e3,227e3,5680,4060,2440,1340,220],[227e3,23e4,5780,4170,2550,1440,330],[23e4,233e3,5890,4280,2650,1550,430],[233e3,236e3,5990,4380,2770,1650,530],[236e3,239e3,6110,4490,2870,1760,630],[239e3,242e3,6210,4590,2980,1860,740],[242e3,245e3,6320,4710,3080,1970,840],[245e3,248e3,6420,4810,3200,2070,950],[248e3,251e3,6530,4920,3300,2180,1050],[251e3,254e3,6640,5020,3410,2280,1160],[254e3,257e3,6750,5140,3510,2390,1260],[257e3,26e4,6850,5240,3620,2490,1360],[26e4,263e3,6960,5350,3730,2600,1470],[263e3,266e3,7070,5450,3840,2700,1570],[266e3,269e3,7180,5560,3940,2810,1680],[269e3,272e3,7280,5670,4050,2910,1790],[272e3,275e3,7390,5780,4160,3030,1900],[275e3,278e3,7490,5880,4270,3140,2e3],[278e3,281e3,7610,5990,4370,3240,2110],[281e3,284e3,7710,6100,4480,3350,2220],[284e3,287e3,7820,6210,4580,3460,2320],[287e3,29e4,7920,6310,4700,3560,2430],[29e4,293e3,8040,6420,4800,3670,2540],[293e3,296e3,8140,6520,4910,3770,2640],[296e3,299e3,8250,6640,5010,3880,2760],[299e3,302e3,8420,6740,5130,3990,2860],[302e3,305e3,8670,6860,5250,4090,2970],[305e3,308e3,8910,6980,5370,4200,3070],[308e3,311e3,9160,7110,5490,4300,3180],[311e3,314e3,9400,7230,5620,4410,3290],[314e3,317e3,9650,7350,5740,4510,3390],[317e3,32e4,9890,7470,5860,4620,3500],[32e4,323e3,10140,7600,5980,4720,3600],[323e3,326e3,10380,7720,6110,4830,3710],[326e3,329e3,10630,7840,6230,4940,3820],[329e3,332e3,10870,7960,6350,5040,3920],[332e3,335e3,11120,8090,6470,5150,4030],[335e3,338e3,11360,8210,6600,5250,4140],[338e3,341e3,11610,8370,6720,5360,4240],[341e3,344e3,11850,8620,6840,5460,4350],[344e3,347e3,12100,8860,6960,5570,4450],[347e3,35e4,12340,9110,7090,5680,4560],[35e4,353e3,12590,9350,7210,5780,4670],[353e3,356e3,12830,9600,7330,5890,4770],[356e3,359e3,13080,9840,7450,5990,4880],[359e3,362e3,13320,10090,7580,6100,4980],[362e3,365e3,13570,10330,7700,6210,5090],[365e3,368e3,13810,10580,7820,6310,5200],[368e3,371e3,14060,10820,7940,6420,5300],[371e3,374e3,14300,11070,8070,6520,5410],[374e3,377e3,14550,11310,8190,6630,5510],[377e3,38e4,14790,11560,8320,6740,5620],[38e4,383e3,15040,11800,8570,6840,5730],[383e3,386e3,15280,12050,8810,6950,5830],[386e3,389e3,15530,12290,9060,7050,5940],[389e3,392e3,15770,12540,9300,7160,6040],[392e3,395e3,16020,12780,9550,7270,6150],[395e3,398e3,16260,13030,9790,7370,6260],[398e3,401e3,16510,13270,10040,7480,6360],[401e3,404e3,16750,13520,10280,7580,6470],[404e3,407e3,17e4,13760,10530,7690,6570],[407e3,41e4,17240,14010,10770,7800,6680],[41e4,413e3,17490,14250,11020,7900,6790],[413e3,416e3,17730,14500,11260,8010,6890],[416e3,419e3,17980,14740,11510,8150,7e3],[419e3,422e3,18220,14990,11750,8390,7100],[422e3,425e3,18470,15230,12e3,8630,7210],[425e3,428e3,18710,15480,12240,8880,7320],[428e3,431e3,18960,15720,12490,9120,7420],[431e3,434e3,19210,15970,12730,9370,7530],[434e3,437e3,19450,16210,12980,9610,7630],[437e3,44e4,19700,16460,13220,9860,7740],[44e4,443e3,20090,16700,13470,10100,7850],[443e3,446e3,20580,16950,13710,10350,7950],[446e3,449e3,21070,17190,13960,10590,8060],[449e3,452e3,21560,17440,14200,10840,8160],[452e3,455e3,22050,17680,14450,11080,8270],[455e3,458e3,22540,17930,14690,11330,8370],[458e3,461e3,23030,18170,14940,11570,8480],[461e3,464e3,23520,18420,15180,11820,8590],[464e3,467e3,24010,18660,15430,12060,8690],[467e3,47e4,24500,18910,15670,12310,8800],[47e4,473e3,24990,19150,15920,12550,8900],[473e3,476e3,25480,19400,16160,12800,9010],[476e3,479e3,25970,19640,16410,13040,9110],[479e3,482e3,26460,2e4,16650,13290,9220],[482e3,485e3,26950,20490,16900,13530,9330],[485e3,488e3,27440,20980,17140,13780,9430],[488e3,491e3,27930,21470,17390,14020,9540],[491e3,494e3,28420,21960,17630,14270,9640],[494e3,497e3,28910,22450,17880,14510,9750],[497e3,5e5,29400,22940,18120,14760,9850]];
+function calcTax(t,d){for(const r of TT){if(t>=r[0]&&t<r[1])return r[Math.min(Math.max(d+2,2),6)]||0;}if(t>=5e5){const b=TT[TT.length-1];return b[Math.min(Math.max(d+2,2),6)]+Math.floor((t-5e5)*.2042);}return 0;}
+
+const CAP=16110;
+const $=id=>document.getElementById(id);
+function eom(y,m){return new Date(y,m,0).getDate();}
+function fmtY(n){return '¥'+Math.round(n).toLocaleString('ja-JP');}
+
+/* ===== 標準報酬月額等級表 ===== */
+const SHIHO_TABLE=[
+[0,63e3,58e3],[63e3,73e3,68e3],[73e3,83e3,78e3],[83e3,93e3,88e3],[93e3,101e3,98e3],
+[101e3,107e3,104e3],[107e3,114e3,110e3],[114e3,122e3,118e3],[122e3,13e4,126e3],
+[13e4,138e3,134e3],[138e3,146e3,142e3],[146e3,155e3,15e4],[155e3,165e3,16e4],
+[165e3,175e3,17e4],[175e3,185e3,18e4],[185e3,195e3,19e4],[195e3,21e4,2e5],
+[21e4,23e4,22e4],[23e4,25e4,24e4],[25e4,27e4,26e4],[27e4,29e4,28e4],
+[29e4,31e4,3e5],[31e4,33e4,32e4],[33e4,35e4,34e4],[35e4,37e4,36e4],
+[37e4,395e3,38e4],[395e3,425e3,41e4],[425e3,455e3,44e4],[455e3,485e3,47e4],
+[485e3,515e3,5e5],[515e3,545e3,53e4],[545e3,575e3,56e4],[575e3,605e3,59e4],
+[605e3,635e3,62e4],[635e3,Infinity,65e4]
+];
+
+function getShihoMonthly(salary){
+  for(const[lo,hi,sh]of SHIHO_TABLE){if(salary>=lo&&salary<hi)return sh;}
+  return 650000;
+}
+
+/* ===== 住民税概算 ===== */
+function estimateJuminzei(monthlySalary, dependents){
+  const annual=monthlySalary*12;
+  let ded;
+  if(annual<=1625000)ded=550000;
+  else if(annual<=1800000)ded=annual*0.4-100000;
+  else if(annual<=3600000)ded=annual*0.3+80000;
+  else if(annual<=6600000)ded=annual*0.2+440000;
+  else if(annual<=8500000)ded=annual*0.1+1100000;
+  else ded=1950000;
+  const income=annual-ded;
+  const socialDed=annual*0.15;
+  const fuyoDed = dependents >= 1 ? 330000 + (dependents - 1) * 380000 : 0;
+  const taxable=Math.max(0, income - 430000 - socialDed - fuyoDed);
+  const annualTax=Math.round(taxable*0.1)+5000;
+  return Math.max(0, Math.round(annualTax/12));
+}
+
+/* ===== 自動計算 & フィールド連動 ===== */
+let shihoManual=false, juminManual=false;
+
+function autoCalcFromSalary(){
+  const salary=+$('baseSalary').value||0;
+  const dep=+$('dependents').value;
+  const hr=+$('healthRate').value||0;
+  const shiho=getShihoMonthly(salary);
+  const healthIns=Math.round(shiho*hr/100);
+  const pensionIns=Math.round(shiho*0.0915);
+  const jumin=estimateJuminzei(salary, dep);
+  $('autoShiho').textContent=fmtY(shiho);
+  $('autoHealth').textContent=fmtY(healthIns);
+  $('autoPension').textContent=fmtY(pensionIns);
+  $('autoJumin').textContent=fmtY(jumin)+' /月';
+  if(!shihoManual){$('shihoMonthly').value=shiho;$('shihoAutoLabel').textContent='自動';$('shihoAutoLabel').style.color='var(--ws-primary)';}
+  else{$('shihoAutoLabel').textContent='手動';$('shihoAutoLabel').style.color='var(--ws-accent)';}
+  if(!juminManual){$('zyuminTax').value=jumin;$('juminAutoLabel').textContent='自動';$('juminAutoLabel').style.color='var(--ws-primary)';}
+  else{$('juminAutoLabel').textContent='手動';$('juminAutoLabel').style.color='var(--ws-accent)';}
+}
+
+$('shihoMonthly').addEventListener('input',()=>{shihoManual=true;autoCalcFromSalary();updateAll();});
+$('zyuminTax').addEventListener('input',()=>{juminManual=true;autoCalcFromSalary();updateAll();});
+$('baseSalary').addEventListener('input',()=>{shihoManual=false;juminManual=false;autoCalcFromSalary();renderHolCalendars();updateAll();});
+$('dependents').addEventListener('change',()=>{if(!juminManual){autoCalcFromSalary();}updateAll();});
+
+/* ===== 休日管理 ===== */
+let customDayOff=new Set(), customDayOn=new Set();
+
+function getSatMode(){return document.querySelector('input[name="sat"]:checked').value;}
+function isHolidayOff(){return $('holidayOff').checked;}
+
+function isDefaultOff(y,m,d){
+  const dt=new Date(y,m-1,d);
+  const dow=dt.getDay();
+  if(dow===0) return true;
+  if(dow===6){
+    const sm=getSatMode();
+    if(sm==='all_off') return true;
+    if(sm==='all_on') return false;
+    const weekNum=Math.ceil(d/7);
+    return weekNum%2===1;
+  }
+  if(isHolidayOff()&&isNationalHoliday(y,m,d)) return true;
+  return false;
+}
+
+function isDayOff(y,m,d){
+  const key=`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+  if(customDayOn.has(key)) return false;
+  if(customDayOff.has(key)) return true;
+  return isDefaultOff(y,m,d);
+}
+
+function toggleDayOff(y,m,d){
+  const key=`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+  const defOff=isDefaultOff(y,m,d);
+  if(defOff){
+    if(customDayOn.has(key)){customDayOn.delete(key);}
+    else{customDayOn.add(key);customDayOff.delete(key);}
+  }else{
+    if(customDayOff.has(key)){customDayOff.delete(key);}
+    else{customDayOff.add(key);customDayOn.delete(key);}
+  }
+}
+
+/* 賃金計算期間 */
+function getPayPeriod(calMonth,cutoff){
+  const y=calMonth.getFullYear(),m=calMonth.getMonth();
+  if(cutoff>=28) return{start:new Date(y,m,1),end:new Date(y,m+1,0)};
+  const pm=m===0?11:m-1,py=m===0?y-1:y;
+  return{start:new Date(py,pm,cutoff+1),end:new Date(y,m,cutoff)};
+}
+
+function countWorkDaysInPeriod(pp){
+  let c=0;const d=new Date(pp.start);
+  while(d<=pp.end){if(!isDayOff(d.getFullYear(),d.getMonth()+1,d.getDate()))c++;d.setDate(d.getDate()+1);}
+  return c;
+}
+
+/* ===== 休日カレンダー描画 ===== */
+function renderHolCalendars(){
+  const m1=currentMonth1,m2=getMonth2();
+  let html='';
+  [m1,m2].forEach(mo=>{
+    const y=mo.getFullYear(),m=mo.getMonth(),dim=eom(y,m+1);
+    const fd=new Date(y,m,1).getDay();
+    html+=`<div class="hol-cal"><div class="hc-header">${y}年${m+1}月</div><table><thead><tr><th class="sun">日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th class="sat">土</th></tr></thead><tbody>`;
+    let dn=1;
+    for(let w=0;w<6;w++){
+      html+='<tr>';
+      for(let d=0;d<7;d++){
+        if(w===0&&d<fd){html+='<td class="empty"></td>';}
+        else if(dn>dim){html+='<td class="empty"></td>';}
+        else{
+          const off=isDayOff(y,m+1,dn);
+          const hol=isNationalHoliday(y,m+1,dn);
+          const dow=new Date(y,m,dn).getDay();
+          let cls='hd';
+          if(off)cls+=' off';
+          if(hol)cls+=' holiday-mark';
+          else if(dow===0)cls+=' sun-day';
+          else if(dow===6)cls+=' sat-day';
+          const title=hol?getHolidayName(y,m+1,dn):'';
+          html+=`<td><span class="${cls}" data-y="${y}" data-m="${m+1}" data-d="${dn}" title="${title}">${dn}</span></td>`;
+          dn++;
+        }
+      }
+      html+='</tr>';
+      if(dn>dim)break;
+    }
+    html+='</tbody></table></div>';
+  });
+  $('holCalendars').innerHTML=html;
+  document.querySelectorAll('.hol-cal .hd').forEach(el=>{
+    el.addEventListener('click',()=>{
+      toggleDayOff(+el.dataset.y,+el.dataset.m,+el.dataset.d);
+      renderHolCalendars();
+      renderCalendars();
+      updateAll();
+    });
+  });
+  const cutoff=+$('cutoffDay').value;
+  const pp1=getPayPeriod(m1,cutoff),pp2=getPayPeriod(m2,cutoff);
+  const wd1=countWorkDaysInPeriod(pp1),wd2=countWorkDaysInPeriod(pp2);
+  $('holResult').innerHTML=`${m1.getMonth()+1}月分の所定労働日数: <strong>${wd1}日</strong>　／　${m2.getMonth()+1}月分: <strong>${wd2}日</strong>`;
+}
+
+/* ===== 育休選択 状態 ===== */
+let currentMonth1=new Date();currentMonth1.setDate(1);
+let leaveCount=2;
+let period1={1:[],2:[]},period2={1:[],2:[]};
+let activePeriod=1,pickState='start',pickStartInfo=null;
+function getMonth2(){const m=new Date(currentMonth1);m.setMonth(m.getMonth()+1);return m;}
+
+/* ===== 育休カレンダー ===== */
+function renderCalendars(){
+  const m1=currentMonth1,m2=getMonth2();
+  $('monthLabel').textContent=`${m1.getFullYear()}年${m1.getMonth()+1}月・${m2.getFullYear()}年${m2.getMonth()+1}月`;
+  $('cal1Title').textContent=`${m1.getFullYear()}年${m1.getMonth()+1}月`;
+  $('cal2Title').textContent=`${m2.getFullYear()}年${m2.getMonth()+1}月`;
+  $('cal1Body').innerHTML=buildCalBody(m1,1);
+  $('cal2Body').innerHTML=buildCalBody(m2,2);
+  document.querySelectorAll('.cal td[data-day]').forEach(td=>td.addEventListener('click',()=>handleCellClick(+td.dataset.cal,+td.dataset.day)));
+}
+
+function buildCalBody(dateObj,calIdx){
+  const y=dateObj.getFullYear(),m=dateObj.getMonth(),fd=new Date(y,m,1).getDay(),dim=eom(y,m+1);
+  const p1=period1[calIdx]||[],p2=period2[calIdx]||[];
+  let html='',dn=1;
+  for(let w=0;w<6;w++){html+='<tr>';for(let d=0;d<7;d++){if(w===0&&d<fd){html+='<td class="empty"></td>';}else if(dn>dim){html+='<td class="empty"></td>';}else{
+    const cls=['day'];
+    if(p1.includes(dn))cls.push('sel-1');else if(p2.includes(dn))cls.push('sel-2');
+    if(dn===dim)cls.push('eom');
+    const off=isDayOff(y,m+1,dn);
+    const hol=isNationalHoliday(y,m+1,dn);
+    if(off&&!p1.includes(dn)&&!p2.includes(dn))cls.push('off-day');
+    if(hol)cls.push('hol-day');
+    html+=`<td data-cal="${calIdx}" data-day="${dn}"><span class="${cls.join(' ')}">${dn}</span></td>`;dn++;
+  }}html+='</tr>';if(dn>dim)break;}
+  return html;
+}
+
+function handleCellClick(ci,day){
+  const aO=activePeriod===1?period1:period2,oO=activePeriod===1?period2:period1;
+  if(pickState==='start'){aO[1]=[];aO[2]=[];pickStartInfo={calIdx:ci,day};aO[ci]=[day];pickState='end';}
+  else{
+    const s=pickStartInfo,e={calIdx:ci,day};const sa=(s.calIdx-1)*100+s.day,ea=(e.calIdx-1)*100+e.day;
+    let ss,ee;if(ea<sa){ss=e;ee=s;}else{ss=s;ee=e;}
+    aO[1]=[];aO[2]=[];const dim1=eom(currentMonth1.getFullYear(),currentMonth1.getMonth()+1);
+    if(ss.calIdx===1&&ee.calIdx===1){for(let d=ss.day;d<=ee.day;d++)aO[1].push(d);}
+    else if(ss.calIdx===2&&ee.calIdx===2){for(let d=ss.day;d<=ee.day;d++)aO[2].push(d);}
+    else{for(let d=ss.day;d<=dim1;d++)aO[1].push(d);for(let d=1;d<=ee.day;d++)aO[2].push(d);}
+    if(leaveCount===2){aO[1]=aO[1].filter(d=>!oO[1].includes(d));aO[2]=aO[2].filter(d=>!oO[2].includes(d));}
+    const tot=period1[1].length+period1[2].length+period2[1].length+period2[2].length;
+    if(tot>28){alert('産後パパ育休は最大28日までです。');aO[1]=[];aO[2]=[];}
+    pickState='start';pickStartInfo=null;
+    if(leaveCount===2&&activePeriod===1&&(aO[1].length+aO[2].length)>0&&!(period2[1].length+period2[2].length))switchPeriod(2);
+  }
+  renderCalendars();updateAll();
+}
+function switchPeriod(p){activePeriod=p;pickState='start';pickStartInfo=null;document.querySelectorAll('.period-tab').forEach(t=>t.classList.toggle('active',+t.dataset.period===p));updatePickingLabel();}
+function updatePickingLabel(){$('currentPicking').classList.toggle('p2',activePeriod===2);$('pickLabel').textContent=activePeriod===1?'1回目':'2回目';$('pickInstruction').innerHTML=pickState==='start'?'の育休期間の<strong>開始日</strong>をタップ':'の育休期間の<strong>終了日</strong>をタップ';}
+function setLeaveCount(n){leaveCount=n;document.querySelectorAll('#countToggle button').forEach(b=>b.classList.toggle('active',+b.dataset.count===n));if(n===1){period2={1:[],2:[]};$('period2Tab').style.display='none';$('p2SummaryItem').style.display='none';switchPeriod(1);}else{$('period2Tab').style.display='';$('p2SummaryItem').style.display='';}renderCalendars();updateAll();}
+function clearPeriod(p){if(p===1)period1={1:[],2:[]};else period2={1:[],2:[]};if(activePeriod===p){pickState='start';pickStartInfo=null;}renderCalendars();updateAll();}
+
+/* ===== 計算 ===== */
+function getAbsentWorkDaysInPP(pp,m1,m2,p1,p2){
+  const ld=new Set();
+  [p1,p2].forEach(po=>{[1,2].forEach(ci=>{const ref=ci===1?m1:m2;const y=ref.getFullYear(),m=ref.getMonth();(po[ci]||[]).forEach(d=>{const dt=new Date(y,m,d);if(dt>=pp.start&&dt<=pp.end)ld.add(dt.getTime());});});});
+  let c=0;ld.forEach(t=>{const d=new Date(t);if(!isDayOff(d.getFullYear(),d.getMonth()+1,d.getDate()))c++;});return c;
+}
+function getLeaveDaysInPP(pp,m1,m2,p1,p2){
+  const s=new Set();
+  [p1,p2].forEach(po=>{[1,2].forEach(ci=>{const ref=ci===1?m1:m2;const y=ref.getFullYear(),m=ref.getMonth();(po[ci]||[]).forEach(d=>{const dt=new Date(y,m,d);if(dt>=pp.start&&dt<=pp.end)s.add(dt.getTime());});});});
+  return s.size;
+}
+function calcMonth(o){
+  const na=Math.max(0,o.absentWorkDays-o.workInLeave);
+  const ded=o.wd>0?Math.round(o.base/o.wd*na):0;
+  const gross=Math.max(0,o.base-ded);
+  const hi=o.exempt?0:Math.round(o.shiho*o.hr/100);
+  const pi=o.exempt?0:Math.round(o.shiho*.0915);
+  const ei=Math.round(gross*.0055);
+  const st=hi+pi+ei;const tx=Math.max(0,gross-st);const it=calcTax(tx,o.dep);
+  const th=gross-st-it-o.zt;
+  let dw=Math.round(o.base/30);const cap=dw>CAP;if(cap)dw=CAP;
+  const ik=Math.round(dw*o.bd*.67);const sh=o.sk===1?Math.round(dw*o.bd*.13):0;
+  return{base:o.base,ded,gross,hi,pi,ei,st,tx,it,zt:o.zt,th,ik,sh,total:th+ik+sh,exempt:o.exempt,bd:o.bd,cap,dw,wd:o.wd};
+}
+function judgeEx(days,eomD,wil){if(!days.length)return{ex:false,r:'育休取得なし'};if(days.includes(eomD))return{ex:true,r:'月末日を含む育休'};const e=Math.max(0,days.length-wil);return e>=14?{ex:true,r:'同月内14日以上'}:{ex:false,r:`${e}日（14日未満）`};}
+
+/* ===== 表示更新 ===== */
+function fmtDR(days,dt){if(!days.length)return'';const s=[...days].sort((a,b)=>a-b),ml=dt.getMonth()+1;const rr=[];let rs=s[0],re=s[0];for(let i=1;i<s.length;i++){if(s[i]===re+1)re=s[i];else{rr.push([rs,re]);rs=s[i];re=s[i];}}rr.push([rs,re]);return rr.map(([a,b])=>a===b?`${ml}/${a}`:`${ml}/${a}〜${ml}/${b}`).join(', ');}
+function fmtP(po){const p=[];if(po[1]&&po[1].length)p.push(fmtDR(po[1],currentMonth1));if(po[2]&&po[2].length)p.push(fmtDR(po[2],getMonth2()));return p.join(' + ');}
+
+function updateAll(){
+  const base=+$('baseSalary').value||0,shiho=+$('shihoMonthly').value||0,cutoff=+$('cutoffDay').value;
+  const dep=+$('dependents').value,zt=+$('zyuminTax').value||0,hr=+$('healthRate').value||0;
+  const wil1=+$('workInLeave1').value||0,wil2=+$('workInLeave2').value||0,sk=+$('shienKyuhu').value;
+  const m1=currentMonth1,m2=getMonth2();
+  const eom1=eom(m1.getFullYear(),m1.getMonth()+1),eom2=eom(m2.getFullYear(),m2.getMonth()+1);
+  const pp1=getPayPeriod(m1,cutoff),pp2=getPayPeriod(m2,cutoff);
+  const wd1=countWorkDaysInPeriod(pp1),wd2=countWorkDaysInPeriod(pp2);
+  const fpp=pp=>`${pp.start.getMonth()+1}/${pp.start.getDate()}〜${pp.end.getMonth()+1}/${pp.end.getDate()}`;
+  $('payPeriodInfo').innerHTML=`<strong>賃金計算期間</strong>（${cutoff>=28?'末日':cutoff+'日'}締め）<br>${m1.getMonth()+1}月分: ${fpp(pp1)}（所定 ${wd1}日）<br>${m2.getMonth()+1}月分: ${fpp(pp2)}（所定 ${wd2}日）`;
+  const l1=[...new Set([...(period1[1]||[]),...(period2[1]||[])])].sort((a,b)=>a-b);
+  const l2=[...new Set([...(period1[2]||[]),...(period2[2]||[])])].sort((a,b)=>a-b);
+  const j1=judgeEx(l1,eom1,wil1),j2=judgeEx(l2,eom2,wil2);
+  const ab1=getAbsentWorkDaysInPP(pp1,m1,m2,period1,period2),ab2=getAbsentWorkDaysInPP(pp2,m1,m2,period1,period2);
+  const bd1=getLeaveDaysInPP(pp1,m1,m2,period1,period2),bd2=getLeaveDaysInPP(pp2,m1,m2,period1,period2);
+  const p1T=period1[1].length+period1[2].length,p2T=period2[1].length+period2[2].length;
+  $('p1Count').textContent=`（${p1T}日）`;$('p2Count').textContent=`（${p2T}日）`;
+  $('p1Summary').innerHTML=p1T>0?fmtP(period1)+` <span style="color:var(--ws-text-sub);font-size:11px">(${p1T}日)</span>`:'<span style="color:var(--ws-text-sub);font-style:italic">未選択</span>';
+  $('p2Summary').innerHTML=p2T>0?fmtP(period2)+` <span style="color:var(--ws-text-sub);font-size:11px">(${p2T}日)</span>`:'<span style="color:var(--ws-text-sub);font-style:italic">未選択</span>';
+  const tot=p1T+p2T;$('totalDays').textContent=tot;
+  const wE=$('daysWarning');if(tot>28){wE.style.display='block';wE.style.color='var(--ws-danger)';wE.textContent='⚠ 28日超過';}else if(tot===28){wE.style.display='block';wE.style.color='var(--ws-success)';wE.textContent='✓ 最大日数';}else wE.style.display='none';
+  $('judgmentBadges').innerHTML=`<div class="${j1.ex?'j-exempt':'j-no'}"><strong>${m1.getMonth()+1}月:</strong> ${j1.ex?'✓ 社保免除':'✗ 免除なし'}<span style="font-size:11px;display:block;opacity:.8">${j1.r}</span></div><div class="${j2.ex?'j-exempt':'j-no'}"><strong>${m2.getMonth()+1}月:</strong> ${j2.ex?'✓ 社保免除':'✗ 免除なし'}<span style="font-size:11px;display:block;opacity:.8">${j2.r}</span></div>`;
+  $('month1Label').textContent=`${m1.getMonth()+1}月分（欠勤${ab1}日 / 所定${wd1}日）`;
+  $('month2Label').textContent=`${m2.getMonth()+1}月分（欠勤${ab2}日 / 所定${wd2}日）`;
+  const cur=calcMonth({base,shiho,wd:wd1,dep,zt,hr,absentWorkDays:0,workInLeave:0,exempt:false,bd:0,sk:0});
+  const mo1=calcMonth({base,shiho,wd:wd1,dep,zt,hr,absentWorkDays:ab1,workInLeave:wil1,exempt:j1.ex,bd:Math.max(0,bd1-wil1),sk});
+  const mo2=calcMonth({base,shiho,wd:wd2,dep,zt,hr,absentWorkDays:ab2,workInLeave:wil2,exempt:j2.ex,bd:Math.max(0,bd2-wil2),sk});
+  renderBD('bdCurrent',cur,false);renderBD('bdMonth1',mo1,true);renderBD('bdMonth2',mo2,true);
+  $('amtCurrent').textContent=fmtY(cur.total);$('amtMonth1').textContent=fmtY(mo1.total);$('amtMonth2').textContent=fmtY(mo2.total);
+  renderDiff('diffMonth1',mo1.total-cur.total);renderDiff('diffMonth2',mo2.total-cur.total);
+  const ic=mo1.cap||mo2.cap;$('capWarning').style.display=ic?'block':'none';
+  if(ic){const dr=Math.round(base/30);$('capWarningMsg').innerHTML=`賃金日額 ${dr.toLocaleString()}円 が上限 ${CAP.toLocaleString()}円/日を超えるため、給付金は上限額で計算しています。`;}
+  const both=j1.ex&&j2.ex;
+  if(both&&tot>0){const d2=(mo1.total+mo2.total)-(cur.total*2);$('highlightBox').style.display='block';$('hlAmount').textContent=(d2>=0?'+':'')+fmtY(d2);$('hlDesc').textContent=`現状2ヶ月 ${fmtY(cur.total*2)} → 育休2ヶ月 ${fmtY(mo1.total+mo2.total)}`;}else $('highlightBox').style.display='none';
+  let msg='';if(!tot)msg='育休期間を選ぶとシミュレーションが表示されます。';
+  else if(j1.ex&&j2.ex){msg=`<strong>✨ 2ヶ月分の社保免除！</strong> 健保・厚年 計${fmtY((cur.hi+cur.pi)*2)}が免除。給付金と合わせて手取り増。`+(leaveCount===2?'<br><span style="font-size:12px;color:var(--ws-text-sub)">※ 2回分割で別月の月末を含む取得です。</span>':'');}
+  else if(j1.ex||j2.ex){const exM=j1.ex?(m1.getMonth()+1):(m2.getMonth()+1);msg=`${exM}月は社保免除。もう1ヶ月分も免除を狙うなら、<strong>2回分割で別月の月末を含む取得</strong>がおすすめです。`;}
+  else msg='<strong>社保免除条件未達。</strong>「月末含む」or「同月内14日以上」で免除対象に。';
+  $('mainMessage').innerHTML=msg;
+  updatePickingLabel();
+}
+function renderBD(id,d,isL){let h='';h+=`<div class="bk-row"><span>月給</span><span>${fmtY(d.base)}</span></div>`;if(d.ded>0)h+=`<div class="bk-row"><span>欠勤控除（所定${d.wd}日）</span><span>- ${fmtY(d.ded)}</span></div>`;h+=`<div class="bk-row"><span>支給額</span><strong>${fmtY(d.gross)}</strong></div><hr>`;h+=`<div class="bk-row ${d.exempt?'exempt':''}"><span>健康保険</span><span>- ${fmtY(d.hi)}</span></div>`;h+=`<div class="bk-row ${d.exempt?'exempt':''}"><span>厚生年金</span><span>- ${fmtY(d.pi)}</span></div>`;h+=`<div class="bk-row"><span>雇用保険</span><span>- ${fmtY(d.ei)}</span></div>`;h+=`<div class="bk-row"><span>所得税</span><span>- ${fmtY(d.it)}</span></div>`;h+=`<div class="bk-row"><span>住民税</span><span>- ${fmtY(d.zt)}</span></div><hr>`;h+=`<div class="bk-row"><span>給与手取り</span><strong>${fmtY(d.th)}</strong></div>`;if(isL&&d.ik>0)h+=`<div class="bk-row" style="color:var(--ws-primary)"><span>育休給付金${d.cap?' ⚠上限':''}（${d.dw.toLocaleString()}円×${d.bd}日×67%）</span><span>+ ${fmtY(d.ik)}</span></div>`;if(isL&&d.sh>0)h+=`<div class="bk-row" style="color:var(--ws-primary)"><span>出生後休業支援（13%）</span><span>+ ${fmtY(d.sh)}</span></div>`;$(id).innerHTML=h;}
+function renderDiff(id,d){const e=$(id);e.textContent=`現状比 ${d>=0?'+':''}${fmtY(d)}`;e.className='comp-diff '+(d>=0?'up':'down');}
+
+/* ===== イベント ===== */
+$('prevMonth').addEventListener('click',()=>{currentMonth1.setMonth(currentMonth1.getMonth()-1);renderHolCalendars();renderCalendars();updateAll();});
+$('nextMonth').addEventListener('click',()=>{currentMonth1.setMonth(currentMonth1.getMonth()+1);renderHolCalendars();renderCalendars();updateAll();});
+document.querySelectorAll('#countToggle button').forEach(b=>b.addEventListener('click',()=>setLeaveCount(+b.dataset.count)));
+document.querySelectorAll('.period-tab').forEach(t=>t.addEventListener('click',e=>{if(e.target.classList.contains('p-clear'))return;switchPeriod(+t.dataset.period);}));
+$('p1Clear').addEventListener('click',e=>{e.stopPropagation();clearPeriod(1);});
+$('p2Clear').addEventListener('click',e=>{e.stopPropagation();clearPeriod(2);});
+document.querySelectorAll('#satMode input').forEach(r=>{r.addEventListener('change',()=>{
+  document.querySelectorAll('#satMode label').forEach(l=>l.classList.toggle('active',l.querySelector('input').checked));
+  const v=getSatMode();$('satHint').textContent=v==='all_off'?'完全週休2日制':v==='biweekly'?'隔週土曜休み（クリックで調整可）':'土曜出勤';
+  $('satCustomArea').style.display=v==='biweekly'?'block':'none';
+  customDayOff.clear();customDayOn.clear();
+  renderHolCalendars();renderCalendars();updateAll();
+});});
+$('holidayOff').addEventListener('change',()=>{renderHolCalendars();renderCalendars();updateAll();});
+['cutoffDay','healthRate','workInLeave1','workInLeave2','shienKyuhu'].forEach(id=>{$(id).addEventListener('input',()=>{autoCalcFromSalary();renderHolCalendars();updateAll();});$(id).addEventListener('change',()=>{autoCalcFromSalary();renderHolCalendars();updateAll();});});
+
+// 初期化
+autoCalcFromSalary();
+renderHolCalendars();renderCalendars();updateAll();
+})();
+</script>
