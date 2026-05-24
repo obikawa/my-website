@@ -1,0 +1,196 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+
+<Layout
+  title="有給休暇付与確認ツール"
+  description="入社日と付与パターンを選ぶだけで、初回・2回目以降の有給付与日と日数を自動計算。8種類の付与ルールに対応し、印刷・PDF保存にも対応した社労士監修ツールです。"
+>
+
+  <link slot="head" rel="stylesheet" href="/tools/yukyu-fuyo/styles.css" />
+
+  <!-- ヒーローセクション -->
+  <section class="bg-gradient-to-br from-primary-800 to-primary-600 text-white py-16 px-4">
+    <div class="max-w-5xl mx-auto text-center">
+      <p class="text-primary-200 text-sm font-medium tracking-widest uppercase mb-3">Free Tools</p>
+      <h1 class="text-4xl font-bold">有給休暇付与確認ツール</h1>
+      <p class="mt-4 text-primary-100 max-w-xl mx-auto">
+        会社の付与ルール・入社日・働き方を入力するだけで、<br />
+        初回付与日・以降の付与日・比例付与日数を自動計算します。
+      </p>
+    </div>
+  </section>
+
+  <!-- ツール本体 -->
+  <div class="page-shell">
+
+    <section class="pattern-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">1. 付与パターンの選択</p>
+          <h2>有給休暇付与パターンを選択してください</h2>
+        </div>
+        <p>該当する会社ルールを選ぶと、下の判定結果に反映されます。</p>
+      </div>
+      <div class="matrix-legend" aria-label="表の凡例">
+        <span><i class="legend-before"></i>入社前</span>
+        <span><i class="legend-individual"></i>個別付与</span>
+        <span><i class="legend-fixed"></i>一斉付与</span>
+      </div>
+      <select id="grantPattern" name="grantPattern" class="state-select" aria-hidden="true" tabindex="-1">
+        <option value="anniversary">入社半年後に初回付与、以後は毎年同日</option>
+        <option value="fixedAfterFirst">初回は入社半年後、2回目以降は一斉付与日</option>
+        <option value="fixedWithSixMonthCap">一斉付与。ただし半年を超える場合は入社半年後に初回付与</option>
+        <option value="splitInitial">初回の一部を入社日に前倒し、残りを半年後に付与</option>
+        <option value="splitThenFixed">初回を分割付与、2回目以降は一斉付与日</option>
+        <option value="hireDate">初回も含め毎年入社日に付与</option>
+        <option value="hireDateThenFixed">初回は入社日、2回目以降は一斉付与日</option>
+        <option value="semiAnnual">上半期・下半期で付与日を分ける</option>
+      </select>
+      <div class="pattern-grid" id="patternCards" role="radiogroup" aria-label="会社の付与パターン"></div>
+    </section>
+
+    <section class="tool-section" aria-label="有給休暇付与判定">
+      <form class="control-panel" id="paidLeaveForm">
+        <fieldset class="condition-panel">
+          <legend>2. 入社日と働き方を入力してください</legend>
+          <div class="condition-grid">
+            <label class="field">
+              <span>入社日</span>
+              <input id="hireDate" name="hireDate" type="date" />
+            </label>
+            <label class="field">
+              <span>雇用区分</span>
+              <select id="workType" name="workType">
+                <option value="regular">通常付与：週5日以上、週30時間以上、または年間217日以上</option>
+                <option value="proportional">比例付与：週30時間未満かつ週4日以下</option>
+              </select>
+            </label>
+            <div class="two-columns proportional-only">
+              <label class="field">
+                <span>週所定労働日数</span>
+                <select id="weeklyDays" name="weeklyDays">
+                  <option value="4">週4日</option>
+                  <option value="3">週3日</option>
+                  <option value="2">週2日</option>
+                  <option value="1">週1日</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>週所定労働時間</span>
+                <input id="weeklyHours" name="weeklyHours" type="number" min="0" max="60" step="0.5" value="20" />
+              </label>
+            </div>
+          </div>
+          <button class="primary-button confirm-wide" id="confirmButton" type="button">有給の付与日と日数を確認する</button>
+        </fieldset>
+
+        <fieldset id="fixedSettingsFieldset">
+          <legend>3. 一斉付与日の設定</legend>
+          <p class="fieldset-note">選択した付与ルールに一斉付与が関係する場合だけ使います。</p>
+
+          <div class="two-columns" id="fixedDateFields">
+            <label class="field">
+              <span>一斉付与月</span>
+              <select id="fixedMonth" name="fixedMonth"></select>
+            </label>
+            <label class="field">
+              <span>一斉付与日</span>
+              <input id="fixedDay" name="fixedDay" type="number" min="1" max="31" value="1" />
+            </label>
+          </div>
+
+          <div class="two-columns" id="semiAnnualFields">
+            <label class="field">
+              <span>上半期入社の付与月</span>
+              <select id="firstHalfGrantMonth" name="firstHalfGrantMonth"></select>
+            </label>
+            <label class="field">
+              <span>下半期入社の付与月</span>
+              <select id="secondHalfGrantMonth" name="secondHalfGrantMonth"></select>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="split-only">
+          <legend>3. 分割付与の設定</legend>
+          <div class="two-columns">
+            <label class="field">
+              <span>入社日に前倒しする日数</span>
+              <input id="splitDays" name="splitDays" type="number" min="1" max="10" value="5" />
+            </label>
+            <label class="field">
+              <span>初回付与の総日数</span>
+              <input id="initialTotalDays" name="initialTotalDays" type="number" min="1" max="20" value="10" />
+            </label>
+          </div>
+        </fieldset>
+      </form>
+
+      <aside class="result-panel is-hidden" id="resultPanel" aria-live="polite">
+        <div class="preview-heading">
+          <p class="eyebrow">PDF用プレビュー</p>
+          <h2>この内容が印刷・PDF保存されます</h2>
+        </div>
+        <div class="person-schedule" id="personSchedule"></div>
+      </aside>
+
+      <form class="print-panel is-hidden" id="printPanel">
+        <fieldset>
+          <legend>4. 有給付与日数を印刷する</legend>
+          <label class="field">
+            <span>従業員名</span>
+            <input id="employeeName" name="employeeName" type="text" placeholder="例：山田 太郎" />
+          </label>
+          <label class="field">
+            <span>会社名</span>
+            <input id="companyName" name="companyName" type="text" placeholder="例：株式会社サンプル" />
+          </label>
+          <div class="option-group" role="group" aria-label="有給休暇の取得単位">
+            <label><input id="halfDayLeave" type="checkbox" /> 半日有休あり</label>
+            <label><input id="hourlyLeave" type="checkbox" /> 時間単位有休あり</label>
+          </div>
+        </fieldset>
+        <button class="print-button" id="printButton" type="button" disabled>このプレビューを印刷 / PDF保存</button>
+      </form>
+    </section>
+
+    <section class="reference-section">
+      <div>
+        <h2>参考：比例付与日数表</h2>
+        <p>
+          週30時間未満かつ週4日以下など、所定労働日数が少ない従業員は比例付与で計算します。
+        </p>
+      </div>
+      <div class="table-wrap compact">
+        <table>
+          <thead>
+            <tr>
+              <th>週所定日数</th>
+              <th>年間所定日数</th>
+              <th>0.5年</th>
+              <th>1.5年</th>
+              <th>2.5年</th>
+              <th>3.5年</th>
+              <th>4.5年</th>
+              <th>5.5年</th>
+              <th>6.5年以上</th>
+            </tr>
+          </thead>
+          <tbody id="proportionalRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>
+      <p>
+        出典確認：freee勤怠管理Plusの設定例、厚生労働省「年次有給休暇」FAQの法定付与日数表をもとにした簡易判定です。
+        実運用では就業規則、出勤率8割要件、労使協定、個別の雇用契約を確認してください。
+      </p>
+    </footer>
+
+  </div>
+
+  <script is:inline src="/tools/yukyu-fuyo/app.js"></script>
+
+</Layout>
