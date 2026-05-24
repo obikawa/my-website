@@ -142,7 +142,16 @@ import Layout from '../../layouts/Layout.astro';
       </div>
 
       <!-- ③ 結果 -->
-      <div class="card">
+      <div class="card" id="wsResultCard">
+        <!-- 印刷用ヘッダー（画面では非表示、印刷時のみ表示） -->
+        <div class="ws-print-header" id="wsSimPrintHeader" aria-hidden="true">
+          <div class="ws-ph-top">
+            <div class="ws-ph-company" id="wsPhCompany"></div>
+            <div class="ws-ph-recipient"><span id="wsPhEmployee">________________</span> 様</div>
+          </div>
+          <h2 class="ws-ph-title">産後パパ育休 賃金シミュレーション結果</h2>
+          <div class="ws-ph-meta" id="wsPhMeta"></div>
+        </div>
         <h2>③ シミュレーション結果</h2>
         <div id="capWarning" class="note cap-warn" style="display:none"><div class="note-title">⚠ 育児休業給付金の上限に該当</div><div id="capWarningMsg"></div></div>
         <div class="comparison-grid">
@@ -164,6 +173,25 @@ import Layout from '../../layouts/Layout.astro';
           <li>住民税は育休中も免除なし</li>
         </ul>
         <p style="font-size:11px;color:var(--ws-text-sub);margin-top:20px">※ 簡易計算です。実際の支給額は会社規程・ハローワーク審査により異なります。</p>
+
+        <!-- 印刷パネル（画面表示用） -->
+        <div class="ws-print-info-panel">
+          <div class="ws-pip-title">📄 シミュレーション結果を印刷 / PDF保存</div>
+          <p class="ws-pip-note">従業員名・会社名を入力すると印刷物に反映されます。</p>
+          <div class="form-grid" style="margin-bottom:16px;">
+            <div class="field">
+              <label>従業員名（印刷用）</label>
+              <input type="text" id="wsEmployeeName" placeholder="例：山田 太郎">
+            </div>
+            <div class="field">
+              <label>会社名（印刷用）</label>
+              <input type="text" id="wsCompanyName" placeholder="例：株式会社サンプル">
+            </div>
+          </div>
+          <button type="button" id="wsResultPrintBtn" class="ws-print-btn">
+            🖨 この結果を印刷 / PDF保存
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -335,6 +363,188 @@ import Layout from '../../layouts/Layout.astro';
     .wage-sim-root .card { padding: 20px; }
     .wage-sim-root .calendars { grid-template-columns: 1fr; }
     .wage-sim-root .comparison-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== 印刷ヘッダー（画面では非表示） ===== */
+  .wage-sim-root .ws-print-header { display: none; }
+
+  /* ===== 印刷パネル（画面表示用） ===== */
+  .wage-sim-root .ws-print-info-panel {
+    margin-top: 28px;
+    padding: 20px 22px;
+    background: var(--ws-primary-soft);
+    border-radius: 8px;
+    border: 1px solid #c5d8f5;
+  }
+  .wage-sim-root .ws-pip-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ws-primary);
+    margin-bottom: 6px;
+  }
+  .wage-sim-root .ws-pip-note {
+    font-size: 12px;
+    color: var(--ws-text-sub);
+    margin: 0 0 14px;
+  }
+  .wage-sim-root .ws-print-btn {
+    display: block;
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    background: var(--ws-primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background .15s;
+    text-align: center;
+  }
+  .wage-sim-root .ws-print-btn:hover { background: #163c82; }
+
+  /* ===== 印刷スタイル ===== */
+  @media print {
+    @page { size: A4 portrait; margin: 15mm; }
+
+    /* サイト共通のナビ・フッターを非表示 */
+    nav, footer { display: none !important; }
+    body { background: #fff !important; }
+
+    /* ツール全体のスタイルをリセット */
+    .wage-sim-root { background: #fff !important; font-size: 11pt; }
+    .wage-sim-root .container { padding: 0 !important; max-width: 100% !important; }
+
+    /* 入力カード（①・①-b・②）を非表示 */
+    .wage-sim-root .page-header { display: none !important; }
+    .wage-sim-root .card { display: none !important; }
+
+    /* 結果カード（③）のみ表示 */
+    .wage-sim-root #wsResultCard {
+      display: block !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    /* 結果カードの「③ シミュレーション結果」見出しを非表示（印刷ヘッダーで代替） */
+    .wage-sim-root #wsResultCard > h2:first-of-type { display: none !important; }
+
+    /* 印刷用ヘッダーを表示 */
+    .wage-sim-root .ws-print-header {
+      display: block !important;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--ws-primary);
+    }
+    .wage-sim-root .ws-ph-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 6px;
+    }
+    .wage-sim-root .ws-ph-company {
+      font-size: 12pt;
+      font-weight: 700;
+      color: var(--ws-primary);
+    }
+    .wage-sim-root .ws-ph-recipient {
+      font-size: 15pt;
+      font-weight: 900;
+    }
+    .wage-sim-root .ws-ph-recipient span {
+      display: inline-block;
+      min-width: 180px;
+      padding-bottom: 2px;
+      border-bottom: 2px solid var(--ws-text);
+    }
+    .wage-sim-root .ws-ph-title {
+      font-size: 17pt;
+      font-weight: 900;
+      margin: 4px 0 6px;
+      color: var(--ws-primary);
+      border-bottom: none !important;
+      display: block !important;
+      padding: 0 !important;
+    }
+    .wage-sim-root .ws-ph-meta {
+      font-size: 9pt;
+      color: var(--ws-text-sub);
+    }
+
+    /* 画面専用要素を非表示 */
+    .wage-sim-root .ws-print-info-panel { display: none !important; }
+
+    /* 上限警告 */
+    .wage-sim-root #capWarning {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* 比較グリッドを3列固定 */
+    .wage-sim-root .comparison-grid {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 8px !important;
+      margin-top: 12px !important;
+    }
+    .wage-sim-root .comp-card {
+      padding: 10px !important;
+      break-inside: avoid;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .wage-sim-root .comp-card.current { border-top: 4px solid var(--ws-text-sub) !important; }
+    .wage-sim-root .comp-card.month1 { border-top: 4px solid var(--ws-primary) !important; background: #fafcff !important; }
+    .wage-sim-root .comp-card.month2 { border-top: 4px solid var(--ws-accent) !important; background: #fffcf5 !important; }
+    .wage-sim-root .comp-card .comp-title { font-size: 9pt !important; }
+    .wage-sim-root .comp-card .comp-subtitle { font-size: 8pt !important; }
+    .wage-sim-root .comp-card .comp-amount { font-size: 15pt !important; }
+    .wage-sim-root .comp-card .comp-diff { font-size: 9pt !important; padding: 2px 6px !important; }
+    .wage-sim-root .comp-card .breakdown { font-size: 9pt !important; }
+    .wage-sim-root .comp-card .breakdown .bk-row { padding: 2px 0 !important; }
+    .wage-sim-root .comp-card.month1 .comp-amount { color: var(--ws-primary) !important; }
+    .wage-sim-root .comp-card.month2 .comp-amount { color: #c97a00 !important; }
+    .wage-sim-root .comp-diff.up { background: var(--ws-success-soft) !important; color: var(--ws-success) !important; }
+    .wage-sim-root .comp-diff.down { background: #fde8e8 !important; color: var(--ws-danger) !important; }
+    .wage-sim-root .bk-row.exempt { color: var(--ws-success) !important; }
+
+    /* ハイライトボックス */
+    .wage-sim-root .highlight-box {
+      padding: 12px !important;
+      margin-top: 10px !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      background: linear-gradient(135deg, #fef5e6, #fff9f0) !important;
+      border: 2px solid var(--ws-accent) !important;
+    }
+    .wage-sim-root .highlight-box .hl-amount { font-size: 20pt !important; }
+    .wage-sim-root .highlight-box .hl-title { font-size: 9pt !important; }
+    .wage-sim-root .highlight-box .hl-desc { font-size: 9pt !important; }
+
+    /* ポイントノート */
+    .wage-sim-root .note {
+      padding: 8px 12px !important;
+      margin-top: 10px !important;
+      font-size: 9pt !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      background: var(--ws-accent-soft) !important;
+      border-left: 4px solid var(--ws-accent) !important;
+    }
+    .wage-sim-root .note .note-title { font-size: 9pt !important; }
+
+    /* 前提条件 */
+    .wage-sim-root #wsResultCard h3 { font-size: 10pt !important; margin: 10px 0 6px !important; }
+    .wage-sim-root .assumptions { font-size: 8.5pt !important; line-height: 1.6 !important; }
+    .wage-sim-root .assumptions li { margin-bottom: 2px !important; }
+
+    /* 免責文 */
+    .wage-sim-root #wsResultCard > p:last-of-type { font-size: 8pt !important; margin-top: 8px !important; }
   }
 </style>
 
@@ -683,5 +893,26 @@ $('holidayOff').addEventListener('change',()=>{renderHolCalendars();renderCalend
 // 初期化
 autoCalcFromSalary();
 renderHolCalendars();renderCalendars();updateAll();
+
+/* ===== 印刷ボタン ===== */
+$('wsResultPrintBtn').addEventListener('click', function() {
+  const emp = ($('wsEmployeeName').value || '').trim();
+  const co = ($('wsCompanyName').value || '').trim();
+  const base = +$('baseSalary').value || 0;
+  const m1 = currentMonth1, m2 = getMonth2();
+  const tot = period1[1].length + period1[2].length + period2[1].length + period2[2].length;
+  const fmtM = m => `${m.getFullYear()}年${m.getMonth()+1}月`;
+
+  // 印刷用ヘッダーに値をセット
+  $('wsPhEmployee').textContent = emp || '________________';
+  $('wsPhCompany').textContent = co;
+  $('wsPhMeta').textContent =
+    `月給 ${base.toLocaleString()}円 ／ `
+    + (tot > 0
+        ? `育休期間：${fmtM(m1)}〜${fmtM(m2)}（計${tot}日）`
+        : '育休期間：未選択');
+
+  window.print();
+});
 })();
 </script>
