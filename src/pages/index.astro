@@ -3,8 +3,8 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout
-  title="名古屋の社労士｜男性育休・就業規則・DX支援"
-  description="名古屋を中心に中小企業の働き方改革を支援する社労士事務所。男性育休の導入支援、就業規則の見直し、DX・AIによる業務改善まで一貫してサポートします。"
+  title="名古屋の社労士｜本業は人間が、あとはAIに任せる"
+  description="名古屋の社労士事務所。本業は、人間が。あとは、AIに任せる。AIは使うものじゃなく、仕事をさせるもの。小さな専門家AIと小さな専門家アプリの2本立てで、中小企業が本業に専念できる仕組みをつくります。"
 >
 
   <!-- ===== HERO ===== -->
@@ -39,11 +39,10 @@ import Layout from '../layouts/Layout.astro';
         </div>
 
         <!-- Main heading -->
-        <h1 class="hero-line-2 font-display font-bold text-white leading-[1.2] mb-6"
-            style="font-size: clamp(3.2rem, 7vw, 5.5rem);">
-          休める会社が、<br/>
-          <em class="not-italic text-accent-400">選ばれる</em><br/>
-          会社になる。
+        <h1 class="hero-line-2 font-display font-bold text-white leading-[1.25] mb-6"
+            style="font-size: clamp(2.4rem, 5.5vw, 4.2rem);">
+          本業は、人間が。<br/>
+          あとは、<em class="not-italic text-accent-400">AIに仕事を任せる</em>。
         </h1>
 
         <!-- Gold rule -->
@@ -51,8 +50,8 @@ import Layout from '../layouts/Layout.astro';
 
         <!-- Body text -->
         <p class="hero-line-3 text-primary-200 text-xl leading-loose mb-10 max-w-xl">
-          就業規則の見直しから、DX・AI活用まで。<br/>
-          中小企業の採用力・定着率アップを一貫してサポートします。
+          AIは「使う」ものじゃない。「仕事をさせる」もの。<br/>
+          本当にやりたい仕事に専念できるよう、ノンコア業務は小さな専門家が引き受けます。
         </p>
 
         <!-- CTAs -->
@@ -98,10 +97,10 @@ import Layout from '../layouts/Layout.astro';
 
       <div class="grid gap-3 max-w-3xl">
         {[
-          '男性育休を取りやすい会社にしたいが、何から始めればいいかわからない',
-          '就業規則が古く、実態に合っていない',
-          '人手不足で業務が回らない',
-          'DXやAIに興味はあるが、具体的にどう進めればよいかわからない',
+          '雑務に追われて、本来やりたい本業に集中できない',
+          'AIに興味はあるが、自社の何を任せればいいかわからない',
+          '制度は作ったものの、現場で運用が回っていない',
+          '人を増やす余裕はないのに、こなすべき作業は増える一方',
         ].map((problem, i) => (
           <div class="group flex items-center gap-6 bg-white border border-warm-200 px-7 py-5 hover:border-accent-300 hover:shadow-sm transition-all duration-200 cursor-default">
             <span class="font-display text-3xl font-bold text-warm-200 group-hover:text-accent-300 transition-colors duration-200 shrink-0 select-none w-10">
@@ -118,7 +117,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="mt-12 flex items-center gap-4">
         <div class="w-8 h-px bg-accent-500"></div>
         <p class="font-display text-lg text-primary-800 font-semibold">
-          その課題、制度設計と業務改善の両面から解決できます。
+          その作業、小さな専門家に任せて、本業に専念しませんか。
         </p>
       </div>
 
@@ -141,24 +140,24 @@ import Layout from '../layouts/Layout.astro';
       <div class="divide-y divide-primary-800">
         {[
           {
-            icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
-            title: '男性育休支援に強い社労士',
-            desc: '育児・介護休業法に対応した制度設計だけでなく、実際に取得しやすい運用まで支援します。助成金活用も含めてトータルにサポートします。',
+            icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2h-2',
+            title: 'AIとアプリの使い分けで自動化',
+            desc: '判断はAIに、定型作業はアプリに。「小さな専門家AI」と「小さな専門家アプリ」を使い分け、本業以外の仕事を引き受けます。大がかりな導入は不要、現場ですぐ使える形でお届けします。',
           },
           {
             icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
-            title: '就業規則の専門家',
-            desc: 'リスク回避だけでなく、「働きやすさ」と「企業成長」を両立する規程を設計します。法改正対応から多様な働き方の導入まで対応します。',
+            title: '制度設計の専門家',
+            desc: 'リスク回避だけでなく、「働きやすさ」と「企業成長」を両立する制度を設計します。男性育休・就業規則・法改正対応までトータルに支援します。',
           },
           {
-            icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2h-2',
-            title: 'DX・AIによる業務改善支援',
-            desc: 'RPAやAIを活用し、業務の効率化・属人化解消・生産性向上を実現します。社労士視点で「何を自動化すべきか」から一緒に考えます。',
+            icon: 'M13 10V3L4 14h7v7l9-11h-7z',
+            title: '社内SE出身 ／ RPAで年間1,200時間削減',
+            desc: 'メディア企業の社内SEとしてRPAを導入し、年間1,200時間の業務削減を実現。「何を自動化すべきか」を現場目線で見極めます。',
           },
           {
             icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
-            title: '行政事業での支援実績',
-            desc: '働き方改革推進支援センターや自治体事業を通じて、多数の中小企業を支援しています。公的機関との連携実績が信頼の証です。',
+            title: '愛知働き方改革推進支援センター実績',
+            desc: '愛知働き方改革推進支援センターの専門家として、多数の中小企業を支援。公的機関との連携実績が、確かな信頼の証です。',
           },
         ].map((s, i) => (
           <div class="group py-9 grid grid-cols-[3rem_1fr] sm:grid-cols-[4rem_auto_1fr] gap-x-6 gap-y-2 items-start">
@@ -199,6 +198,30 @@ import Layout from '../layouts/Layout.astro';
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
         <!-- Service 1 -->
+        <a href="/ai-expert/" class="group bg-white border border-warm-200 hover:border-accent-300 hover:shadow-md transition-all duration-200 flex flex-col overflow-hidden">
+          <div class="h-1 bg-accent-500"></div>
+          <div class="px-7 py-7 flex-1 flex flex-col">
+            <div class="w-10 h-10 bg-accent-50 flex items-center justify-center mb-5">
+              <svg class="w-5 h-5 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h3 class="font-bold text-primary-900 text-xl mb-4">小さな専門家（AI＋アプリ）</h3>
+            <ul class="space-y-2.5 mb-6 flex-1">
+              {['判断・対応を任せる「専門家AI」', '定型作業をこなす「専門家アプリ」', '現場ですぐ使える形で提供'].map((item) => (
+                <li class="flex items-center gap-2.5 text-base text-primary-700">
+                  <span class="w-1 h-4 bg-accent-400 shrink-0"></span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p class="text-xs text-accent-600 font-semibold pt-4 border-t border-warm-200 mt-auto">
+              本業に専念できる仕組みをつくります →
+            </p>
+          </div>
+        </a>
+
+        <!-- Service 2 -->
         <div class="group bg-white border border-warm-200 hover:border-accent-300 hover:shadow-md transition-all duration-200 flex flex-col overflow-hidden">
           <div class="h-1 bg-pink-500"></div>
           <div class="px-7 py-7 flex-1 flex flex-col">
@@ -207,7 +230,7 @@ import Layout from '../layouts/Layout.astro';
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
             </div>
-            <h3 class="font-bold text-primary-900 text-xl mb-4">男性育休導入支援</h3>
+            <h3 class="font-bold text-primary-900 text-xl mb-4">男性育休・両立支援</h3>
             <ul class="space-y-2.5 mb-6 flex-1">
               {['制度設計（就業規則改定）', '社内説明・面談支援', '助成金活用サポート'].map((item) => (
                 <li class="flex items-center gap-2.5 text-base text-primary-700">
@@ -222,7 +245,7 @@ import Layout from '../layouts/Layout.astro';
           </div>
         </div>
 
-        <!-- Service 2 -->
+        <!-- Service 3 -->
         <div class="group bg-white border border-warm-200 hover:border-accent-300 hover:shadow-md transition-all duration-200 flex flex-col overflow-hidden">
           <div class="h-1 bg-primary-700"></div>
           <div class="px-7 py-7 flex-1 flex flex-col">
@@ -231,9 +254,9 @@ import Layout from '../layouts/Layout.astro';
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
-            <h3 class="font-bold text-primary-900 text-xl mb-4">就業規則・制度設計</h3>
+            <h3 class="font-bold text-primary-900 text-xl mb-4">就業規則・働き方改革</h3>
             <ul class="space-y-2.5 mb-6 flex-1">
-              {['両立支援（育児・治療）', '多様な働き方（短時間正社員・週休3日など）', '法改正対応'].map((item) => (
+              {['多様な働き方（短時間正社員・週休3日など）', '両立支援（育児・治療）', '法改正対応'].map((item) => (
                 <li class="flex items-center gap-2.5 text-base text-primary-700">
                   <span class="w-1 h-4 bg-primary-400 shrink-0"></span>
                   {item}
@@ -242,30 +265,6 @@ import Layout from '../layouts/Layout.astro';
             </ul>
             <p class="text-xs text-primary-600 font-semibold pt-4 border-t border-warm-200 mt-auto">
               リスク回避＋働きやすさを両立
-            </p>
-          </div>
-        </div>
-
-        <!-- Service 3 -->
-        <div class="group bg-white border border-warm-200 hover:border-accent-300 hover:shadow-md transition-all duration-200 flex flex-col overflow-hidden">
-          <div class="h-1 bg-accent-500"></div>
-          <div class="px-7 py-7 flex-1 flex flex-col">
-            <div class="w-10 h-10 bg-accent-50 flex items-center justify-center mb-5">
-              <svg class="w-5 h-5 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <h3 class="font-bold text-primary-900 text-xl mb-4">DX・業務改善支援</h3>
-            <ul class="space-y-2.5 mb-6 flex-1">
-              {['業務の見える化', 'RPA・AI導入支援', '業務フロー改善'].map((item) => (
-                <li class="flex items-center gap-2.5 text-base text-primary-700">
-                  <span class="w-1 h-4 bg-accent-400 shrink-0"></span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <p class="text-xs text-accent-600 font-semibold pt-4 border-t border-warm-200 mt-auto">
-              人手不足でも回る仕組みづくり
             </p>
           </div>
         </div>
@@ -285,8 +284,82 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
 
-  <!-- ===== お役立ちツール ===== -->
+  <!-- ===== 小さな専門家ができること（before/after） ===== -->
   <section class="py-24 px-4 bg-white">
+    <div class="max-w-5xl mx-auto">
+
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Before &amp; After</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">
+          本業以外は、<br/>小さな専門家に任せる。
+        </h2>
+        <p class="mt-3 text-primary-500 text-base">任せたぶんだけ、本業に専念できる。</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {[
+          {
+            title: '毎月の集計・転記作業',
+            kind: 'アプリ',
+            before: 'Excelに手入力で何時間もかかり、転記ミスも起きる',
+            after: '専用アプリが自動集計。数分で正確に完了',
+          },
+          {
+            title: '制度・要件の都度確認',
+            kind: 'アプリ',
+            before: '法令や社内ルールを毎回調べ直して時間を浪費',
+            after: '専用アプリに入力するだけで、その場で判定',
+          },
+          {
+            title: '書類作成・文章づくり',
+            kind: 'AI',
+            before: 'ひな形を探し、手作業で作っては見直しの繰り返し',
+            after: '要点を伝えるだけで、AIが整った文章を作成',
+          },
+          {
+            title: '問い合わせ対応',
+            kind: 'AI',
+            before: '同じ質問に何度も対応し、本業が止まる',
+            after: 'よくある質問はAIが一次対応。判断だけに集中',
+          },
+        ].map((c) => (
+          <div class="bg-warm-50 border border-warm-200 p-7 hover:border-accent-300 hover:shadow-sm transition-all duration-200">
+            <div class="flex items-center gap-3 mb-5">
+              <h3 class="font-bold text-primary-900 text-lg">{c.title}</h3>
+              <span class="text-[11px] font-semibold text-primary-600 bg-primary-50 border border-primary-100 px-2 py-0.5 shrink-0">専門家{c.kind}</span>
+            </div>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <span class="text-xs font-semibold text-primary-400 border border-warm-300 px-2 py-0.5 shrink-0 mt-0.5">Before</span>
+                <p class="text-base text-primary-500 leading-relaxed">{c.before}</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-xs font-semibold text-white bg-accent-500 px-2 py-0.5 shrink-0 mt-0.5">After</span>
+                <p class="text-base text-primary-800 font-medium leading-relaxed">{c.after}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-10">
+        <a href="/ai-expert/" class="inline-flex items-center gap-2 text-base font-semibold text-primary-700 hover:text-accent-600 transition-colors group">
+          小さな専門家について詳しく見る
+          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ===== お役立ちツール ===== -->
+  <section class="py-24 px-4 bg-warm-50">
     <div class="max-w-5xl mx-auto">
 
       <div class="mb-14">
@@ -294,8 +367,8 @@ import Layout from '../layouts/Layout.astro';
           <div class="w-6 h-px bg-accent-500"></div>
           <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Free Tools</p>
         </div>
-        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">お役立ちツール</h2>
-        <p class="mt-3 text-primary-500 text-base">社労士が監修した無料シミュレーションツールです</p>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">小さな専門家アプリ</h2>
+        <p class="mt-3 text-primary-500 text-base">社労士が監修した、無料で使える「小さな専門家アプリ」たち。定型作業はこれに任せて、本業に専念しましょう。</p>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -374,7 +447,7 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- ===== プロフィール ===== -->
-  <section class="py-24 px-4 bg-warm-50">
+  <section class="py-24 px-4 bg-white">
     <div class="max-w-5xl mx-auto">
 
       <div class="mb-14">
@@ -434,7 +507,7 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- ===== セミナー・研修実績 ===== -->
-  <section class="py-24 px-4 bg-white">
+  <section class="py-24 px-4 bg-warm-50">
     <div class="max-w-5xl mx-auto">
 
       <div class="mb-14">
@@ -489,7 +562,7 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- ===== ご相談の流れ ===== -->
-  <section class="py-24 px-4 bg-warm-50">
+  <section class="py-24 px-4 bg-white">
     <div class="max-w-5xl mx-auto">
 
       <div class="mb-14">

@@ -29,6 +29,12 @@ const overtime36Rows = [
   { name: '過半数代表選出',         fee: '33,000円～' },
 ];
 
+const appRows = [
+  { name: 'アプリ初期構築費（標準2人日）',           fee: '110,000円～／本' },
+  { name: '月額保守・運用費（法改正対応・改修込み）', fee: '22,000円～33,000円／月・本' },
+  { name: 'カスタマイズ・大規模な追加要件',           fee: '人日 55,000円で別途お見積り' },
+];
+
 const procedureRows = [
   { category: '入退社時',       detail: '入社・退社の社会保険・雇用保険手続き、離職票作成', fee: '5,500円/件',  note: '入社と退社それぞれ個別にカウント' },
   { category: '扶養に関する手続き', detail: '健康保険被扶養者（追加・削除）手続き',        fee: '5,500円/件',  note: '家族1名ごとに1件' },
@@ -313,6 +319,49 @@ const procedureRows = [
       </div>
 
       <p class="text-xs text-gray-500">※ その他の対応については、都度お見積りさせていただきます</p>
+    </section>
+
+    <hr class="border-gray-100" />
+
+    <!-- ===== セクション6：小さな専門家アプリ ===== -->
+    <section>
+      <div class="flex items-center gap-3 mb-2">
+        <div class="w-10 h-10 bg-teal-50 rounded-xl flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-900">小さな専門家AI・アプリ（業務改善・自動化）</h2>
+      </div>
+      <p class="text-sm text-gray-500 mb-6">顧問契約A・Bのお客様向け</p>
+
+      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mb-4">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="bg-gray-50 border-b border-gray-100">
+                <th class="text-left px-5 py-3.5 font-semibold text-gray-600 w-3/5">業務内容</th>
+                <th class="text-right px-5 py-3.5 font-semibold text-gray-600">料金</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+              {appRows.map((row, i) => (
+                <tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
+                  <td class="px-5 py-4 font-medium text-gray-800">{row.name}</td>
+                  <td class="px-5 py-4 text-right font-semibold text-teal-700">{row.fee}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="bg-teal-50 border border-teal-100 rounded-xl px-5 py-4 text-sm text-gray-700 space-y-1.5">
+        <p class="flex items-start gap-2"><span class="text-teal-500 mt-0.5 shrink-0">•</span>判断・対応は「小さな専門家AI」に、定型作業は「小さな専門家アプリ」に。業務に合わせてAIとアプリを最適に組み合わせてご提案します</p>
+        <p class="flex items-start gap-2"><span class="text-teal-500 mt-0.5 shrink-0">•</span>発注書管理（フリーランス法対応）、ファイル名変換（電帳法対応）など、業務に合わせた専用アプリを開発します</p>
+        <p class="flex items-start gap-2"><span class="text-teal-500 mt-0.5 shrink-0">•</span>買い切りではなく、法改正対応・不具合修正・軽微な改修を含む月額保守契約をセットでご提供します</p>
+        <p class="flex items-start gap-2"><span class="text-teal-500 mt-0.5 shrink-0">•</span>必要な工数・要件をヒアリングの上、必ず事前にお見積りします</p>
+      </div>
     </section>
 
   </div>

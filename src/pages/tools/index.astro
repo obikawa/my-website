@@ -3,17 +3,17 @@ import Layout from '../../layouts/Layout.astro';
 ---
 
 <Layout
-  title="お役立ちツール"
-  description="おびかわ社労士事務所が提供する無料ツール。最低賃金チェッカー・産後パパ育休 社会保険料免除チェッカー・賃金シミュレーター・有給休暇付与確認ツールをご利用いただけます。"
+  title="小さな専門家アプリ"
+  description="おびかわ社労士事務所の「小さな専門家アプリ」。最低賃金の専門家・パパ育休の専門家・育休手取りの専門家・有給の専門家など、定型作業を任せて本業に専念できる無料ツールをご利用いただけます。"
 >
 
   <section class="bg-gradient-to-br from-primary-800 to-primary-600 text-white py-16 px-4">
     <div class="max-w-5xl mx-auto text-center">
       <p class="text-primary-200 text-sm font-medium tracking-widest uppercase mb-3">Free Tools</p>
-      <h1 class="text-4xl font-bold">お役立ちツール</h1>
+      <h1 class="text-4xl font-bold">小さな専門家アプリ</h1>
       <p class="mt-4 text-primary-100 max-w-xl mx-auto">
-        社労士が監修した無料シミュレーションツールです。<br />
-        日々の実務や制度確認にご活用ください。
+        社労士が監修した、無料で使える「小さな専門家アプリ」たち。<br />
+        計算・判定・集計といった定型作業を任せて、本業に専念しましょう。
       </p>
     </div>
   </section>
@@ -24,6 +24,7 @@ import Layout from '../../layouts/Layout.astro';
 
         <a href="/minimum-wage" class="group bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col">
           <div class="w-12 h-12 bg-primary-50 rounded-xl flex items-center justify-center mb-4 text-2xl">💰</div>
+          <p class="text-xs font-semibold text-primary-600 mb-1">最低賃金の専門家</p>
           <h2 class="text-lg font-bold text-gray-900 mb-2">最低賃金チェッカー</h2>
           <p class="text-sm text-gray-600 leading-relaxed flex-1">
             月給・日給・歩合給を時間額に換算し、都道府県の最低賃金をクリアしているか判定します。令和7年度の発効日付きデータに対応。
@@ -33,6 +34,7 @@ import Layout from '../../layouts/Layout.astro';
 
         <a href="/tools/papa-ikukyu/" class="group bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col">
           <div class="w-12 h-12 bg-pink-50 rounded-xl flex items-center justify-center mb-4 text-2xl">👶</div>
+          <p class="text-xs font-semibold text-pink-600 mb-1">パパ育休の専門家</p>
           <h2 class="text-lg font-bold text-gray-900 mb-2">産後パパ育休<br />社会保険料免除チェッカー</h2>
           <p class="text-sm text-gray-600 leading-relaxed flex-1">
             カレンダーで育休期間を選ぶだけで、社会保険料が免除されるか自動判定。2ヶ月分の免除を狙う最適な取り方もわかります。
@@ -42,6 +44,7 @@ import Layout from '../../layouts/Layout.astro';
 
         <a href="/tools/wage-sim/" class="group bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col">
           <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center mb-4 text-2xl">💴</div>
+          <p class="text-xs font-semibold text-purple-600 mb-1">育休手取りの専門家</p>
           <h2 class="text-lg font-bold text-gray-900 mb-2">産後パパ育休<br />賃金シミュレーター</h2>
           <p class="text-sm text-gray-600 leading-relaxed flex-1">
             育休期間を選ぶだけで、育児休業給付金・社会保険料免除を踏まえた2ヶ月分の手取りをシミュレーション。欠勤控除・給付金・源泉所得税まで一括計算。
@@ -51,12 +54,33 @@ import Layout from '../../layouts/Layout.astro';
 
         <a href="/tools/yukyu-fuyo/" class="group bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col">
           <div class="w-12 h-12 bg-primary-50 rounded-xl flex items-center justify-center mb-4 text-2xl">📅</div>
+          <p class="text-xs font-semibold text-primary-600 mb-1">有給の専門家</p>
           <h2 class="text-lg font-bold text-gray-900 mb-2">有給休暇<br />付与確認ツール</h2>
           <p class="text-sm text-gray-600 leading-relaxed flex-1">
             入社日と付与パターンを選ぶだけで、初回・2回目以降の有給付与日と日数を自動計算。8種類の付与ルールに対応し、印刷・PDF保存にも対応。
           </p>
           <span class="mt-5 text-primary-700 text-sm font-semibold group-hover:underline">確認する →</span>
         </a>
+
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col">
+          <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center mb-4 text-2xl">📄</div>
+          <p class="text-xs font-semibold text-amber-600 mb-1">フリーランス法対応の専門家</p>
+          <h2 class="text-lg font-bold text-gray-900 mb-2">発注書管理アプリ</h2>
+          <p class="text-sm text-gray-600 leading-relaxed flex-1">
+            フリーランス法（特定受託事業者取引適正化法）に対応した発注書を作成・管理。記載事項の漏れを防ぎ、取引条件の明示をかんたんに整えます。
+          </p>
+          <span class="mt-5 inline-flex w-fit text-xs font-semibold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">導入支援はお問い合わせください</span>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col">
+          <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center mb-4 text-2xl">🗂️</div>
+          <p class="text-xs font-semibold text-green-700 mb-1">電帳法対応の専門家</p>
+          <h2 class="text-lg font-bold text-gray-900 mb-2">ファイル名変換アプリ</h2>
+          <p class="text-sm text-gray-600 leading-relaxed flex-1">
+            電子帳簿保存法の要件に沿って、取引年月日・取引先・金額をルール化したファイル名へ一括変換。電子取引データの検索性をらくらく確保します。
+          </p>
+          <span class="mt-5 inline-flex w-fit text-xs font-semibold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">導入支援はお問い合わせください</span>
+        </div>
 
       </div>
     </div>

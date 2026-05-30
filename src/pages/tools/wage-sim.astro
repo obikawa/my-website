@@ -155,7 +155,7 @@ import Layout from '../../layouts/Layout.astro';
         <h2>③ シミュレーション結果</h2>
         <div id="capWarning" class="note cap-warn" style="display:none"><div class="note-title">⚠ 育児休業給付金の上限に該当</div><div id="capWarningMsg"></div></div>
         <div class="comparison-grid">
-          <div class="comp-card current"><div class="comp-title">現状（通常月）</div><div class="comp-subtitle">育休を取得しない場合</div><div class="comp-amount" id="amtCurrent">¥0</div><div class="breakdown" id="bdCurrent"></div></div>
+          <div class="comp-card current"><div class="comp-title">現状（通常月）</div><div class="comp-subtitle">育休を取得しない場合</div><div class="comp-amount" id="amtCurrent">¥0</div><div class="comp-diff" style="visibility:hidden" aria-hidden="true">現状比 ±¥0</div><div class="breakdown" id="bdCurrent"></div></div>
           <div class="comp-card month1"><div class="comp-title">育休1ヶ月目</div><div class="comp-subtitle" id="month1Label">—</div><div class="comp-amount" id="amtMonth1">¥0</div><div class="comp-diff" id="diffMonth1">—</div><div class="breakdown" id="bdMonth1"></div></div>
           <div class="comp-card month2"><div class="comp-title">育休2ヶ月目</div><div class="comp-subtitle" id="month2Label">—</div><div class="comp-amount" id="amtMonth2">¥0</div><div class="comp-diff" id="diffMonth2">—</div><div class="breakdown" id="bdMonth2"></div></div>
         </div>

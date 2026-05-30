@@ -1,0 +1,346 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="小さな専門家｜本業は人間が、あとはAIに任せる"
+  description="本業は、人間が。あとは、AIに任せる。AIは使うものじゃなく、仕事をさせるもの。判断は「小さな専門家AI」に、定型作業は「小さな専門家アプリ」に。社内SE出身の社労士が、中小企業が本業に専念できる仕組みをつくります。"
+>
+
+  <!-- ===== 1. ファーストビュー ===== -->
+  <section class="relative bg-primary-900 flex items-center overflow-hidden py-28 lg:py-36">
+
+    <div class="absolute inset-0 opacity-[0.04]">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="ai-grid" width="64" height="64" patternUnits="userSpaceOnUse">
+            <path d="M 64 0 L 0 0 0 64" fill="none" stroke="white" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#ai-grid)"/>
+      </svg>
+    </div>
+
+    <div class="absolute top-0 right-0 h-full w-[45%] opacity-20"
+         style="background: linear-gradient(135deg, transparent 30%, #1e3970 30%);"></div>
+
+    <div class="relative max-w-5xl mx-auto px-6 lg:px-8 w-full">
+      <div class="max-w-2xl">
+        <div class="flex items-center gap-3 mb-8">
+          <div class="w-8 h-px bg-accent-500"></div>
+          <p class="text-accent-400 text-xs font-semibold tracking-[0.3em] uppercase">Small Specialist</p>
+        </div>
+        <h1 class="font-display font-bold text-white leading-[1.25] mb-6"
+            style="font-size: clamp(2.2rem, 5vw, 3.8rem);">
+          本業は、人間が。<br/>
+          あとは、<em class="not-italic text-accent-400">AIに仕事を任せる</em>。
+        </h1>
+        <div class="w-14 h-0.5 bg-accent-500 mb-6"></div>
+        <p class="text-primary-200 text-xl leading-loose mb-10 max-w-xl">
+          AIは「使う」ものじゃない。「仕事をさせる」もの。<br/>
+          判断は「専門家AI」に、定型作業は「専門家アプリ」に任せて、本業に専念しましょう。
+        </p>
+        <a href="/contact"
+           class="inline-flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-400 text-white font-bold px-8 py-4 transition-colors duration-200">
+          無料相談はこちら
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 2. 問題提起 ===== -->
+  <section class="py-24 px-4 bg-warm-50">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Problems</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">
+          その作業、まだ<br/>人がやっていませんか？
+        </h2>
+      </div>
+
+      <div class="grid gap-3 max-w-3xl">
+        {[
+          '雑務に追われて、本来やるべき本業に時間を使えていない',
+          'AIに興味はあるが、自社の何を任せればいいのか想像できない',
+          '同じ手続きや問い合わせ対応を、人が何度もくり返している',
+          '担当者しかできない「属人化した仕事」が増えている',
+        ].map((problem, i) => (
+          <div class="group flex items-center gap-6 bg-white border border-warm-200 px-7 py-5 hover:border-accent-300 hover:shadow-sm transition-all duration-200 cursor-default">
+            <span class="font-display text-3xl font-bold text-warm-200 group-hover:text-accent-300 transition-colors duration-200 shrink-0 select-none w-10">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <p class="text-primary-800 leading-relaxed flex-1">{problem}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-12 flex items-center gap-4">
+        <div class="w-8 h-px bg-accent-500"></div>
+        <p class="font-display text-lg text-primary-800 font-semibold">
+          人を増やさなくても、仕組みで解決できます。
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 3. コンセプト ===== -->
+  <section class="py-24 px-4 bg-primary-900">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-400 text-xs font-semibold tracking-[0.2em] uppercase">Concept</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-white">
+          「小さな専門家」とは
+        </h2>
+      </div>
+
+      <div class="max-w-3xl">
+        <p class="text-primary-200 text-lg leading-loose mb-12">
+          大がかりなシステムを一度に導入するのではなく、<br class="hidden sm:block"/>
+          一つひとつの仕事に合わせた小さな専門家をつくり、本業以外を任せていく。<br class="hidden sm:block"/>
+          その専門家には、<span class="text-white font-semibold">「AI」と「アプリ」の2種類</span>があります。
+        </p>
+      </div>
+
+      <!-- 2分類 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14">
+        <div class="bg-primary-800/40 border border-accent-500/40 p-8">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-xs font-bold text-primary-900 bg-accent-500 px-2.5 py-1">専門家AI</span>
+            <h3 class="font-bold text-white text-xl">判断・対応を任せる</h3>
+          </div>
+          <p class="text-primary-200 text-base leading-relaxed mb-4">
+            その都度の判断や文章づくりなど、人が考えていた仕事をAI自身に任せます。
+          </p>
+          <ul class="space-y-2 text-primary-300 text-base">
+            {['問い合わせの一次対応', '文章作成・たたき台づくり', '資料の要約・整理'].map((item) => (
+              <li class="flex items-center gap-2.5">
+                <span class="w-1 h-4 bg-accent-400 shrink-0"></span>{item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="bg-primary-800/40 border border-primary-700 p-8">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-xs font-bold text-white bg-primary-600 px-2.5 py-1">専門家アプリ</span>
+            <h3 class="font-bold text-white text-xl">定型作業を任せる</h3>
+          </div>
+          <p class="text-primary-200 text-base leading-relaxed mb-4">
+            決まった手順の作業を、確実にこなす専用ツール。アプリもAIで作ります。
+          </p>
+          <ul class="space-y-2 text-primary-300 text-base">
+            {['計算・判定（最低賃金・保険料など）', '集計・転記の自動化', '書類の自動作成'].map((item) => (
+              <li class="flex items-center gap-2.5">
+                <span class="w-1 h-4 bg-primary-500 shrink-0"></span>{item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        {[
+          { title: 'AIとアプリを使い分け', desc: 'AIにこだわらず、仕事の性質に合わせて最適な形を選びます。' },
+          { title: '現場ですぐ使える', desc: '専門知識がなくても、入力するだけで結果が出る形でお届けします。' },
+          { title: '小さく始められる', desc: '一つの仕事から導入でき、効果を確かめながら少しずつ広げられます。' },
+        ].map((c, i) => (
+          <div class="border border-primary-800 p-7">
+            <span class="font-display text-2xl font-bold text-accent-500">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="font-bold text-white text-lg mt-3 mb-2">{c.title}</h3>
+            <p class="text-primary-300 text-base leading-relaxed">{c.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 4. before/after 事例 ===== -->
+  <section class="py-24 px-4 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Before &amp; After</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">
+          本業以外の仕事が、<br/>こう変わります。
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {[
+          {
+            title: '毎月の集計・転記作業',
+            kind: 'アプリ',
+            before: 'Excelに手入力で何時間もかかり、転記ミスも起きる',
+            after: '専用アプリが自動集計。数分で正確に完了',
+          },
+          {
+            title: '制度・要件の都度確認',
+            kind: 'アプリ',
+            before: '法令や社内ルールを毎回調べ直して時間を浪費',
+            after: '専用アプリに入力するだけで、その場で判定',
+          },
+          {
+            title: '書類作成・文章づくり',
+            kind: 'AI',
+            before: 'ひな形を探し、手作業で作っては見直しの繰り返し',
+            after: '要点を伝えるだけで、AIが整った文章を作成',
+          },
+          {
+            title: '問い合わせ対応',
+            kind: 'AI',
+            before: '同じ質問に何度も対応し、本業が止まる',
+            after: 'よくある質問はAIが一次対応。判断だけに集中',
+          },
+        ].map((c) => (
+          <div class="bg-warm-50 border border-warm-200 p-7 hover:border-accent-300 hover:shadow-sm transition-all duration-200">
+            <div class="flex items-center gap-3 mb-5">
+              <h3 class="font-bold text-primary-900 text-lg">{c.title}</h3>
+              <span class="text-[11px] font-semibold text-primary-600 bg-primary-50 border border-primary-100 px-2 py-0.5 shrink-0">専門家{c.kind}</span>
+            </div>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <span class="text-xs font-semibold text-primary-400 border border-warm-300 px-2 py-0.5 shrink-0 mt-0.5">Before</span>
+                <p class="text-base text-primary-500 leading-relaxed">{c.before}</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-xs font-semibold text-white bg-accent-500 px-2 py-0.5 shrink-0 mt-0.5">After</span>
+                <p class="text-base text-primary-800 font-medium leading-relaxed">{c.after}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-10">
+        <a href="/tools/" class="inline-flex items-center gap-2 text-base font-semibold text-primary-700 hover:text-accent-600 transition-colors group">
+          無料で使える「小さな専門家アプリ」を見る
+          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 5. なぜ社労士がAIをやるのか ===== -->
+  <section class="py-24 px-4 bg-warm-50">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Why</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">
+          なぜ、社労士が<br/>AIをやるのか。
+        </h2>
+      </div>
+
+      <div class="max-w-3xl space-y-6 text-lg text-primary-700 leading-loose">
+        <p>
+          メディア企業の社内SEとして、RPAの導入で<span class="font-semibold text-accent-600">年間1,200時間</span>の業務削減を実現してきました。
+        </p>
+        <p class="font-display text-xl font-semibold text-primary-900">
+          「人を増やさなくても、仕組みで解決できる」
+        </p>
+        <p>
+          その確信から、IT × 労務の社労士として開業。<br class="hidden sm:block"/>
+          制度を「作る」だけでなく、現場で実際に回る仕組みまで一緒につくることにこだわっています。
+        </p>
+        <p>
+          労務の専門知識と、自動化の実装力。<br class="hidden sm:block"/>
+          この両方を持つからこそ、「人がやるべき本業」と「AIに任せる仕事」を正しく見極められます。
+        </p>
+        <p class="font-display text-xl font-semibold text-primary-900">
+          AIは「使う」ものじゃない。「仕事をさせる」もの。
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 6. 3ステップの進め方 ===== -->
+  <section class="py-24 px-4 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Flow</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">導入の流れ</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+        {[
+          { step: '01', title: 'めんどくさいを洗い出す', desc: '日々の業務の中で時間を取られている作業をヒアリングします。' },
+          { step: '02', title: '小さな専門家をつくる', desc: '効果が大きい業務から、専用のAIツールを設計・実装します。' },
+          { step: '03', title: '現場で回して広げる', desc: '使いながら改善し、他の業務へ少しずつ展開していきます。' },
+        ].map((flow) => (
+          <div class="flex flex-col items-start">
+            <div class="w-16 h-16 bg-primary-900 border-2 border-accent-500 flex flex-col items-center justify-center mb-5">
+              <span class="text-[10px] font-semibold text-accent-400 leading-none tracking-widest">STEP</span>
+              <span class="font-display text-xl font-bold text-white">{flow.step}</span>
+            </div>
+            <h3 class="font-bold text-primary-900 text-lg mb-2">{flow.title}</h3>
+            <p class="text-base text-primary-600 leading-relaxed">{flow.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 7. CTA ===== -->
+  <section class="py-24 px-4 bg-primary-900 text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.03]">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="ai-cta-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#ai-cta-grid)"/>
+      </svg>
+    </div>
+
+    <div class="relative max-w-3xl mx-auto text-center">
+      <div class="flex items-center justify-center gap-3 mb-6">
+        <div class="w-8 h-px bg-accent-500"></div>
+        <p class="text-accent-400 text-xs font-semibold tracking-[0.3em] uppercase">Free Consultation</p>
+        <div class="w-8 h-px bg-accent-500"></div>
+      </div>
+
+      <h2 class="font-display text-4xl sm:text-5xl font-bold mb-8">
+        本業に、<br/>専念しよう。
+      </h2>
+
+      <p class="text-primary-300 mb-10 text-lg leading-loose">
+        どんな作業に時間を取られているか、お聞かせください。<br/>
+        AIとアプリのどちらに任せられるか、無料でご相談いただけます。
+      </p>
+
+      <a href="/contact"
+         class="inline-flex items-center gap-3 bg-accent-500 hover:bg-accent-400 text-white font-bold px-12 py-4 text-lg transition-colors duration-200">
+        無料相談はこちら
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+</Layout>
