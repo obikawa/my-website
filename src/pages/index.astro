@@ -140,7 +140,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="divide-y divide-primary-800">
         {[
           {
-            icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2h-2',
+            icon: 'M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 7h10v10H7V7zM10 10h4v4h-4v-4z',
             title: 'AIとアプリの使い分けで自動化',
             desc: '判断はAIに、定型作業はアプリに。「小さな専門家AI」と「小さな専門家アプリ」を使い分け、本業以外の仕事を引き受けます。大がかりな導入は不要、現場ですぐ使える形でお届けします。',
           },
@@ -150,9 +150,9 @@ import Layout from '../layouts/Layout.astro';
             desc: 'リスク回避だけでなく、「働きやすさ」と「企業成長」を両立する制度を設計します。男性育休・就業規則・法改正対応までトータルに支援します。',
           },
           {
-            icon: 'M13 10V3L4 14h7v7l9-11h-7z',
-            title: '社内SE出身 ／ RPAで年間1,200時間削減',
-            desc: 'メディア企業の社内SEとしてRPAを導入し、年間1,200時間の業務削減を実現。「何を自動化すべきか」を現場目線で見極めます。',
+            icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15',
+            title: 'RPA導入で年間1,200時間削減の実績',
+            desc: '事業会社の情報システム部門でRPA導入を手がけ、年間1,200時間の業務削減を実現。「何を自動化すべきか」を現場目線で見極めます。',
           },
           {
             icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
@@ -160,13 +160,13 @@ import Layout from '../layouts/Layout.astro';
             desc: '愛知働き方改革推進支援センターの専門家として、多数の中小企業を支援。公的機関との連携実績が、確かな信頼の証です。',
           },
         ].map((s, i) => (
-          <div class="group py-9 grid grid-cols-[3rem_1fr] sm:grid-cols-[4rem_auto_1fr] gap-x-6 gap-y-2 items-start">
-            <span class="font-display text-2xl font-bold text-primary-700 group-hover:text-accent-500 transition-colors duration-300 pt-0.5">
+          <div class="py-9 grid grid-cols-[3rem_1fr] sm:grid-cols-[4rem_auto_1fr] gap-x-6 gap-y-2 items-start">
+            <span class="font-display text-2xl font-bold text-accent-500 pt-0.5">
               {String(i + 1).padStart(2, '0')}
             </span>
             <div class="sm:w-40 shrink-0">
-              <div class="w-10 h-10 border border-primary-700 group-hover:border-accent-500 flex items-center justify-center transition-colors duration-300">
-                <svg class="w-5 h-5 text-primary-400 group-hover:text-accent-400 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div class="w-11 h-11 bg-accent-500/10 border border-accent-500/60 flex items-center justify-center">
+                <svg class="w-6 h-6 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={s.icon} />
                 </svg>
               </div>
@@ -485,11 +485,11 @@ import Layout from '../layouts/Layout.astro';
             </div>
 
             <div class="space-y-3 text-base text-primary-700 leading-relaxed">
-              <p>メディア企業の社内SEとして、RPAの導入で年間1200時間の業務削減を実現。</p>
+              <p>AIを駆使して、その会社だけの「小さな専門家」をつくるのが得意な社労士です。かつて事業会社でRPA導入を手がけ、年間1,200時間の業務削減を実現した実装経験があります。</p>
               <p class="font-display text-base font-semibold text-accent-600">
                 「人を増やさなくても、仕組みで解決できる」
               </p>
-              <p>その確信から、IT×労務の社労士として開業。制度を作るだけでなく、現場で実際に回る仕組みまで一緒に作ることにこだわっています。</p>
+              <p>労務の専門家として、男性育休の取得支援・仕事と家庭の両立支援・就業規則の整備も得意分野。制度を「作る」だけでなく、AIとアプリで現場が実際に回る仕組みまで一緒につくることにこだわっています。</p>
             </div>
 
             <div class="mt-5 flex items-center gap-2 text-xs text-primary-400">
