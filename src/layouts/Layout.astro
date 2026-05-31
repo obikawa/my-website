@@ -47,7 +47,8 @@ const navLinks = [
           <a href="/" class="flex items-center">
             <img src="/logo.png" alt="おびかわ社労士事務所" class="h-10 w-auto object-contain" />
           </a>
-          <div class="flex items-center gap-0.5 sm:gap-1">
+          <!-- Desktop menu -->
+          <div class="hidden md:flex items-center gap-0.5 sm:gap-1">
             {navLinks.map(({ href, label }) => {
               const isActive = href === '/' ? pathname === '/' : pathname.startsWith(href);
               const isContact = href === '/contact';
@@ -75,9 +76,73 @@ const navLinks = [
               );
             })}
           </div>
+
+          <!-- Mobile hamburger button -->
+          <button
+            id="navToggle"
+            type="button"
+            aria-label="メニューを開く"
+            aria-expanded="false"
+            aria-controls="mobileMenu"
+            class="md:hidden inline-flex items-center justify-center w-10 h-10 text-primary-700 hover:text-primary-900"
+          >
+            <svg id="navIconOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg id="navIconClose" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile menu panel -->
+      <div id="mobileMenu" class="hidden md:hidden border-t border-warm-200 bg-warm-50">
+        <div class="px-4 py-3 space-y-1">
+          {navLinks.map(({ href, label }) => {
+            const isActive = href === '/' ? pathname === '/' : pathname.startsWith(href);
+            const isContact = href === '/contact';
+            return (
+              <a
+                href={href}
+                class={isContact
+                  ? `block px-4 py-3 text-base font-semibold text-center border transition-colors duration-200 ${
+                      isActive
+                        ? 'bg-accent-500 text-white border-accent-500'
+                        : 'text-accent-600 border-accent-500'
+                    }`
+                  : `block px-4 py-3 text-base font-medium border-l-2 transition-colors duration-200 ${
+                      isActive
+                        ? 'text-primary-900 border-accent-500 bg-warm-100'
+                        : 'text-primary-600 border-transparent'
+                    }`
+                }
+              >
+                {label}
+              </a>
+            );
+          })}
         </div>
       </div>
     </nav>
+
+    <script is:inline>
+      (function () {
+        const toggle = document.getElementById('navToggle');
+        const menu = document.getElementById('mobileMenu');
+        const iconOpen = document.getElementById('navIconOpen');
+        const iconClose = document.getElementById('navIconClose');
+        if (!toggle || !menu) return;
+        toggle.addEventListener('click', function () {
+          const willOpen = menu.classList.contains('hidden');
+          menu.classList.toggle('hidden');
+          iconOpen.classList.toggle('hidden', willOpen);
+          iconClose.classList.toggle('hidden', !willOpen);
+          toggle.setAttribute('aria-expanded', String(willOpen));
+          toggle.setAttribute('aria-label', willOpen ? 'メニューを閉じる' : 'メニューを開く');
+        });
+      })();
+    </script>
 
     <!-- Main content -->
     <main>

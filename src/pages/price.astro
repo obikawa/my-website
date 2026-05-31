@@ -292,30 +292,17 @@ const procedureRows = [
       </div>
       <p class="text-sm text-gray-500 mb-6">顧問契約Bのお客様向け</p>
 
-      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mb-4">
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead>
-              <tr class="bg-gray-50 border-b border-gray-100">
-                <th class="text-left px-5 py-3.5 font-semibold text-gray-600 w-28">種別</th>
-                <th class="text-left px-5 py-3.5 font-semibold text-gray-600">手続き内容</th>
-                <th class="text-right px-5 py-3.5 font-semibold text-gray-600 whitespace-nowrap">料金</th>
-                <th class="text-left px-5 py-3.5 font-semibold text-gray-600 hidden md:table-cell">備考</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-50">
-              {procedureRows.map((row, i) => (
-                <tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
-                  <td class="px-5 py-3.5 font-medium text-gray-800 align-top whitespace-nowrap">{row.category}</td>
-                  <td class="px-5 py-3.5 text-gray-700 align-top">{row.detail}</td>
-                  <td class="px-5 py-3.5 text-right font-semibold text-purple-700 align-top whitespace-nowrap">{row.fee}</td>
-                  <td class="px-5 py-3.5 text-gray-500 text-xs align-top hidden md:table-cell">{row.note}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <!-- モバイル備考はtitleで代替（テーブル内に折りたたまれるのでSP向けに別途表示） -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+        {procedureRows.map((row) => (
+          <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5 flex flex-col">
+            <div class="flex items-start justify-between gap-3 mb-2">
+              <span class="inline-block text-xs font-bold text-purple-700 bg-purple-50 border border-purple-100 px-2.5 py-1 rounded-full">{row.category}</span>
+              <span class="text-base font-bold text-purple-700 whitespace-nowrap">{row.fee}</span>
+            </div>
+            <p class="text-sm text-gray-700 leading-relaxed flex-1">{row.detail}</p>
+            <p class="text-xs text-gray-400 mt-2">{row.note}</p>
+          </div>
+        ))}
       </div>
 
       <p class="text-xs text-gray-500">※ その他の対応については、都度お見積りさせていただきます</p>
