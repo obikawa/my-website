@@ -1,11 +1,39 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+// 提唱理論のArticle構造化データ(提唱者・提唱日を機械可読で宣言)
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'AIの社会実装 ── 人がAIを育て、AIが人を育てる会社へ',
+  alternativeHeadline: '成長の好循環と、さぐる・そだてる・まかせる・めぐるの4段階ロードマップ',
+  description: 'AIの社会実装とは、人がAIを育て、AIが人を育てる循環をつくること。おびかわ社労士事務所が2026年7月に体系化・提唱したオリジナルのモデル。',
+  datePublished: '2026-07-04',
+  dateModified: '2026-07-05',
+  inLanguage: 'ja',
+  author: {
+    '@type': 'Person',
+    name: '大日川 聡一',
+    jobTitle: '社会保険労務士',
+    worksFor: { '@type': 'Organization', name: 'おびかわ社労士事務所' },
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'おびかわ社労士事務所',
+    url: 'https://nagoyasakae.com',
+    logo: { '@type': 'ImageObject', url: 'https://nagoyasakae.com/logo.png' },
+  },
+  mainEntityOfPage: 'https://nagoyasakae.com/shakai-jisso/',
+  image: 'https://nagoyasakae.com/concepts/concept3_junkan.svg',
+  about: ['AIの社会実装', '小さな専門家', '成長の好循環', 'AI×人事'],
+};
 ---
 
 <Layout
   title="AI×人事｜AIの社会実装──人がAIを育て、AIが人を育てる会社へ"
   description="AIの社会実装とは、人がAIを育て、AIが人を育てる循環をつくること。ROIが出ないのは、まだ「さぐる」段階だから。さぐる→そだてる→まかせる→めぐるの4段階で、AIを業務の中で育てる考え方を解説します。"
 >
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(articleSchema)} />
 
   <!-- ===== 1. ヒーロー ===== -->
   <section class="bg-warm-50 py-20 lg:py-28 px-4 border-b border-warm-200">
@@ -16,7 +44,10 @@ import Layout from '../layouts/Layout.astro';
             <div class="w-8 h-px bg-accent-500"></div>
             <p class="text-accent-600 text-xs font-semibold tracking-[0.3em] uppercase">AI × HR Strategy</p>
           </div>
-          <span class="inline-block text-xs font-bold text-primary-800 bg-white border border-accent-400 px-3 py-1.5 mb-5">当事務所が提唱するモデル</span>
+          <div class="flex flex-wrap items-center gap-3 mb-5">
+            <span class="inline-block text-xs font-bold text-primary-800 bg-white border border-accent-400 px-3 py-1.5">当事務所が提唱するモデル</span>
+            <span class="text-xs font-semibold text-primary-500">2026年7月提唱</span>
+          </div>
           <h1 class="font-display font-bold text-primary-900 leading-[1.25] mb-6"
               style="font-size: clamp(2.2rem, 5vw, 3.6rem);">
             AIの社会実装
@@ -292,7 +323,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="max-w-3xl space-y-6 text-lg text-primary-700 leading-loose">
         <p>
           このモデルは、どこかの教科書に載っているものではありません。<br class="hidden sm:block"/>
-          当事務所が提唱し、<span class="font-semibold text-primary-900">自らの事務所で実践しながら検証を続けている考え方</span>です。
+          当事務所が<span class="font-semibold text-primary-900">2026年7月に体系化・提唱</span>し、<span class="font-semibold text-primary-900">自らの事務所で実践しながら検証を続けている考え方</span>です。
         </p>
         <p>
           「人を育てる時間がない」──そんな中小企業のためのモデルです。

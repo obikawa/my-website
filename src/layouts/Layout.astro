@@ -3,11 +3,40 @@ export interface Props {
   title: string;
   description?: string;
   fullTitle?: string;
+  ogImage?: string;
 }
 
-const { title, description = '名古屋を中心に中小企業の働き方改革を支援する社労士事務所。男性育休の導入支援、就業規則の見直し、DX・AIによる業務改善まで一貫してサポートします。', fullTitle } = Astro.props;
+const { title, description = '名古屋を中心に中小企業の働き方改革を支援する社労士事務所。男性育休の導入支援、就業規則の見直し、DX・AIによる業務改善まで一貫してサポートします。', fullTitle, ogImage = '/logo.png' } = Astro.props;
 const pageTitle = fullTitle ?? `${title} | おびかわ社労士事務所`;
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const siteUrl = 'https://nagoyasakae.com';
+const canonicalUrl = siteUrl + Astro.url.pathname;
+
+// 事務所情報の構造化データ(全ページ共通)
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'おびかわ社労士事務所',
+  url: siteUrl,
+  logo: siteUrl + '/logo.png',
+  image: siteUrl + '/logo.png',
+  description: 'AIに仕事をさせて、本業に専念しよう。小さな専門家AIとアプリで、中小企業が本業に専念できる仕組みをつくる名古屋の社労士事務所。',
+  founder: {
+    '@type': 'Person',
+    name: '大日川 聡一',
+    jobTitle: '社会保険労務士',
+  },
+  address: {
+    '@type': 'PostalAddress',
+    postalCode: '460-0008',
+    addressRegion: '愛知県',
+    addressLocality: '名古屋市中区',
+    streetAddress: '栄5-26-39 GS栄ビル3F',
+    addressCountry: 'JP',
+  },
+  areaServed: '名古屋市を中心とした愛知県',
+  knowsAbout: ['社会保険労務士業務', 'AIの社会実装', '小さな専門家', '男性育休', '働き方改革', '就業規則'],
+};
 const navLinks = [
   { href: '/',             label: 'トップ' },
   { href: '/shakai-jisso/', label: 'AI×人事' },
@@ -26,6 +55,24 @@ const navLinks = [
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- OGP -->
+    <meta property="og:site_name" content="おびかわ社労士事務所" />
+    <meta property="og:type" content={pathname === '/' ? 'website' : 'article'} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={siteUrl + ogImage} />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={siteUrl + ogImage} />
+
+    <!-- 構造化データ(事務所情報) -->
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
