@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 型A:スペシャリスト×AI ── 分身AIが複数の小さな専門家と複数の人間を采配する(Web向け調整版・文字拡大) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="150 130 1300 820" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic UI','Meiryo',sans-serif">
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <symbol id="person" viewBox="0 0 40 48">
+      <circle cx="20" cy="10" r="9" fill="currentColor"/>
+      <path d="M4,46 C4,32 11,27 20,27 C29,27 36,32 36,46 Z" fill="currentColor"/>
+    </symbol>
+    <symbol id="ai-chip" viewBox="0 0 64 64">
+      <rect x="10" y="10" width="44" height="44" rx="10" fill="currentColor"/>
+      <g stroke="currentColor" stroke-width="4" stroke-linecap="round">
+        <line x1="20" y1="10" x2="20" y2="2"/><line x1="32" y1="10" x2="32" y2="2"/><line x1="44" y1="10" x2="44" y2="2"/>
+        <line x1="20" y1="54" x2="20" y2="62"/><line x1="32" y1="54" x2="32" y2="62"/><line x1="44" y1="54" x2="44" y2="62"/>
+        <line x1="10" y1="20" x2="2" y2="20"/><line x1="10" y1="32" x2="2" y2="32"/><line x1="10" y1="44" x2="2" y2="44"/>
+        <line x1="54" y1="20" x2="62" y2="20"/><line x1="54" y1="32" x2="62" y2="32"/><line x1="54" y1="44" x2="62" y2="44"/>
+      </g>
+      <text x="32" y="40" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">AI</text>
+    </symbol>
+  </defs>
+
+  <style>
+    .bg        { fill:#f8fafc; }
+    .panel-sub { fill:#f1f5f9; stroke:#cbd5e1; stroke-width:1; }
+    .h3        { fill:#0f172a; font-size:26px; font-weight:700; }
+    .small     { fill:#64748b; font-size:20px; }
+    .tag       { font-size:19px; font-weight:700; fill:#ffffff; }
+    .navy      { color:#1e3a5f; }
+    .gray      { color:#64748b; }
+    .flowline  { stroke:#475569; stroke-width:2.5; fill:none; }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="1600" height="1000"/>
+
+  <!-- ============ 専門家 ============ -->
+  <g id="expert">
+    <use href="#person" class="navy" x="777" y="140" width="46" height="55"/>
+    <text class="h3" x="800" y="226" text-anchor="middle">専門家(スペシャリスト)</text>
+    <rect x="620" y="238" width="360" height="38" rx="19" fill="#1e3a5f"/>
+    <text class="tag" x="800" y="264" text-anchor="middle">役割:方針を示し、最終判断を下す</text>
+  </g>
+
+  <!-- 専門家 ⇄ 分身AI -->
+  <g id="expert-bunshin-flow">
+    <path class="flowline" d="M760,288 L760,345" marker-end="url(#arrow)"/>
+    <text class="small" x="742" y="322" text-anchor="end">方針・知識・依頼</text>
+    <path class="flowline" d="M840,345 L840,288" marker-end="url(#arrow)"/>
+    <text class="small" x="858" y="322">判断を仰ぐ・報告</text>
+  </g>
+
+  <!-- ============ 分身AI(統括・采配役) ============ -->
+  <g id="bunshin-ai">
+    <use href="#ai-chip" class="navy" x="760" y="355" width="80" height="80"/>
+    <text class="h3" x="800" y="470" text-anchor="middle">分身AI(統括・采配役)</text>
+    <text class="small" x="800" y="497" text-anchor="middle">タスクを分解し、AIと人に割り当て、進捗と品質を管理する</text>
+  </g>
+
+  <!-- 分身AI → 実行リソース群 -->
+  <g id="dispatch-flow">
+    <path class="flowline" d="M800,510 L800,532 M800,532 L430,532 L430,556" marker-end="url(#arrow)"/>
+    <path class="flowline" d="M800,532 L1170,532 L1170,556" marker-end="url(#arrow)"/>
+    <text class="small" x="590" y="524" text-anchor="middle">指示・発注</text>
+    <text class="small" x="1010" y="524" text-anchor="middle">指示・発注</text>
+  </g>
+
+  <!-- ============ 実行リソース:複数の小さな専門家 ============ -->
+  <g id="cluster-ai">
+    <use href="#ai-chip" class="navy" x="332" y="562" width="56" height="56"/>
+    <use href="#ai-chip" class="navy" x="402" y="562" width="56" height="56"/>
+    <use href="#ai-chip" class="navy" x="472" y="562" width="56" height="56"/>
+    <rect x="315" y="630" width="230" height="36" rx="18" fill="#1e3a5f"/>
+    <text class="tag" x="430" y="655" text-anchor="middle">複数の小さな専門家</text>
+    <text class="small" x="430" y="692" text-anchor="middle">AIだけで完結する業務を担当</text>
+  </g>
+
+  <!-- ============ 実行リソース:複数の人間ワーカー ============ -->
+  <g id="cluster-human">
+    <use href="#person" class="gray" x="1080" y="565" width="40" height="48"/>
+    <use href="#person" class="gray" x="1150" y="565" width="40" height="48"/>
+    <use href="#person" class="gray" x="1220" y="565" width="40" height="48"/>
+    <rect x="1055" y="630" width="230" height="36" rx="18" fill="#64748b"/>
+    <text class="tag" x="1170" y="655" text-anchor="middle">複数の人間ワーカー</text>
+    <text class="small" x="1170" y="692" text-anchor="middle">人の手が必要な業務を担当</text>
+  </g>
+
+  <!-- 中央注記 -->
+  <g id="center-note">
+    <text class="small" x="800" y="596" text-anchor="middle">納品・報告は分身AIへ集約。</text>
+    <text class="small" x="800" y="624" text-anchor="middle">人もAIも同列の「実行リソース」。</text>
+  </g>
+
+  <!-- ============ 成果物 ============ -->
+  <g id="output">
+    <path class="flowline" d="M430,700 L430,762 L688,762" marker-end="url(#arrow)"/>
+    <path class="flowline" d="M1170,700 L1170,762 L912,762" marker-end="url(#arrow)"/>
+    <rect class="panel-sub" x="700" y="722" width="200" height="80" rx="10"/>
+    <text class="h3" x="800" y="757" text-anchor="middle">成果物</text>
+    <text class="small" x="800" y="787" text-anchor="middle">品質は分身AIが担保</text>
+  </g>
+
+  <!-- ============ キーメッセージ ============ -->
+  <g id="keymessage">
+    <rect x="170" y="856" width="1260" height="72" rx="12" fill="#eef2f7" stroke="#1e3a5f" stroke-width="1.5"/>
+    <text x="800" y="900" text-anchor="middle" font-size="24" font-weight="700" fill="#1e3a5f">専門家は「判断」に集中し、実行は分身AIに采配させる ── 一人が組織並みの実行力を持つ</text>
+  </g>
+</svg>

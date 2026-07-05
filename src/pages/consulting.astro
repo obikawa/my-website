@@ -1,0 +1,262 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="AI社会実装コンサルティング｜小さな専門家の、つくり方を教えます"
+  description="小さな専門家の「つくり方」を教え、育つまで伴走するコンサルティング。さぐる・そだてる・まかせる・めぐるの4段階に沿って、業務の棚卸しからAIを育てる人事制度づくりまで、社労士が一気通貫で支援します。"
+>
+
+  <!-- ===== 1. ヒーロー ===== -->
+  <section class="relative bg-primary-900 flex items-center overflow-hidden py-24 lg:py-32">
+    <div class="absolute inset-0 opacity-[0.04]">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="consul-grid" width="64" height="64" patternUnits="userSpaceOnUse">
+            <path d="M 64 0 L 0 0 0 64" fill="none" stroke="white" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#consul-grid)"/>
+      </svg>
+    </div>
+
+    <div class="relative max-w-5xl mx-auto px-6 lg:px-8 w-full">
+      <div class="max-w-2xl">
+        <div class="flex items-center gap-3 mb-8">
+          <div class="w-8 h-px bg-accent-500"></div>
+          <p class="text-accent-400 text-xs font-semibold tracking-[0.3em] uppercase">AI × HR Consulting</p>
+        </div>
+        <h1 class="font-display font-bold text-white leading-[1.3] mb-6"
+            style="font-size: clamp(2rem, 4.5vw, 3.4rem);">
+          小さな専門家の、<br/>
+          <em class="not-italic text-accent-400">つくり方</em>を教えます。
+        </h1>
+        <div class="w-14 h-0.5 bg-accent-500 mb-6"></div>
+        <p class="text-primary-200 text-xl leading-loose mb-10 max-w-xl">
+          AI社会実装コンサルティング。<br/>
+          あなたの会社の小さな専門家が育つまで、社労士が伴走します。
+        </p>
+        <a href="/contact"
+           class="inline-flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-400 text-white font-bold px-8 py-4 transition-colors duration-200">
+          無料相談はこちら
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 2. こんな会社に ===== -->
+  <section class="py-24 px-4 bg-warm-50">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">For You</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">
+          こんな会社に。
+        </h2>
+      </div>
+
+      <div class="grid gap-3 max-w-3xl">
+        {[
+          'AIを入れたが、成果が出ていない',
+          '何からAIに任せればいいか、分からない',
+          '担当者しかできない「属人化した仕事」を解消したい',
+          '人を増やさずに、仕事を回せるようにしたい',
+        ].map((item, i) => (
+          <div class="flex items-center gap-6 bg-white border border-warm-200 px-7 py-5">
+            <span class="font-display text-3xl font-bold text-warm-300 shrink-0 select-none w-10">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <p class="text-primary-800 leading-relaxed flex-1">{item}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-12 flex items-center gap-4">
+        <div class="w-8 h-px bg-accent-500"></div>
+        <p class="font-display text-lg text-primary-800 font-semibold">
+          ひとつでも当てはまったら、小さな専門家づくりの出番です。
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 3. 支援メニュー(4段階対応) ===== -->
+  <section class="py-24 px-4 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-6">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Menu</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">
+          4つの段階に合わせた、<br/>4つの支援。
+        </h2>
+      </div>
+      <p class="text-primary-700 text-lg leading-loose max-w-3xl mb-14">
+        <a href="/shakai-jisso/" class="text-accent-600 font-semibold hover:underline">AIの社会実装</a>の4段階(さぐる→そだてる→まかせる→めぐる)に沿って、いまの段階に必要な支援だけを選べます。
+      </p>
+
+      <div class="space-y-6">
+        {[
+          {
+            stage: '① さぐる支援',
+            sub: '探索',
+            color: 'bg-slate-400',
+            border: 'border-slate-200',
+            title: '業務の棚卸しと「AIに任せられる仕事」の発見',
+            desc: '日々の業務を洗い出し、どこにAIに任せられる仕事が眠っているかを見つけます。事業会社でRPA導入により年間1,200時間を削減した経験を活かし、「何を自動化すべきか」を現場目線で見極めます。',
+          },
+          {
+            stage: '② そだてる支援',
+            sub: '育成',
+            color: 'bg-teal-700',
+            border: 'border-teal-100',
+            title: '小さな専門家づくりの伴走',
+            desc: '壁打ちの型と、教え込む知識の整理の仕方をお教えします。社員が自分の手で小さな専門家を育てられるようになるまで、実務に沿って伴走します。',
+          },
+          {
+            stage: '③ まかせる支援',
+            sub: '進化',
+            color: 'bg-primary-800',
+            border: 'border-primary-100',
+            title: '采配のしくみづくり',
+            desc: '育った小さな専門家に、どこまで任せるか。誰が判断し、誰が責任を持つかを設計します。「采配はAIへ、判断は人へ」を実際の業務ルールに落とし込みます。',
+          },
+          {
+            stage: '④ めぐる支援',
+            sub: '循環 ── 社労士の本領',
+            color: 'bg-accent-600',
+            border: 'border-accent-200',
+            title: 'AIと社員の最適配置を、制度に落とし込む',
+            desc: 'AIと社員が適切に配置されると、人手不足の解消も、働き方改革も一気に進みます。さらに「AIありき」の採用戦略まで、就業規則・運用ルールを含めて設計。これからのAI経営を、労務の専門家である社労士が応援します。',
+          },
+        ].map((menu) => (
+          <div class={`border ${menu.border} bg-white shadow-sm overflow-hidden`}>
+            <div class={`${menu.color} px-6 py-3 flex flex-wrap items-center justify-between gap-2`}>
+              <span class="text-white font-bold text-lg">{menu.stage}</span>
+              <span class="text-white/80 text-xs font-semibold">{menu.sub}</span>
+            </div>
+            <div class="px-6 py-6">
+              <h3 class="font-bold text-primary-900 text-xl mb-3">{menu.title}</h3>
+              <p class="text-primary-700 text-base leading-relaxed">{menu.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 4. 差別化 ===== -->
+  <section class="py-24 px-4 bg-primary-900">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="flex items-center justify-center gap-3 mb-8">
+        <div class="w-8 h-px bg-accent-500"></div>
+        <p class="text-accent-400 text-xs font-semibold tracking-[0.3em] uppercase">Difference</p>
+        <div class="w-8 h-px bg-accent-500"></div>
+      </div>
+      <p class="font-display text-2xl sm:text-3xl font-bold text-white leading-relaxed mb-6">
+        これからは、AIと働く時代。
+      </p>
+      <p class="font-display text-2xl sm:text-3xl font-bold text-accent-400 leading-relaxed mb-8">
+        AIと社員の最適配置を、<br class="hidden sm:block"/>社労士が応援します。
+      </p>
+      <p class="text-primary-200 text-lg leading-loose">
+        人手不足の解消も、働き方改革も、AIありきの採用戦略も。<br class="hidden sm:block"/>
+        すべては、AIと人の適切な配置から始まります。
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ===== 5. 進め方 ===== -->
+  <section class="py-24 px-4 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Flow</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">進め方</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-8 sm:gap-6">
+        {[
+          { step: '01', title: '無料相談',       desc: 'いまの段階と、困りごとをお聞かせください' },
+          { step: '02', title: '現状診断',       desc: '業務を棚卸しし、4段階のどこにいるかを診断します' },
+          { step: '03', title: '支援プラン提案', desc: '必要な支援だけを組み合わせて、お見積りします' },
+          { step: '04', title: '伴走開始',       desc: '小さな専門家が育つまで、実務に沿って伴走します' },
+        ].map((flow) => (
+          <div class="flex flex-col items-start">
+            <div class="w-16 h-16 bg-primary-900 border-2 border-accent-500 flex flex-col items-center justify-center mb-5">
+              <span class="text-[10px] font-semibold text-accent-400 leading-none tracking-widest">STEP</span>
+              <span class="font-display text-xl font-bold text-white">{flow.step}</span>
+            </div>
+            <h3 class="font-bold text-primary-900 text-lg mb-2">{flow.title}</h3>
+            <p class="text-base text-primary-600 leading-relaxed">{flow.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 6. 料金 ===== -->
+  <section class="py-24 px-4 bg-warm-50">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="flex items-center justify-center gap-3 mb-6">
+        <div class="w-8 h-px bg-accent-500"></div>
+        <p class="text-accent-600 text-xs font-semibold tracking-[0.3em] uppercase">Price</p>
+        <div class="w-8 h-px bg-accent-500"></div>
+      </div>
+      <h2 class="font-display text-3xl sm:text-4xl font-bold text-primary-900 mb-6">料金</h2>
+      <p class="text-primary-700 text-lg leading-loose mb-8">
+        支援の範囲・期間に応じて、事前にお見積りします。<br/>
+        まずは無料相談で、いまの段階をお聞かせください。
+      </p>
+      <a href="/price" class="inline-flex items-center gap-2 text-base font-semibold text-primary-700 hover:text-accent-600 transition-colors group">
+        料金表を見る
+        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+
+  <!-- ===== 7. CTA ===== -->
+  <section class="py-24 px-4 bg-primary-900 text-white">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="flex items-center justify-center gap-3 mb-6">
+        <div class="w-8 h-px bg-accent-500"></div>
+        <p class="text-accent-400 text-xs font-semibold tracking-[0.3em] uppercase">Free Consultation</p>
+        <div class="w-8 h-px bg-accent-500"></div>
+      </div>
+
+      <h2 class="font-display text-4xl sm:text-5xl font-bold mb-8">
+        自社だけの小さな専門家を、<br/>育てはじめよう。
+      </h2>
+
+      <p class="text-primary-300 mb-10 text-lg leading-loose">
+        いまどの段階にいるのか、何から育てればいいのか。<br/>
+        無料でご相談いただけます。
+      </p>
+
+      <a href="/contact"
+         class="inline-flex items-center gap-3 bg-accent-500 hover:bg-accent-400 text-white font-bold px-12 py-4 text-lg transition-colors duration-200">
+        無料相談はこちら
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+</Layout>

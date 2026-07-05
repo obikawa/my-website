@@ -1,0 +1,211 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// 新規の目玉講座
+const featuredSeminars = [
+  {
+    tag: 'NEW・経営者向け',
+    title: '「小さな専門家のつくり方」セミナー',
+    time: '90分',
+    desc: 'AIの社会実装とは何か。成長の好循環と、さぐる→そだてる→まかせる→めぐるの4段階を、経営者向けに90分で解説します。「AIを入れたのに元が取れない」の正体が分かり、明日から何をすべきかが見えます。',
+    points: ['AIの社会実装(成長の好循環)の全体像', '4段階ロードマップと「いま自社がいる段階」', '最初の小さな専門家のつくり方'],
+  },
+  {
+    tag: 'NEW・人事担当者向け',
+    title: '「AI×人事戦略」セミナー',
+    time: '90分',
+    desc: 'AIを育てる会社は、人手不足に強くなる。AIと人の分担を前提にした働き方改革の進め方と、「AIが仕事をしてくれる会社」として選ばれる採用戦略を、社労士の視点で解説します。',
+    points: ['人手不足をAIと人の分担で解消する考え方', '働き方改革へのAI活用の組み込み方', '採用戦略と就業規則・運用ルールの整備'],
+  },
+];
+
+// 既存の3講座
+const regularSeminars = [
+  {
+    title: '働き方改革 × DX・AI セミナー',
+    desc: 'AIや自動化ツールを活用した業務改善と、法令対応を組み合わせた実践的な内容をご提供しています。',
+    icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2h-2',
+    color: 'border-t-accent-500',
+    iconBg: 'bg-accent-50',
+    iconColor: 'text-accent-600',
+  },
+  {
+    title: '男性育休導入セミナー',
+    desc: '取得率向上のための制度・運用・文化づくりを、法改正の最新情報を交えて解説します。',
+    icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
+    color: 'border-t-pink-500',
+    iconBg: 'bg-pink-50',
+    iconColor: 'text-pink-600',
+  },
+  {
+    title: '採用・労務管理セミナー',
+    desc: '中小企業が実践できる採用力強化と、トラブルを未然に防ぐ労務管理のポイントをお伝えします。',
+    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
+    color: 'border-t-primary-600',
+    iconBg: 'bg-primary-50',
+    iconColor: 'text-primary-600',
+  },
+];
+---
+
+<Layout
+  title="セミナー・研修｜小さな専門家のつくり方・AI×人事戦略"
+  description="おびかわ社労士事務所のセミナー・研修。経営者向け「小さな専門家のつくり方」、人事向け「AI×人事戦略」のほか、働き方改革×DX・AI、男性育休導入、採用・労務管理まで。商工会議所・金融機関・企業研修に対応、会場・オンラインどちらも可能です。"
+>
+
+  <!-- ===== 1. ヒーロー ===== -->
+  <section class="bg-gradient-to-br from-primary-800 to-primary-600 text-white py-16 px-4">
+    <div class="max-w-5xl mx-auto text-center">
+      <p class="text-primary-200 text-sm font-medium tracking-widest uppercase mb-3">Seminar &amp; Training</p>
+      <h1 class="text-4xl font-bold">セミナー・研修</h1>
+      <p class="mt-4 text-primary-100 max-w-xl mx-auto">
+        AI×人事から、男性育休・労務管理まで。<br />
+        実務に直結する内容で、商工会議所・金融機関・企業研修にお応えします。
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ===== 2. 目玉講座 ===== -->
+  <section class="py-24 px-4 bg-warm-50">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Featured</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">
+          AIの社会実装を、<br/>語れる講師として。
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {featuredSeminars.map((s) => (
+          <div class="bg-white border border-warm-200 border-t-2 border-t-accent-500 p-8 flex flex-col shadow-sm">
+            <div class="flex items-center gap-3 mb-4 flex-wrap">
+              <span class="text-xs font-bold text-white bg-accent-500 px-2.5 py-1">{s.tag}</span>
+              <span class="text-xs font-semibold text-primary-500 border border-warm-300 px-2.5 py-1">{s.time}</span>
+            </div>
+            <h3 class="font-bold text-primary-900 text-xl mb-4">{s.title}</h3>
+            <p class="text-primary-700 text-base leading-relaxed mb-6">{s.desc}</p>
+            <ul class="space-y-2.5 mt-auto">
+              {s.points.map((p) => (
+                <li class="flex items-start gap-2.5 text-base text-primary-700">
+                  <span class="w-1 h-4 bg-accent-400 shrink-0 mt-1.5"></span>
+                  {p}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-10">
+        <a href="/shakai-jisso/" class="inline-flex items-center gap-2 text-base font-semibold text-primary-700 hover:text-accent-600 transition-colors group">
+          「AIの社会実装」の考え方を見る
+          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 3. 定番講座 ===== -->
+  <section class="py-24 px-4 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Programs</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">定番の講座</h2>
+        <p class="mt-3 text-primary-500 text-base">実務に直結する内容でご好評をいただいています</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl">
+        {regularSeminars.map((seminar) => (
+          <div class={`bg-warm-50 border border-warm-200 border-t-2 ${seminar.color} p-7 hover:shadow-sm transition-shadow duration-200`}>
+            <div class={`w-10 h-10 ${seminar.iconBg} flex items-center justify-center mb-5`}>
+              <svg class={`w-5 h-5 ${seminar.iconColor}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={seminar.icon} />
+              </svg>
+            </div>
+            <h3 class="font-bold text-primary-900 mb-3">{seminar.title}</h3>
+            <p class="text-base text-primary-600 leading-relaxed">{seminar.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 4. 対象・形式 ===== -->
+  <section class="py-24 px-4 bg-warm-50">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Details</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">対象・形式</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl">
+        <div class="bg-white border border-warm-200 p-8">
+          <h3 class="font-bold text-primary-900 text-lg mb-5">こんなご依頼にお応えします</h3>
+          <ul class="space-y-3">
+            {['商工会議所・商工会の会員向けセミナー', '金融機関の取引先向けセミナー', '企業の社内研修(管理職・人事・全社員向け)', 'その他、団体・グループでの勉強会'].map((item) => (
+              <li class="flex items-start gap-2.5 text-base text-primary-700">
+                <span class="w-1 h-4 bg-accent-400 shrink-0 mt-1.5"></span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="bg-white border border-warm-200 p-8">
+          <h3 class="font-bold text-primary-900 text-lg mb-5">開催形式</h3>
+          <ul class="space-y-3">
+            {['会場開催(名古屋近郊のほか、全国出張も相談可)', 'オンライン開催(Zoom等)', '時間・内容はご要望に合わせて調整できます', '料金はお問い合わせください(内容・時間により変動)'].map((item) => (
+              <li class="flex items-start gap-2.5 text-base text-primary-700">
+                <span class="w-1 h-4 bg-accent-400 shrink-0 mt-1.5"></span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 5. CTA ===== -->
+  <section class="py-24 px-4 bg-primary-900 text-white">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="flex items-center justify-center gap-3 mb-6">
+        <div class="w-8 h-px bg-accent-500"></div>
+        <p class="text-accent-400 text-xs font-semibold tracking-[0.3em] uppercase">Contact</p>
+        <div class="w-8 h-px bg-accent-500"></div>
+      </div>
+
+      <h2 class="font-display text-4xl sm:text-5xl font-bold mb-8">
+        セミナー・講演の<br/>ご依頼はこちら。
+      </h2>
+
+      <p class="text-primary-300 mb-10 text-lg leading-loose">
+        開催時期・対象・人数・ご予算をお知らせいただければ、<br/>
+        内容のご提案からお手伝いします。
+      </p>
+
+      <a href="/contact"
+         class="inline-flex items-center gap-3 bg-accent-500 hover:bg-accent-400 text-white font-bold px-12 py-4 text-lg transition-colors duration-200">
+        セミナーの依頼・相談をする
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+</Layout>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AIの成長ロードマップ ── さぐる→そだてる→まかせる→めぐる(Web向け調整版・文字拡大) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="50 135 1490 800" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic UI','Meiryo',sans-serif">
+
+  <defs>
+    <marker id="arrow-grow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cbd5e1"/>
+    </marker>
+    <marker id="arrow-ai" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="arrow-mini" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
+    </marker>
+    <marker id="arrow-mini-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0f766e"/>
+    </marker>
+    <marker id="arrow-mini-navy" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1e3a5f"/>
+    </marker>
+    <symbol id="person" viewBox="0 0 40 48">
+      <circle cx="20" cy="10" r="9" fill="currentColor"/>
+      <path d="M4,46 C4,32 11,27 20,27 C29,27 36,32 36,46 Z" fill="currentColor"/>
+    </symbol>
+    <symbol id="ai-chip" viewBox="0 0 64 64">
+      <rect x="10" y="10" width="44" height="44" rx="10" fill="currentColor"/>
+      <g stroke="currentColor" stroke-width="4" stroke-linecap="round">
+        <line x1="20" y1="10" x2="20" y2="2"/><line x1="32" y1="10" x2="32" y2="2"/><line x1="44" y1="10" x2="44" y2="2"/>
+        <line x1="20" y1="54" x2="20" y2="62"/><line x1="32" y1="54" x2="32" y2="62"/><line x1="44" y1="54" x2="44" y2="62"/>
+        <line x1="10" y1="20" x2="2" y2="20"/><line x1="10" y1="32" x2="2" y2="32"/><line x1="10" y1="44" x2="2" y2="44"/>
+        <line x1="54" y1="20" x2="62" y2="20"/><line x1="54" y1="32" x2="62" y2="32"/><line x1="54" y1="44" x2="62" y2="44"/>
+      </g>
+      <text x="32" y="40" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">AI</text>
+    </symbol>
+  </defs>
+
+  <style>
+    .bg       { fill:#f8fafc; }
+    .band     { font-size:26px; font-weight:700; fill:#ffffff; }
+    .rowlabel { fill:#0f172a; font-size:24px; font-weight:700; }
+    .stagename{ font-size:26px; font-weight:700; }
+    .desc     { fill:#475569; font-size:20px; }
+    .small    { fill:#64748b; font-size:20px; }
+    .trans    { fill:#334155; font-size:20px; font-weight:700; }
+    .evolve   { fill:#d97706; font-size:20px; font-weight:700; }
+    .mini     { stroke-width:2.5; fill:none; }
+    .steel    { color:#94a3b8; }
+    .gray     { color:#64748b; }
+    .teal     { color:#0f766e; }
+    .navy     { color:#1e3a5f; }
+    .orange   { color:#d97706; }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="1600" height="1000"/>
+
+  <!-- ============ 段階バンド ============ -->
+  <g id="stage-bands">
+    <rect x="90" y="145" width="320" height="56" rx="10" fill="#94a3b8"/>
+    <text class="band" x="250" y="182" text-anchor="middle">① さぐる|探索</text>
+    <path d="M416,159 L444,173 L416,187 z" fill="#94a3b8"/>
+
+    <rect x="450" y="145" width="320" height="56" rx="10" fill="#0f766e"/>
+    <text class="band" x="610" y="182" text-anchor="middle">② そだてる|育成</text>
+    <path d="M776,159 L804,173 L776,187 z" fill="#0f766e"/>
+
+    <rect x="810" y="145" width="320" height="56" rx="10" fill="#1e3a5f"/>
+    <text class="band" x="970" y="182" text-anchor="middle">③ まかせる|進化</text>
+    <path d="M1136,159 L1164,173 L1136,187 z" fill="#1e3a5f"/>
+
+    <rect x="1170" y="145" width="320" height="56" rx="10" fill="#d97706"/>
+    <text class="band" x="1330" y="182" text-anchor="middle">④ めぐる|循環</text>
+  </g>
+
+  <text class="rowlabel" x="90" y="246">主役:育っていくAI</text>
+
+  <!-- 段階①→②の変化(バンド①と②の境目の直下に表示) -->
+  <text class="trans" x="440" y="232" text-anchor="middle">任せられる仕事が見つかる</text>
+
+  <!-- ============ 成長の坂道 ============ -->
+  <path d="M150,585 L250,560 L610,505 L970,432 L1330,345 L1450,315"
+        fill="none" stroke="#cbd5e1" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"
+        marker-end="url(#arrow-grow)"/>
+
+  <!-- ============ 同じAIが進化して渡る(橙) ============ -->
+  <g id="evolve-arrows">
+    <path d="M700,432 Q810,340 933,370" fill="none" stroke="#d97706" stroke-width="3" stroke-dasharray="7 5" marker-end="url(#arrow-ai)"/>
+    <text class="evolve" x="810" y="322" text-anchor="middle">同じAIが、分身AIへ進化</text>
+    <path d="M1080,366 Q1170,262 1236,300" fill="none" stroke="#d97706" stroke-width="3" stroke-dasharray="7 5" marker-end="url(#arrow-ai)"/>
+    <text class="evolve" x="1160" y="248" text-anchor="middle">磨かれたAIが、教師AIへ</text>
+  </g>
+
+  <!-- ============ 段階①:さぐる ============ -->
+  <g id="stage1">
+    <text class="small" x="250" y="398" text-anchor="middle" fill="#b91c1c">ROIが出ないのは</text>
+    <text class="small" x="250" y="424" text-anchor="middle" fill="#b91c1c">まだ「探索中」だから</text>
+    <rect x="185" y="440" width="130" height="34" rx="17" fill="#dc2626"/>
+    <text x="250" y="464" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">いま、ここ</text>
+    <path d="M238,476 L262,476 L250,492 z" fill="#dc2626"/>
+
+    <use href="#person" class="gray" x="175" y="503" width="44" height="53"/>
+    <path class="mini" d="M229,527 L273,527" stroke="#64748b" marker-end="url(#arrow-mini)"/>
+    <use href="#ai-chip" class="steel" x="281" y="507" width="44" height="44"/>
+    <circle cx="332" cy="500" r="13" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+    <text x="332" y="507" text-anchor="middle" font-size="18" font-weight="700" fill="#94a3b8">?</text>
+
+    <text class="stagename" x="250" y="616" text-anchor="middle" fill="#64748b">汎用AI(まだ道具)</text>
+    <text class="desc" x="250" y="646" text-anchor="middle">現場のみんなが「何を任せられるか」試す</text>
+  </g>
+
+  <!-- ============ 段階②:そだてる ============ -->
+  <g id="stage2">
+    <use href="#person" class="teal" x="516" y="439" width="44" height="53"/>
+    <path class="mini" d="M572,463 L628,463" stroke="#0f766e" marker-start="url(#arrow-mini-teal)" marker-end="url(#arrow-mini-teal)"/>
+    <use href="#ai-chip" class="teal" x="638" y="437" width="40" height="40"/>
+    <use href="#ai-chip" class="teal" x="664" y="461" width="40" height="40"/>
+
+    <text class="stagename" x="610" y="552" text-anchor="middle" fill="#0f766e">小さな専門家の育成</text>
+    <text class="desc" x="610" y="582" text-anchor="middle">ジェネラリストが壁打ちで育てる</text>
+  </g>
+
+  <!-- ============ 段階③:まかせる ============ -->
+  <g id="stage3">
+    <use href="#person" class="navy" x="839" y="366" width="44" height="53"/>
+    <path class="mini" d="M893,390 L937,390" stroke="#1e3a5f" marker-end="url(#arrow-mini-navy)"/>
+    <use href="#ai-chip" class="navy" x="945" y="366" width="48" height="48"/>
+    <path class="mini" d="M1003,390 L1033,390" stroke="#1e3a5f" marker-end="url(#arrow-mini-navy)"/>
+    <use href="#ai-chip" class="navy" x="1041" y="368" width="36" height="36"/>
+    <use href="#ai-chip" class="navy" x="1065" y="392" width="36" height="36"/>
+
+    <text class="stagename" x="970" y="480" text-anchor="middle" fill="#1e3a5f">分身AI・小さな専門家</text>
+    <text class="desc" x="970" y="510" text-anchor="middle">スペシャリストが采配を任せる</text>
+  </g>
+
+  <!-- ============ 段階④:めぐる ============ -->
+  <g id="stage4">
+    <use href="#ai-chip" class="orange" x="1233" y="286" width="40" height="40"/>
+    <use href="#ai-chip" class="orange" x="1257" y="300" width="40" height="40"/>
+    <use href="#ai-chip" class="orange" x="1281" y="314" width="40" height="40"/>
+    <path class="mini" d="M1329,315 L1361,315" stroke="#64748b" marker-end="url(#arrow-mini)"/>
+    <use href="#person" class="steel" x="1371" y="288" width="44" height="53"/>
+
+    <text class="stagename" x="1330" y="396" text-anchor="middle" fill="#d97706">教師AI(会社の資産)</text>
+    <text class="desc" x="1330" y="426" text-anchor="middle">新人を教え、好循環が回り出す</text>
+  </g>
+
+  <!-- ============ 各段階のまとめ(各バンドの縦幅内に配置) ============ -->
+  <g id="stage-summary" font-size="24" font-weight="700" text-anchor="middle">
+    <text x="250" y="756" fill="#64748b">AIを使って、</text>
+    <text x="250" y="788" fill="#64748b">本業以外の仕事を自動化</text>
+
+    <text x="610" y="756" fill="#0f766e">AIに仕事をさせて、</text>
+    <text x="610" y="788" fill="#0f766e">本業に専念</text>
+
+    <text x="970" y="756" fill="#1e3a5f">AIに采配を任せて、</text>
+    <text x="970" y="788" fill="#1e3a5f">人とAIの分担を最適化</text>
+
+    <text x="1330" y="756" fill="#d97706">AIが教師役になり、</text>
+    <text x="1330" y="788" fill="#d97706">人の育成まで自動化</text>
+  </g>
+
+  <!-- ============ キーメッセージ ============ -->
+  <g id="keymessage">
+    <rect x="170" y="850" width="1260" height="72" rx="12" fill="#eef2f7" stroke="#1e3a5f" stroke-width="1.5"/>
+    <text x="800" y="895" text-anchor="middle" font-size="26" font-weight="700" fill="#1e3a5f">AIは買ってくるものではなく、業務の中で育てるもの ── 育ち具合を合図に次の段階へ</text>
+  </g>
+</svg>

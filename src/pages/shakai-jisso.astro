@@ -1,0 +1,341 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="AI×人事｜AIの社会実装──人がAIを育て、AIが人を育てる会社へ"
+  description="AIの社会実装とは、人がAIを育て、AIが人を育てる循環をつくること。ROIが出ないのは、まだ「さぐる」段階だから。さぐる→そだてる→まかせる→めぐるの4段階で、AIを業務の中で育てる考え方を解説します。"
+>
+
+  <!-- ===== 1. ヒーロー ===== -->
+  <section class="bg-warm-50 py-20 lg:py-28 px-4 border-b border-warm-200">
+    <div class="max-w-5xl mx-auto">
+      <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+        <div class="flex-1">
+          <div class="flex items-center gap-3 mb-8">
+            <div class="w-8 h-px bg-accent-500"></div>
+            <p class="text-accent-600 text-xs font-semibold tracking-[0.3em] uppercase">AI × HR Strategy</p>
+          </div>
+          <span class="inline-block text-xs font-bold text-primary-800 bg-white border border-accent-400 px-3 py-1.5 mb-5">当事務所が提唱するモデル</span>
+          <h1 class="font-display font-bold text-primary-900 leading-[1.25] mb-6"
+              style="font-size: clamp(2.2rem, 5vw, 3.6rem);">
+            AIの社会実装
+          </h1>
+          <p class="font-display text-xl sm:text-2xl font-bold text-primary-800 mb-6">
+            ── 人がAIを育て、AIが人を育てる会社へ
+          </p>
+          <div class="w-14 h-0.5 bg-accent-500 mb-6"></div>
+          <p class="text-primary-700 text-lg leading-loose mb-10 max-w-xl">
+            社員が仕事の中でAIを育てると、育ったAIが次の社員を育てる。<br class="hidden sm:block"/>
+            この循環をつくることが、AIの社会実装です。<br class="hidden sm:block"/>
+            その第一歩が、小さな専門家づくり。
+          </p>
+          <a href="/contact"
+             class="inline-flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-400 text-white font-bold px-8 py-4 transition-colors duration-200">
+            無料相談はこちら
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        </div>
+        <div class="w-full max-w-xs md:max-w-sm shrink-0">
+          <img src="/concepts/emblem.svg"
+               alt="人がAIを育て、AIが人を育てる循環を表すエンブレム"
+               class="w-full h-auto" width="340" height="380" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 2. 問題提起:ROIが出ない本当の理由 ===== -->
+  <section class="py-24 px-4 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Problem</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">
+          AIを入れたのに、<br/>元が取れない。
+        </h2>
+      </div>
+
+      <div class="max-w-3xl space-y-6 text-lg text-primary-700 leading-loose">
+        <p>
+          それは、失敗ではありません。<br class="hidden sm:block"/>
+          まだ「<span class="font-semibold text-primary-900">さぐる</span>」段階にいるだけです。
+        </p>
+        <p>
+          何をAIに任せられるか、現場が試している段階では、ROIが出ないのは当たり前。<br class="hidden sm:block"/>
+          問題は、多くの会社がここで「AIは使えない」とやめてしまうことです。
+        </p>
+        <p class="font-display text-xl font-semibold text-primary-900">
+          AIは、買ってくるものではなく、業務の中で育てるもの。
+        </p>
+        <p>
+          次の「そだてる」へ進めば、投資は回収に向かいます。<br class="hidden sm:block"/>
+          私たちは、その進め方を教えます。
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 3. 2つの型 ===== -->
+  <section class="py-24 px-4 bg-warm-50">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Two Styles</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">
+          AIとの働き方には、<br/>2つの型がある。
+        </h2>
+      </div>
+
+      <!-- 型A:ジェネラリスト型(育成) -->
+      <div class="mb-20">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs font-bold text-white bg-teal-700 px-2.5 py-1">型A</span>
+          <h3 class="font-bold text-primary-900 text-2xl">ジェネラリスト型(育成)</h3>
+        </div>
+        <p class="font-display text-lg font-semibold text-accent-600 mb-4">「壁打ちが、そのままAIの育成になる」</p>
+        <p class="text-primary-700 text-base leading-loose max-w-3xl mb-8">
+          社員一人が、複数のAIと壁打ちしながら働く型。壁打ちがそのままAIの教育になり、小さな専門家が育っていきます。
+          本人は、一人で企画から実行まで完結できるようになります。
+        </p>
+        <div class="bg-white border border-warm-200 p-3 sm:p-5 overflow-x-auto">
+          <img src="/concepts/concept2_generalist.svg"
+               alt="ジェネラリスト型の概念図。一人の社員が複数の小さな専門家に相談・発注し、回答を頭脳として使いながら自分の手で成果物を作り上げる"
+               class="w-full h-auto min-w-[720px]" width="1600" height="815" loading="lazy" />
+        </div>
+        <p class="text-xs text-primary-400 mt-2 sm:hidden">※ 図は横にスクロールできます</p>
+      </div>
+
+      <!-- 型B:スペシャリスト型(采配) -->
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs font-bold text-white bg-primary-800 px-2.5 py-1">型B</span>
+          <h3 class="font-bold text-primary-900 text-2xl">スペシャリスト型(采配)</h3>
+        </div>
+        <p class="font-display text-lg font-semibold text-accent-600 mb-4">「采配はAIへ、判断は人へ」</p>
+        <p class="text-primary-700 text-base leading-loose max-w-3xl mb-8">
+          経営者やベテランが、自分の分身となるAIに方針と知識を渡し、複数の小さな専門家と人に仕事を采配させる型。
+          本人は判断と責任に集中します。一人が、組織並みの実行力を持てるようになります。
+        </p>
+        <div class="bg-white border border-warm-200 p-3 sm:p-5 overflow-x-auto">
+          <img src="/concepts/concept1_specialist.svg"
+               alt="スペシャリスト型の概念図。専門家が分身AIに方針と知識を渡し、分身AIが複数の小さな専門家と複数の人間に仕事を采配して成果物をまとめる"
+               class="w-full h-auto min-w-[720px]" width="1600" height="820" loading="lazy" />
+        </div>
+        <p class="text-xs text-primary-400 mt-2 sm:hidden">※ 図は横にスクロールできます</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 4. 成長の好循環 ===== -->
+  <section class="py-24 px-4 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Growth Cycle</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">
+          人がAIを育て、<br/>AIが人を育てる。
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mb-12">
+        {[
+          { step: '①', title: 'AIに学ぶ',     desc: '新人・若手は「教師AI」に教わって一人前になる' },
+          { step: '②', title: 'AIを育てる',   desc: 'ジェネラリストは壁打ちで小さな専門家を育てる' },
+          { step: '③', title: 'AIを采配する', desc: 'スペシャリストは育った小さな専門家を分身AIとして采配する' },
+          { step: '④', title: '①へ戻る',     desc: '鍛え抜かれたAIは「教師AI」となり、次の新人を育てる' },
+        ].map((c) => (
+          <div class="bg-warm-50 border border-warm-200 p-6">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="font-display text-2xl font-bold text-accent-500">{c.step}</span>
+              <h3 class="font-bold text-primary-900 text-lg">{c.title}</h3>
+            </div>
+            <p class="text-primary-700 text-base leading-relaxed">{c.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="bg-white border border-warm-200 p-3 sm:p-5 overflow-x-auto mb-4">
+        <img src="/concepts/concept3_junkan.svg"
+             alt="人がAIを育て、AIが人を育てる成長の好循環の図。新人×教師AI、ジェネラリスト×AIの育成、スペシャリスト×分身AIの3つの段階が輪になって回り続ける"
+             class="w-full h-auto min-w-[720px]" width="1600" height="680" loading="lazy" />
+      </div>
+      <p class="text-xs text-primary-400 mb-10 sm:hidden">※ 図は横にスクロールできます</p>
+
+      <p class="font-display text-xl font-semibold text-primary-900 max-w-3xl">
+        教えるほどAIという資産が増え、資産が次の人を育てる。<br class="hidden sm:block"/>
+        教育・ナレッジ・評価が、ひとつの輪で回り続けます。
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ===== 5. 4段階ロードマップ ===== -->
+  <section class="py-24 px-4 bg-warm-50">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Roadmap</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">
+          さぐる、そだてる、<br/>まかせる、めぐる。
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+        {[
+          { stage: '① さぐる',   sub: '探索', color: 'bg-slate-400',  desc: '何をAIに任せられるか、現場が試している段階。ROIが出ないのは当たり前の段階。' },
+          { stage: '② そだてる', sub: '育成', color: 'bg-teal-700',   desc: '壁打ちで業務を教え込み、小さな専門家を育てる段階。' },
+          { stage: '③ まかせる', sub: '進化', color: 'bg-primary-800', desc: '育った小さな専門家に采配を任せる段階。' },
+          { stage: '④ めぐる',   sub: '循環', color: 'bg-accent-600', desc: 'AIが教師役になり、人もAIも育つ好循環が回り出す段階。' },
+        ].map((c) => (
+          <div class="bg-white border border-warm-200 flex flex-col">
+            <div class={`${c.color} px-4 py-2.5 flex items-center justify-between`}>
+              <span class="text-white font-bold text-base">{c.stage}</span>
+              <span class="text-white/80 text-xs font-semibold">{c.sub}</span>
+            </div>
+            <p class="text-primary-700 text-sm leading-relaxed p-5 flex-1">{c.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="bg-white border border-warm-200 p-3 sm:p-5 overflow-x-auto mb-4">
+        <img src="/concepts/concept4_roadmap.svg"
+             alt="AIの成長ロードマップの図。さぐる(探索)、そだてる(育成)、まかせる(進化)、めぐる(循環)の4段階を、AIが坂道を上るように育っていく"
+             class="w-full h-auto min-w-[720px]" width="1600" height="800" loading="lazy" />
+      </div>
+      <p class="text-xs text-primary-400 mb-10 sm:hidden">※ 図は横にスクロールできます</p>
+
+      <div class="max-w-3xl space-y-4">
+        <p class="font-display text-xl font-semibold text-primary-900">
+          期限では区切らない。AIの育ち具合を合図に、次へ進む。
+        </p>
+        <p class="text-primary-700 text-base leading-loose">
+          「導入から1年でここまで」という区切り方はしません。
+          AIがどこまで育ったかを合図に、次の段階へ進みます。だから、焦らず、確実に回り出します。
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 6. その第一歩が、小さな専門家づくり ===== -->
+  <section class="py-24 px-4 bg-primary-900">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-10">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-400 text-xs font-semibold tracking-[0.2em] uppercase">First Step</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-white">
+          その第一歩が、<br/>小さな専門家づくり。
+        </h2>
+      </div>
+
+      <p class="text-primary-200 text-lg leading-loose max-w-3xl mb-12">
+        小さな専門家とは、業務ごとに、その会社の知識とやり方を教え込んで育てた専門AI(またはアプリ)のこと。<br class="hidden sm:block"/>
+        大きな汎用AIを「使う」のではなく、自社専用の小さな専門家を「育てて、仕事をさせる」。<br class="hidden sm:block"/>
+        ここから、成長の好循環が始まります。
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl">
+        <a href="/ai-expert/" class="group bg-primary-800/40 border border-primary-700 hover:border-accent-500/60 p-7 transition-colors duration-200">
+          <h3 class="font-bold text-white text-xl mb-3">小さな専門家とは</h3>
+          <p class="text-primary-300 text-base leading-relaxed mb-5">専門家AIと専門家アプリ。2つの使い分けと事例を紹介します。</p>
+          <span class="inline-flex items-center gap-2 text-sm font-semibold text-accent-400 group-hover:gap-3 transition-all">
+            詳しく見る
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </span>
+        </a>
+        <a href="/consulting/" class="group bg-primary-800/40 border border-primary-700 hover:border-accent-500/60 p-7 transition-colors duration-200">
+          <h3 class="font-bold text-white text-xl mb-3">自社で育てたい方へ</h3>
+          <p class="text-primary-300 text-base leading-relaxed mb-5">小さな専門家のつくり方を教え、育つまで伴走する「AI社会実装コンサルティング」。</p>
+          <span class="inline-flex items-center gap-2 text-sm font-semibold text-accent-400 group-hover:gap-3 transition-all">
+            詳しく見る
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 6.5 このモデルについて ===== -->
+  <section class="py-24 px-4 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-10">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">About This Model</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">
+          このモデルについて、<br/>正直にお伝えします。
+        </h2>
+      </div>
+
+      <div class="max-w-3xl space-y-6 text-lg text-primary-700 leading-loose">
+        <p>
+          このモデルは、どこかの教科書に載っているものではありません。<br class="hidden sm:block"/>
+          当事務所が提唱し、<span class="font-semibold text-primary-900">自らの事務所で実践しながら検証を続けている考え方</span>です。
+        </p>
+        <p>
+          「人を育てる時間がない」──そんな中小企業のためのモデルです。
+        </p>
+        <p>
+          実証第一号は、私の事務所です。事業会社でのRPA導入で年間1,200時間を削減した経験をもとに、
+          いまも小さな専門家を自らつくり、業務の中で育てています。
+        </p>
+        <p class="font-display text-xl font-semibold text-primary-900">
+          だからこそ、完成された方法論としてではなく、<br class="hidden sm:block"/>
+          一緒に検証しながら育てていくパートナーとして関わらせていただきます。
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 7. CTA ===== -->
+  <section class="py-24 px-4 bg-warm-50">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="flex items-center justify-center gap-3 mb-6">
+        <div class="w-8 h-px bg-accent-500"></div>
+        <p class="text-accent-600 text-xs font-semibold tracking-[0.3em] uppercase">Free Consultation</p>
+        <div class="w-8 h-px bg-accent-500"></div>
+      </div>
+
+      <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900 mb-8">
+        AIの社会実装、<br/>はじめの一歩から。
+      </h2>
+
+      <p class="text-primary-700 mb-10 text-lg leading-loose">
+        自社がいまどの段階にいるのか、何から育てればいいのか。<br/>
+        無料でご相談いただけます。セミナー・講演のご依頼も承ります。
+      </p>
+
+      <a href="/contact"
+         class="inline-flex items-center gap-3 bg-accent-500 hover:bg-accent-400 text-white font-bold px-12 py-4 text-lg transition-colors duration-200">
+        無料相談・セミナー依頼はこちら
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+</Layout>
