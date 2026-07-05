@@ -1,11 +1,43 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+// 「小さな専門家」の提唱者・用語定義の構造化データ
+// (サイト初出: 2026-05-31 / 商標出願: 2026-07-02 商願2026-077510 第9類・第42類)
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: '小さな専門家とは ── 業務ごとに育てる専門AI・アプリ',
+  description: '小さな専門家とは、業務ごとに、その会社の知識とやり方を教え込んで育てた専門AI(またはアプリ)のこと。おびかわ社労士事務所が提唱・商標出願中の名称。',
+  datePublished: '2026-05-31',
+  dateModified: '2026-07-05',
+  inLanguage: 'ja',
+  author: {
+    '@type': 'Person',
+    name: '大日川 聡一',
+    jobTitle: '社会保険労務士',
+    worksFor: { '@type': 'Organization', name: 'おびかわ社労士事務所' },
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'おびかわ社労士事務所',
+    url: 'https://nagoyasakae.com',
+    logo: { '@type': 'ImageObject', url: 'https://nagoyasakae.com/logo.png' },
+  },
+  mainEntityOfPage: 'https://nagoyasakae.com/ai-expert/',
+  about: {
+    '@type': 'DefinedTerm',
+    name: '小さな専門家',
+    description: '業務ごとに、その会社の知識とやり方を教え込んで育てた専門AI(またはアプリ)。大きな汎用AIを「使う」のではなく、自社専用の小さな専門家を「育てて、仕事をさせる」という考え方。おびかわ社労士事務所(大日川聡一)が提唱し、2026年7月2日に商標出願(商願2026-077510、第9類・第42類)。',
+    termCode: '商願2026-077510',
+  },
+};
 ---
 
 <Layout
   title="小さな専門家｜本業は人間が、あとはAIに任せる"
   description="本業は、人間が。あとは、AIに任せる。AIは使うものじゃなく、仕事をさせるもの。判断は「小さな専門家AI」に、定型作業は「小さな専門家アプリ」に。AIを駆使する社労士が、中小企業が本業に専念できる仕組みをつくります。"
 >
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(articleSchema)} />
 
   <!-- ===== 3. コンセプト ===== -->
   <section class="py-24 px-4 bg-primary-900">
