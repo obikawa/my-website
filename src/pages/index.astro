@@ -1,11 +1,50 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+// よくあるご質問(表示とFAQPageスキーマで共用)
+const faqs = [
+  {
+    q: 'AIに強い社労士とは、普通の社労士と何が違うのですか？',
+    a: '制度をつくって終わりではなく、AIの実装まで自分の手で行うことです。当事務所は事務所運営そのものにAIを全面的に取り入れ、AIに任せられる仕事はすべてAIに任せています。無料公開中の「小さな専門家アプリ」も、このサイトも、AIを駆使して自らつくったものです。業務を細かく分解し、AIのできること・できないことを見極めたうえで「どの仕事にAIを使うべきか」を具体的に提案できます。',
+  },
+  {
+    q: 'AIを導入したのに成果が出ていません。相談できますか？',
+    a: 'ご相談いただけます。ROIが出ないのは失敗ではなく、まだ「さぐる」段階にいるだけです。当事務所が提唱する4段階（さぐる→そだてる→まかせる→めぐる）のどこにいるかを無料相談で診断し、次に進む道筋をご提案します。',
+  },
+  {
+    q: '「小さな専門家」とは何ですか？',
+    a: '業務ごとに、その会社の知識とやり方を教え込んで育てた専門AI（またはアプリ）のことです。大きな汎用AIを「使う」のではなく、自社専用の小さな専門家を「育てて、仕事をさせる」という考え方で、当事務所が提唱し商標出願中です（商願2026-077510）。',
+  },
+  {
+    q: 'どんな会社に向いていますか？',
+    a: '「人を育てる時間がない」中小企業のためのモデルです。名古屋を中心に、オンラインで全国のご相談に対応しています。',
+  },
+  {
+    q: '費用はどれくらいかかりますか？',
+    a: '無料相談と現状診断のうえ、必要な支援だけを組み合わせて必ず事前にお見積りします。顧問契約や小さな専門家アプリの開発費の目安は料金表をご覧ください。',
+  },
+  {
+    q: 'セミナーや講演だけの依頼もできますか？',
+    a: '可能です。「小さな専門家のつくり方」「AI×人事戦略」など、商工会議所・金融機関・企業研修のご依頼に、会場・オンラインどちらでも対応します。',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 ---
 
 <Layout
-  title="AIに仕事をさせて、本業に専念しよう｜名古屋の社労士"
-  description="AIに仕事をさせて、本業に専念しよう。AIは使うものじゃなく、仕事をさせるもの。小さな専門家AIと小さな専門家アプリの2本立てで、中小企業が本業に専念できる仕組みをつくる名古屋の社労士事務所です。"
+  title="AIに仕事をさせて、本業に専念しよう｜名古屋のAIに強い社労士"
+  description="AIに仕事をさせて、本業に専念しよう。AIは使うものじゃなく、仕事をさせるもの。小さな専門家AIと小さな専門家アプリの2本立てで、中小企業が本業に専念できる仕組みをつくる、名古屋のAIに強い社労士事務所です。"
 >
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
 
   <!-- ===== HERO ===== -->
   <section class="relative min-h-[92vh] bg-primary-900 flex items-center overflow-hidden">
@@ -608,7 +647,7 @@ import Layout from '../layouts/Layout.astro';
             </div>
 
             <div class="space-y-3 text-base text-primary-700 leading-relaxed">
-              <p>AIを駆使して、その会社だけの「小さな専門家」をつくるのが得意な社労士です。かつて事業会社でRPA導入を手がけ、年間1,200時間の業務削減を実現した実装経験があります。</p>
+              <p>AIに強い社労士として、AIを駆使し、その会社だけの「小さな専門家」をつくるのが得意です。かつて事業会社でRPA導入を手がけ、年間1,200時間の業務削減を実現した実装経験があります。</p>
               <p class="font-display text-base font-semibold text-accent-600">
                 「人を増やさなくても、仕組みで解決できる」
               </p>
@@ -726,6 +765,37 @@ import Layout from '../layouts/Layout.astro';
             </div>
           ))}
         </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ===== よくあるご質問 ===== -->
+  <section class="py-24 px-4 bg-warm-50">
+    <div class="max-w-5xl mx-auto">
+
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">FAQ</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">よくあるご質問</h2>
+      </div>
+
+      <div class="max-w-3xl space-y-4">
+        {faqs.map((f) => (
+          <div class="bg-white border border-warm-200 p-7">
+            <h3 class="flex items-start gap-3 font-bold text-primary-900 text-lg mb-3">
+              <span class="font-display text-accent-500 shrink-0">Q.</span>
+              {f.q}
+            </h3>
+            <p class="flex items-start gap-3 text-primary-700 text-base leading-relaxed">
+              <span class="font-display font-bold text-primary-400 shrink-0">A.</span>
+              {f.a}
+            </p>
+          </div>
+        ))}
       </div>
 
     </div>
