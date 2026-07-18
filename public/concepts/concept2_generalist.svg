@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 型B:ジェネラリスト×AI ── 複数の小さな専門家を「頭脳」に、自分の手で作り上げる(Web向け調整版・文字拡大) -->
+<!-- ジェネラリスト×AI ── 業務ごとに共用する小さな専門家を、関係者と共同育成する -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="70 135 1460 815" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic UI','Meiryo',sans-serif">
 
   <defs>
@@ -35,17 +35,17 @@
 
   <rect class="bg" x="0" y="0" width="1600" height="1000"/>
 
-  <!-- ============ 複数の小さな専門家(頭脳) ============ -->
+  <!-- ============ 業務ごとに共用する小さな専門家 ============ -->
   <g id="ai-row">
-    <text class="small" x="800" y="170" text-anchor="middle">複数の小さな専門家に相談・発注し、回答や部品(パーツ)を受け取る</text>
+    <text class="small" x="800" y="170" text-anchor="middle">関係者全員の知識・指示・修正・評価を、業務ごとに同じAIへ集める</text>
     <use href="#ai-chip" class="teal" x="348" y="190" width="64" height="64"/>
     <use href="#ai-chip" class="teal" x="628" y="190" width="64" height="64"/>
     <use href="#ai-chip" class="teal" x="908" y="190" width="64" height="64"/>
     <use href="#ai-chip" class="teal" x="1188" y="190" width="64" height="64"/>
-    <text class="body" x="380" y="292" text-anchor="middle" fill="#0f766e">小さな専門家</text>
-    <text class="body" x="660" y="292" text-anchor="middle" fill="#0f766e">小さな専門家</text>
-    <text class="body" x="940" y="292" text-anchor="middle" fill="#0f766e">小さな専門家</text>
-    <text class="body" x="1220" y="292" text-anchor="middle" fill="#0f766e">小さな専門家</text>
+    <text class="body" x="380" y="292" text-anchor="middle" fill="#0f766e">採用の専門家</text>
+    <text class="body" x="660" y="292" text-anchor="middle" fill="#0f766e">勤怠の専門家</text>
+    <text class="body" x="940" y="292" text-anchor="middle" fill="#0f766e">問合せの専門家</text>
+    <text class="body" x="1220" y="292" text-anchor="middle" fill="#0f766e">文書の専門家</text>
   </g>
 
   <!-- 相談・発注 ⇄ 回答(双方向) -->
@@ -54,13 +54,13 @@
     <path class="flowteal" d="M660,308 L780,402" marker-start="url(#arrow-accent)" marker-end="url(#arrow-accent)"/>
     <path class="flowteal" d="M940,308 L820,402" marker-start="url(#arrow-accent)" marker-end="url(#arrow-accent)"/>
     <path class="flowteal" d="M1220,308 L858,418" marker-start="url(#arrow-accent)" marker-end="url(#arrow-accent)"/>
-    <text class="small" x="800" y="345" text-anchor="middle">相談 ⇄ 回答</text>
+    <text class="small" x="800" y="345" text-anchor="middle">依頼 ⇄ 回答 ／ 学びを戻して共同育成</text>
   </g>
 
   <!-- ============ ジェネラリスト ============ -->
   <g id="generalist">
     <use href="#person" class="teal" x="770" y="425" width="60" height="72"/>
-    <text class="h3" x="800" y="532" text-anchor="middle">ジェネラリスト(一人)</text>
+    <text class="h3" x="800" y="532" text-anchor="middle">ジェネラリスト(成果物の責任者)</text>
     <rect x="610" y="546" width="380" height="38" rx="19" fill="#0f766e"/>
     <text class="tag" x="800" y="572" text-anchor="middle">役割:判断も、手を動かすのも自分</text>
   </g>
@@ -76,8 +76,8 @@
 
   <!-- 左右の注記 -->
   <g id="side-notes">
-    <text class="small" x="90" y="440">※ AIは「分業相手」ではなく</text>
-    <text class="small" x="90" y="468">「拡張された頭脳」。人は動かさない。</text>
+    <text class="small" x="90" y="440">一人で成果物を仕上げながら、</text>
+    <text class="small" x="90" y="468">得た学びを共通のAIへ戻す。</text>
     <text class="small" x="1510" y="440" text-anchor="end">スペシャリスト型との違い:</text>
     <text class="small" x="1510" y="468" text-anchor="end">実行を任せず、自分が動く。</text>
   </g>
@@ -85,6 +85,6 @@
   <!-- ============ キーメッセージ ============ -->
   <g id="keymessage">
     <rect x="170" y="856" width="1260" height="72" rx="12" fill="#e6f4f2" stroke="#0f766e" stroke-width="1.5"/>
-    <text x="800" y="900" text-anchor="middle" font-size="24" font-weight="700" fill="#0f766e">複数のAIを頭脳として使い、成果物は自分の手で作り上げる ── 一人で全工程をこなす</text>
+    <text x="800" y="900" text-anchor="middle" font-size="24" font-weight="700" fill="#0f766e">一人で成果物を仕上げ、学びはみんなのAIへ戻す ── 個人の経験を会社のAI資産へ</text>
   </g>
 </svg>

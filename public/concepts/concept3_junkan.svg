@@ -64,7 +64,7 @@
     <!-- 人:新人 → ジェネラリスト -->
     <path class="loop-h" d="M1035,290 Q1190,410 1150,605" marker-end="url(#arrow-human)"/>
     <text class="small" x="1195" y="420" fill="#334155">一人前になり、</text>
-    <text class="small" x="1195" y="446" fill="#334155">AIを鍛える側へ</text>
+    <text class="small" x="1195" y="446" fill="#334155">AIを共に育てる側へ</text>
 
     <!-- 人:ジェネラリスト → スペシャリスト -->
     <path class="loop-h" d="M945,672 L665,672" marker-end="url(#arrow-human)"/>
@@ -100,12 +100,13 @@
     <rect class="card" x="950" y="610" width="420" height="180" rx="12" stroke="#0f766e"/>
     <rect x="966" y="624" width="175" height="30" rx="15" fill="#0f766e"/>
     <text class="tag" x="1053" y="645" text-anchor="middle">段階②|AIを育てる</text>
-    <text class="h3" x="966" y="682">ジェネラリスト×小さな専門家の育成</text>
-    <use href="#person" class="teal" x="1066" y="694" width="44" height="53"/>
-    <path class="mini" d="M1122,718 L1178,718" stroke="#0f766e" marker-start="url(#arrow-mini-teal)" marker-end="url(#arrow-mini-teal)"/>
-    <use href="#ai-chip" class="teal" x="1188" y="692" width="40" height="40"/>
-    <use href="#ai-chip" class="teal" x="1214" y="716" width="40" height="40"/>
-    <text class="small" x="966" y="778">壁打ちがそのまま小さな専門家の育成になる</text>
+    <text class="h3" x="966" y="682">ジェネラリスト×共同育成</text>
+    <use href="#person" class="teal" x="1012" y="704" width="34" height="41"/>
+    <use href="#person" class="teal" x="1052" y="694" width="44" height="53"/>
+    <use href="#person" class="teal" x="1102" y="704" width="34" height="41"/>
+    <path class="mini" d="M1148,718 L1190,718" stroke="#0f766e" marker-start="url(#arrow-mini-teal)" marker-end="url(#arrow-mini-teal)"/>
+    <use href="#ai-chip" class="teal" x="1200" y="694" width="48" height="48"/>
+    <text class="small" x="966" y="778">共用する → 知識・指示・修正・評価で共同育成</text>
   </g>
 
   <!-- ============ カード:スペシャリスト×分身AI(左下) ============ -->

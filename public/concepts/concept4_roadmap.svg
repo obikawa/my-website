@@ -109,13 +109,23 @@
 
   <!-- ============ 段階②:そだてる ============ -->
   <g id="stage2">
-    <use href="#person" class="teal" x="516" y="439" width="44" height="53"/>
-    <path class="mini" d="M572,463 L628,463" stroke="#0f766e" marker-start="url(#arrow-mini-teal)" marker-end="url(#arrow-mini-teal)"/>
-    <use href="#ai-chip" class="teal" x="638" y="437" width="40" height="40"/>
-    <use href="#ai-chip" class="teal" x="664" y="461" width="40" height="40"/>
+    <rect x="465" y="405" width="132" height="100" rx="10" fill="#ffffff" stroke="#5eead4" stroke-width="2"/>
+    <text x="531" y="432" text-anchor="middle" font-size="18" font-weight="700" fill="#0f766e">1 共用する</text>
+    <use href="#person" class="teal" x="485" y="447" width="27" height="33"/>
+    <use href="#person" class="teal" x="516" y="442" width="33" height="40"/>
+    <path class="mini" d="M554,463 L568,463" stroke="#0f766e" marker-end="url(#arrow-mini-teal)"/>
+    <use href="#ai-chip" class="teal" x="572" y="448" width="30" height="30"/>
+
+    <path class="mini" d="M600,455 L620,455" stroke="#0f766e" marker-end="url(#arrow-mini-teal)"/>
+
+    <rect x="623" y="385" width="142" height="120" rx="10" fill="#ecfdf5" stroke="#0f766e" stroke-width="2"/>
+    <text x="694" y="412" text-anchor="middle" font-size="18" font-weight="700" fill="#0f766e">2 共同で育てる</text>
+    <text x="694" y="440" text-anchor="middle" font-size="16" fill="#475569">知識・指示</text>
+    <text x="694" y="463" text-anchor="middle" font-size="16" fill="#475569">修正・評価</text>
+    <use href="#ai-chip" class="teal" x="677" y="468" width="34" height="34"/>
 
     <text class="stagename" x="610" y="552" text-anchor="middle" fill="#0f766e">小さな専門家の育成</text>
-    <text class="desc" x="610" y="582" text-anchor="middle">ジェネラリストが壁打ちで育てる</text>
+    <text class="desc" x="610" y="582" text-anchor="middle">業務ごとの同じAIに、みんなの学びを集める</text>
   </g>
 
   <!-- ============ 段階③:まかせる ============ -->
@@ -148,8 +158,8 @@
     <text x="250" y="756" fill="#64748b">AIを使って、</text>
     <text x="250" y="788" fill="#64748b">本業以外の仕事を自動化</text>
 
-    <text x="610" y="756" fill="#0f766e">AIに仕事をさせて、</text>
-    <text x="610" y="788" fill="#0f766e">本業に専念</text>
+    <text x="610" y="756" fill="#0f766e">AIを共用し、共同で育てて、</text>
+    <text x="610" y="788" fill="#0f766e">会社のAI資産へ</text>
 
     <text x="970" y="756" fill="#1e3a5f">AIに采配を任せて、</text>
     <text x="970" y="788" fill="#1e3a5f">人とAIの分担を最適化</text>

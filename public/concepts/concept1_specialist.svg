@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 型A:スペシャリスト×AI ── 分身AIが複数の小さな専門家と複数の人間を采配する(Web向け調整版・文字拡大) -->
+<!-- スペシャリスト×AI ── 分身AIが共同育成済みの小さな専門家と人間を采配する -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="150 130 1300 820" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic UI','Meiryo',sans-serif">
 
   <defs>
@@ -72,8 +72,8 @@
     <use href="#ai-chip" class="navy" x="402" y="562" width="56" height="56"/>
     <use href="#ai-chip" class="navy" x="472" y="562" width="56" height="56"/>
     <rect x="315" y="630" width="230" height="36" rx="18" fill="#1e3a5f"/>
-    <text class="tag" x="430" y="655" text-anchor="middle">複数の小さな専門家</text>
-    <text class="small" x="430" y="692" text-anchor="middle">AIだけで完結する業務を担当</text>
+    <text class="tag" x="430" y="655" text-anchor="middle">共同育成済みの専門家AI</text>
+    <text class="small" x="430" y="692" text-anchor="middle">業務ごとに磨かれた仕事を担当</text>
   </g>
 
   <!-- ============ 実行リソース:複数の人間ワーカー ============ -->

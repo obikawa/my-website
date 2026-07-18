@@ -7,9 +7,9 @@ const articleSchema = {
   '@type': 'Article',
   headline: 'AIの社会実装 ── 人がAIを育て、AIが人を育てる会社へ',
   alternativeHeadline: '成長の好循環と、さぐる・そだてる・まかせる・めぐるの4段階ロードマップ',
-  description: 'AIの社会実装とは、人がAIを育て、AIが人を育てる循環をつくること。おびかわ社労士事務所が2026年7月に体系化・提唱したオリジナルのモデル。',
+  description: 'AIの社会実装とは、AIを一人で使う道具から、みんなで育てる仲間へ変え、人がAIを育て、AIが人を育てる循環をつくること。おびかわ社労士事務所が2026年7月に体系化・提唱したオリジナルのモデル。',
   datePublished: '2026-07-04',
-  dateModified: '2026-07-05',
+  dateModified: '2026-07-18',
   inLanguage: 'ja',
   author: {
     '@type': 'Person',
@@ -31,7 +31,7 @@ const articleSchema = {
 
 <Layout
   title="AI×人事｜AIの社会実装──人がAIを育て、AIが人を育てる会社へ"
-  description="AIの社会実装とは、人がAIを育て、AIが人を育てる循環をつくること。ROIが出ないのは、まだ「さぐる」段階だから。さぐる→そだてる→まかせる→めぐるの4段階で、AIを業務の中で育てる考え方を解説します。"
+  description="AIは、一人で使う道具から、みんなで育てる仲間へ。業務ごとに同じAIを共用し、知識・指示・修正・評価を蓄積することで小さな専門家を育てます。さぐる→そだてる→まかせる→めぐるの4段階で解説します。"
 >
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(articleSchema)} />
 
@@ -113,7 +113,55 @@ const articleSchema = {
   </section>
 
 
-  <!-- ===== 3. 2つの型 ===== -->
+  <!-- ===== 3. 個人利用から共同育成へ ===== -->
+  <section class="py-24 px-4 bg-primary-900">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-12">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-400 text-xs font-semibold tracking-[0.2em] uppercase">From Personal to Shared</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-white leading-tight">
+          AIは、一人で使う道具から、<br/>みんなで育てる仲間へ。
+        </h2>
+      </div>
+
+      <div class="max-w-3xl space-y-6 text-lg text-primary-200 leading-loose mb-14">
+        <p>
+          一人ひとりが別々のAIを使うだけでは、良い指示も、業務知識も、修正から得た学びも個人の中に閉じたままです。
+          便利にはなっても、会社として同じ品質の仕事を任せられるAIには育ちません。
+        </p>
+        <p>
+          そこで、採用、勤怠、問い合わせ対応など、<span class="font-semibold text-white">業務ごとに共用する一体のAI</span>を決めます。
+          担当者全員が同じ「小さな専門家」に仕事を依頼し、承認された知識・指示テンプレート・評価基準・修正結果を蓄積します。
+        </p>
+        <p class="font-display text-xl sm:text-2xl font-semibold text-accent-400">
+          仕事を集める。学びを戻す。みんなで磨く。<br class="hidden sm:block"/>
+          その反復が、個人の便利ツールを会社のAI資産へ変えます。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-stretch gap-4 max-w-4xl">
+        <div class="border border-primary-700 bg-primary-800/40 p-7">
+          <p class="text-xs font-bold tracking-wider text-primary-400 mb-3">BEFORE｜個人利用</p>
+          <h3 class="text-xl font-bold text-white mb-3">それぞれが、別々のAIを使う</h3>
+          <p class="text-primary-300 leading-relaxed">知識・改善・失敗が個人に閉じ、同じ仕事でも品質と進め方がばらつく。</p>
+        </div>
+        <div class="hidden md:flex items-center justify-center text-accent-400 text-3xl" aria-hidden="true">→</div>
+        <div class="border border-accent-500/60 bg-accent-500/10 p-7">
+          <p class="text-xs font-bold tracking-wider text-accent-400 mb-3">AFTER｜共同育成</p>
+          <h3 class="text-xl font-bold text-white mb-3">業務ごとに、同じAIを育てる</h3>
+          <p class="text-primary-200 leading-relaxed">複数人の知識・指示・修正・評価が集まり、再現性のある仕事を担う小さな専門家になる。</p>
+        </div>
+      </div>
+      <p class="text-xs text-primary-400 mt-5 max-w-4xl">
+        ※共有するのは個人の会話履歴ではなく、確認・承認した知識や仕事の型を反映した共通のAI設定・仕組みです。
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ===== 4. 2つの型 ===== -->
   <section class="py-24 px-4 bg-warm-50">
     <div class="max-w-5xl mx-auto">
       <div class="mb-14">
@@ -132,14 +180,14 @@ const articleSchema = {
           <span class="text-xs font-bold text-white bg-teal-700 px-2.5 py-1">型A</span>
           <h3 class="font-bold text-primary-900 text-2xl">ジェネラリスト型(育成)</h3>
         </div>
-        <p class="font-display text-lg font-semibold text-accent-600 mb-4">「壁打ちが、そのままAIの育成になる」</p>
+        <p class="font-display text-lg font-semibold text-accent-600 mb-4">「一人で仕上げ、みんなでAIを育てる」</p>
         <p class="text-primary-700 text-base leading-loose max-w-3xl mb-8">
-          社員一人が、複数のAIと壁打ちしながら働く型。壁打ちがそのままAIの教育になり、小さな専門家が育っていきます。
-          本人は、一人で企画から実行まで完結できるようになります。
+          ジェネラリストが複数の小さな専門家に相談し、自分の手で成果物を完成させる型。
+          その仕事で得た知識・指示・修正・評価を、関係者が共用する業務ごとのAIへ戻すことで、小さな専門家を共同で育てます。
         </p>
         <div class="bg-white border border-warm-200 p-3 sm:p-5 overflow-x-auto">
           <img src="/concepts/concept2_generalist.svg"
-               alt="ジェネラリスト型の概念図。一人の社員が複数の小さな専門家に相談・発注し、回答を頭脳として使いながら自分の手で成果物を作り上げる"
+               alt="ジェネラリスト型の概念図。複数の担当者が業務ごとに共用する小さな専門家へ知識・指示・修正・評価を集め、ジェネラリストが回答を使って成果物を完成させながら共同育成する"
                class="w-full h-auto min-w-[720px]" width="1600" height="815" loading="lazy" />
         </div>
         <p class="text-xs text-primary-400 mt-2 sm:hidden">※ 図は横にスクロールできます</p>
@@ -153,7 +201,7 @@ const articleSchema = {
         </div>
         <p class="font-display text-lg font-semibold text-accent-600 mb-4">「采配はAIへ、判断は人へ」</p>
         <p class="text-primary-700 text-base leading-loose max-w-3xl mb-8">
-          経営者やベテランが、自分の分身となるAIに方針と知識を渡し、複数の小さな専門家と人に仕事を采配させる型。
+          経営者やベテランが、自分の分身となるAIに方針と知識を渡し、共同育成済みの複数の小さな専門家と、必要な人に仕事を采配させる型。
           本人は判断と責任に集中します。一人が、組織並みの実行力を持てるようになります。
         </p>
         <div class="bg-white border border-warm-200 p-3 sm:p-5 overflow-x-auto">
@@ -167,7 +215,7 @@ const articleSchema = {
   </section>
 
 
-  <!-- ===== 4. 成長の好循環 ===== -->
+  <!-- ===== 5. 成長の好循環 ===== -->
   <section class="py-24 px-4 bg-white">
     <div class="max-w-5xl mx-auto">
       <div class="mb-14">
@@ -183,9 +231,9 @@ const articleSchema = {
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mb-12">
         {[
           { step: '①', title: 'AIに学ぶ',     desc: '新人・若手は「教師AI」に教わって一人前になる' },
-          { step: '②', title: 'AIを育てる',   desc: 'ジェネラリストは壁打ちで小さな専門家を育てる' },
+          { step: '②', title: 'AIを育てる',   desc: '業務ごとに同じAIを共用し、複数人で知識・指示・修正・評価を蓄積する' },
           { step: '③', title: 'AIを采配する', desc: 'スペシャリストは育った小さな専門家を分身AIとして采配する' },
-          { step: '④', title: '①へ戻る',     desc: '鍛え抜かれたAIは「教師AI」となり、次の新人を育てる' },
+          { step: '④', title: '①へ戻る',     desc: '実務で磨かれたAIは「教師AI」となり、次の新人を育てる' },
         ].map((c) => (
           <div class="bg-warm-50 border border-warm-200 p-6">
             <div class="flex items-center gap-3 mb-2">
@@ -199,7 +247,7 @@ const articleSchema = {
 
       <div class="bg-white border border-warm-200 p-3 sm:p-5 overflow-x-auto mb-4">
         <img src="/concepts/concept3_junkan.svg"
-             alt="人がAIを育て、AIが人を育てる成長の好循環の図。新人×教師AI、ジェネラリスト×AIの育成、スペシャリスト×分身AIの3つの段階が輪になって回り続ける"
+             alt="人がAIを育て、AIが人を育てる成長の好循環の図。新人が教師AIに学び、業務ごとに同じAIを共用して複数人で共同育成し、スペシャリストが分身AIを通じて小さな専門家と人を采配する"
              class="w-full h-auto min-w-[720px]" width="1600" height="680" loading="lazy" />
       </div>
       <p class="text-xs text-primary-400 mb-10 sm:hidden">※ 図は横にスクロールできます</p>
@@ -212,7 +260,7 @@ const articleSchema = {
   </section>
 
 
-  <!-- ===== 5. 4段階ロードマップ ===== -->
+  <!-- ===== 6. 4段階ロードマップ ===== -->
   <section class="py-24 px-4 bg-warm-50">
     <div class="max-w-5xl mx-auto">
       <div class="mb-14">
@@ -228,7 +276,7 @@ const articleSchema = {
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
         {[
           { stage: '① さぐる',   sub: '探索', color: 'bg-slate-400',  desc: '何をAIに任せられるか、現場が試している段階。ROIが出ないのは当たり前の段階。' },
-          { stage: '② そだてる', sub: '育成', color: 'bg-teal-700',   desc: '壁打ちで業務を教え込み、小さな専門家を育てる段階。' },
+          { stage: '② そだてる', sub: '育成', color: 'bg-teal-700',   desc: '業務ごとに同じAIを「共用する」→複数人で知識・指示・修正・評価を蓄積し「共同で育てる」段階。' },
           { stage: '③ まかせる', sub: '進化', color: 'bg-primary-800', desc: '育った小さな専門家に采配を任せる段階。' },
           { stage: '④ めぐる',   sub: '循環', color: 'bg-accent-600', desc: 'AIが教師役になり、人もAIも育つ好循環が回り出す段階。' },
         ].map((c) => (
@@ -244,7 +292,7 @@ const articleSchema = {
 
       <div class="bg-white border border-warm-200 p-3 sm:p-5 overflow-x-auto mb-4">
         <img src="/concepts/concept4_roadmap.svg"
-             alt="AIの成長ロードマップの図。さぐる(探索)、そだてる(育成)、まかせる(進化)、めぐる(循環)の4段階を、AIが坂道を上るように育っていく"
+             alt="AIの成長ロードマップの図。さぐる、そだてる、まかせる、めぐるの4段階。そだてる段階は、業務ごとに同じAIを共用する工程と、複数人で共同育成する工程に分かれる"
              class="w-full h-auto min-w-[720px]" width="1600" height="800" loading="lazy" />
       </div>
       <p class="text-xs text-primary-400 mb-10 sm:hidden">※ 図は横にスクロールできます</p>
@@ -262,7 +310,7 @@ const articleSchema = {
   </section>
 
 
-  <!-- ===== 6. その第一歩が、小さな専門家づくり ===== -->
+  <!-- ===== 7. その第一歩が、小さな専門家づくり ===== -->
   <section class="py-24 px-4 bg-primary-900">
     <div class="max-w-5xl mx-auto">
       <div class="mb-10">
@@ -276,8 +324,8 @@ const articleSchema = {
       </div>
 
       <p class="text-primary-200 text-lg leading-loose max-w-3xl mb-12">
-        小さな専門家とは、業務ごとに、その会社の知識とやり方を教え込んで育てた専門AI(またはアプリ)のこと。<br class="hidden sm:block"/>
-        大きな汎用AIを「使う」のではなく、自社専用の小さな専門家を「育てて、仕事をさせる」。<br class="hidden sm:block"/>
+        小さな専門家とは、業務ごとに共用し、その会社の承認済みの知識・指示・修正・評価を複数人で蓄積して育てる専門AI(またはアプリ)のこと。<br class="hidden sm:block"/>
+        大きな汎用AIを一人ずつ「使う」のではなく、業務ごとに同じAIを共用し、自社専用の小さな専門家をみんなで「育てて、仕事をさせる」。<br class="hidden sm:block"/>
         ここから、成長の好循環が始まります。
       </p>
 

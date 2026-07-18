@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     q: '「小さな専門家」とは何ですか？',
-    a: '業務ごとに、その会社の知識とやり方を教え込んで育てた専門AI（またはアプリ）のことです。大きな汎用AIを「使う」のではなく、自社専用の小さな専門家を「育てて、仕事をさせる」という考え方で、当事務所が提唱し商標出願中です（商願2026-077510）。',
+    a: '業務ごとに共用し、その会社の承認済みの知識・指示・修正・評価を複数人で蓄積して育てる専門AI（またはアプリ）のことです。一人ひとりが大きな汎用AIを「使う」のではなく、自社専用の小さな専門家をみんなで「育てて、仕事をさせる」という考え方で、当事務所が提唱し商標出願中です（商願2026-077510）。',
   },
   {
     q: 'どんな会社に向いていますか？',
@@ -180,13 +180,14 @@ const faqSchema = {
       </div>
 
       <p class="text-primary-700 text-lg leading-loose max-w-3xl mb-10">
-        社員が仕事の中でAIを育てると、育ったAIが次の社員を育てる。<br class="hidden sm:block"/>
+        AIは、一人で使う道具から、みんなで育てる仲間へ。業務ごとに同じAIを共用し、<br class="hidden sm:block"/>
+        複数人で知識・指示・修正・評価を蓄積すると、育ったAIが次の社員を育てる。<br class="hidden sm:block"/>
         この循環をつくることが、<span class="font-semibold text-primary-900">AIの社会実装</span>です。その第一歩が、小さな専門家づくり。
       </p>
 
       <div class="bg-warm-50 border border-warm-200 p-3 sm:p-5 overflow-x-auto mb-2">
         <img src="/concepts/concept3_junkan.svg"
-             alt="人がAIを育て、AIが人を育てる成長の好循環の図。新人×教師AI、ジェネラリスト×小さな専門家の育成、スペシャリスト×分身AIの3つの段階が輪になって回り続ける"
+             alt="人がAIを育て、AIが人を育てる成長の好循環の図。新人が教師AIに学び、業務ごとに同じAIを共用して複数人で共同育成し、スペシャリストが分身AIを通じて小さな専門家と人を采配する"
              class="w-full h-auto min-w-[720px]" width="1600" height="680" loading="lazy" />
       </div>
       <p class="text-xs text-primary-400 mb-8 sm:hidden">※ 図は横にスクロールできます</p>
@@ -218,12 +219,12 @@ const faqSchema = {
 
       <p class="text-primary-700 text-lg leading-loose max-w-3xl mb-10">
         AIを入れたのに元が取れない──それは失敗ではなく、まだ「さぐる」段階にいるだけです。<br class="hidden sm:block"/>
-        次の「そだてる」へ進めば、投資は回収に向かいます。私たちは、その進め方を教えます。
+        次の「そだてる」で、業務ごとに同じAIを共用し、みんなで磨けば、投資は回収に向かいます。私たちは、その進め方を教えます。
       </p>
 
       <div class="bg-white border border-warm-200 p-3 sm:p-5 overflow-x-auto mb-2">
         <img src="/concepts/concept4_roadmap.svg"
-             alt="AIの成長ロードマップの図。さぐる(探索)、そだてる(育成)、まかせる(進化)、めぐる(循環)の4段階を、AIが坂道を上るように育っていく"
+             alt="AIの成長ロードマップの図。さぐる、そだてる、まかせる、めぐるの4段階。そだてる段階は、業務ごとに同じAIを共用する工程と、複数人で共同育成する工程に分かれる"
              class="w-full h-auto min-w-[720px]" width="1600" height="800" loading="lazy" />
       </div>
       <p class="text-xs text-primary-400 mb-8 sm:hidden">※ 図は横にスクロールできます</p>
@@ -394,7 +395,7 @@ const faqSchema = {
             </div>
             <h3 class="font-bold text-primary-900 text-xl mb-4">AI社会実装コンサルティング</h3>
             <ul class="space-y-2.5 mb-6 flex-1">
-              {['小さな専門家の「つくり方」を伝授', 'さぐる〜めぐるの4段階で伴走', 'AIと社員の最適配置を制度に落とし込む'].map((item) => (
+              {['業務ごとのAIを「共用する」設計', '同じAIを「共同で育てる」伴走', 'AIと社員の最適配置を制度に落とし込む'].map((item) => (
                 <li class="flex items-center gap-2.5 text-base text-primary-700">
                   <span class="w-1 h-4 bg-teal-500 shrink-0"></span>
                   {item}
