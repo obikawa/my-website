@@ -26,12 +26,12 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nagoyasakae.com/price</loc>
+    <loc>https://nagoyasakae.com/price/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nagoyasakae.com/contact</loc>
+    <loc>https://nagoyasakae.com/contact/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -41,7 +41,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nagoyasakae.com/minimum-wage</loc>
+    <loc>https://nagoyasakae.com/minimum-wage/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
