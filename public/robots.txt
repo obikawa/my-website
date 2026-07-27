@@ -2,3 +2,6 @@ User-agent: *
 Allow: /
 
 Sitemap: https://nagoyasakae.com/sitemap.xml
+
+# AI向けのサイト概要（llms.txt 規格）
+# https://nagoyasakae.com/llms.txt
