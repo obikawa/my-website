@@ -95,6 +95,11 @@ import Layout from '../../layouts/Layout.astro';
         </div>
         <h3>休日カレンダー（確認・個別編集）</h3>
         <p style="font-size:12px;color:var(--ws-text-sub);margin:0 0 8px;">日付をクリックすると休日⇔出勤日を個別に切り替えられます。<span style="background:#f0f0f0;padding:2px 6px;border-radius:4px;">グレー背景</span> = 休日、<span style="color:var(--ws-holiday);font-weight:700;">赤文字</span> = 祝日</p>
+        <div class="calendar-controls">
+          <button type="button" id="holPrevMonth">‹</button>
+          <span class="month-label" id="holMonthLabel"></span>
+          <button type="button" id="holNextMonth">›</button>
+        </div>
         <div class="hol-calendars" id="holCalendars"></div>
         <div class="hol-result" id="holResult"></div>
       </div>
@@ -694,8 +699,13 @@ function countWorkDaysInPeriod(pp){
 }
 
 /* ===== 休日カレンダー描画 ===== */
+/* 休日カレンダーは育休期間の選択とは独立した月を表示する */
+let holMonth1=new Date();holMonth1.setDate(1);
+function getHolMonth2(){const m=new Date(holMonth1);m.setMonth(m.getMonth()+1);return m;}
+
 function renderHolCalendars(){
-  const m1=currentMonth1,m2=getMonth2();
+  const m1=holMonth1,m2=getHolMonth2();
+  $('holMonthLabel').textContent=`${m1.getFullYear()}年${m1.getMonth()+1}月・${m2.getFullYear()}年${m2.getMonth()+1}月`;
   let html='';
   [m1,m2].forEach(mo=>{
     const y=mo.getFullYear(),m=mo.getMonth(),dim=eom(y,m+1);
@@ -874,8 +884,10 @@ function renderBD(id,d,isL){let h='';h+=`<div class="bk-row"><span>月給</span>
 function renderDiff(id,d){const e=$(id);e.textContent=`現状比 ${d>=0?'+':''}${fmtY(d)}`;e.className='comp-diff '+(d>=0?'up':'down');}
 
 /* ===== イベント ===== */
-$('prevMonth').addEventListener('click',()=>{currentMonth1.setMonth(currentMonth1.getMonth()-1);renderHolCalendars();renderCalendars();updateAll();});
-$('nextMonth').addEventListener('click',()=>{currentMonth1.setMonth(currentMonth1.getMonth()+1);renderHolCalendars();renderCalendars();updateAll();});
+$('prevMonth').addEventListener('click',()=>{currentMonth1.setMonth(currentMonth1.getMonth()-1);renderCalendars();updateAll();});
+$('nextMonth').addEventListener('click',()=>{currentMonth1.setMonth(currentMonth1.getMonth()+1);renderCalendars();updateAll();});
+$('holPrevMonth').addEventListener('click',()=>{holMonth1.setMonth(holMonth1.getMonth()-1);renderHolCalendars();});
+$('holNextMonth').addEventListener('click',()=>{holMonth1.setMonth(holMonth1.getMonth()+1);renderHolCalendars();});
 document.querySelectorAll('#countToggle button').forEach(b=>b.addEventListener('click',()=>setLeaveCount(+b.dataset.count)));
 document.querySelectorAll('.period-tab').forEach(t=>t.addEventListener('click',e=>{if(e.target.classList.contains('p-clear'))return;switchPeriod(+t.dataset.period);}));
 $('p1Clear').addEventListener('click',e=>{e.stopPropagation();clearPeriod(1);});
