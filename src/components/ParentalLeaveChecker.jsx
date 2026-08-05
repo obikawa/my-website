@@ -45,31 +45,39 @@ function analyzeExemption(p1Start, p1End, p1Work, p2Start, p2End, p2Work) {
       reasons.push("月末日が育休期間に含まれている");
     }
 
-    // ② 同月内の実育休日数（月またぎ期間も正しくカウント）
+    // ② 14日要件
+    //    厚生年金保険法81条の2／健康保険法159条により、この要件が使えるのは
+    //    「育休の開始日の属する月」と「終了日の翌日が属する月」が同一の場合に限られる。
+    //    月をまたぐ育休は、その月に含まれる日数を14日要件に算入できない。
+    //    同一月内で完結した育休が複数あるときは通算できる。
     const mStart = new Date(year, month, 1);
     const mEnd = getLastDayOfMonth(year, month);
     let totalDaysInMonth = 0;
+    let hasSpanningLeave = false;
     periods.forEach(p => {
       const overlapStart = p.start > mStart ? p.start : mStart;
       const overlapEnd = p.end < mEnd ? p.end : mEnd;
-      if (overlapStart <= overlapEnd) {
-        const totalPeriodDays = daysBetween(p.start, p.end);
-        const daysInThisMonth = daysBetween(overlapStart, overlapEnd);
-        // 就業日数を日数比率で按分
-        const workInThisMonth = totalPeriodDays > 0
-          ? Math.round(p.workDays * daysInThisMonth / totalPeriodDays)
-          : 0;
-        totalDaysInMonth += Math.max(0, daysInThisMonth - workInThisMonth);
-      }
+      if (overlapStart > overlapEnd) return;              // この月に重ならない
+      const dayAfterEnd = new Date(p.end.getFullYear(), p.end.getMonth(), p.end.getDate() + 1);
+      const startsHere = p.start.getFullYear() === year && p.start.getMonth() === month;
+      const endsHere = dayAfterEnd.getFullYear() === year && dayAfterEnd.getMonth() === month;
+      if (!(startsHere && endsHere)) { hasSpanningLeave = true; return; }
+      totalDaysInMonth += Math.max(0, daysBetween(p.start, p.end) - p.workDays);
     });
 
     if (totalDaysInMonth >= 14 && !exempt) {
       exempt = true;
-      reasons.push(`同月内の育休日数が${totalDaysInMonth}日（14日以上）`);
+      reasons.push(`同一月内で完結した育休が${totalDaysInMonth}日（14日以上）`);
     } else if (totalDaysInMonth >= 14 && exempt) {
-      reasons.push(`同月内の育休日数も${totalDaysInMonth}日（14日以上）で条件充足`);
+      reasons.push(`同一月内で完結した育休も${totalDaysInMonth}日（14日以上）で条件充足`);
     } else if (!exempt) {
-      reasons.push(`同月内の育休日数は${totalDaysInMonth}日（14日未満のため免除対象外）`);
+      if (hasSpanningLeave && totalDaysInMonth === 0) {
+        reasons.push("月をまたぐ育休のため、14日要件（同一月内に開始・終了した育休が対象）は使えない");
+      } else if (hasSpanningLeave) {
+        reasons.push(`同一月内で完結した育休は${totalDaysInMonth}日（14日未満。月をまたぐ育休の日数は算入不可）`);
+      } else {
+        reasons.push(`同一月内の育休日数は${totalDaysInMonth}日（14日未満のため免除対象外）`);
+      }
     }
 
     monthly[key] = { label, exempt, reasons };
