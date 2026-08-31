@@ -1,0 +1,10 @@
+# 「小さな専門家」の用語定義とツールは chiisanasenmonka.jp へ移した。
+# 定義と構造化データ（提唱者・商標出願）を2か所に置くと、
+# どちらが正典か Google が判断できず、提唱者としての主張が薄まる。
+# このサイトからは定義を削除し、301 で正典へ寄せる。
+#
+# ※ 末尾に ! を付けて強制。付けないと既存ファイルが優先され、
+#    ビルド成果物が残っている間はリダイレクトされない。
+
+/ai-expert     https://chiisanasenmonka.jp/about/   301!
+/ai-expert/*   https://chiisanasenmonka.jp/about/   301!
