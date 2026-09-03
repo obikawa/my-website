@@ -8,3 +8,11 @@
 
 /ai-expert     https://chiisanasenmonka.jp/about/   301!
 /ai-expert/*   https://chiisanasenmonka.jp/about/   301!
+
+# 産後パパ育休の2本は chiisanasenmonka.jp へ移行済み（機能パリティ確認済み）。
+# 旧URLを 200 のまま残すと重複コンテンツになり、どちらの順位も落ちる。
+# 必ず対応する個別ページへ飛ばす（トップへまとめて飛ばすとソフト404扱いになる）。
+/tools/wage-sim        https://chiisanasenmonka.jp/tools/wage-sim/      301!
+/tools/wage-sim/*      https://chiisanasenmonka.jp/tools/wage-sim/      301!
+/tools/papa-ikukyu     https://chiisanasenmonka.jp/tools/papa-ikukyu/   301!
+/tools/papa-ikukyu/*   https://chiisanasenmonka.jp/tools/papa-ikukyu/   301!
