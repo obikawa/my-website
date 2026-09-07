@@ -18,3 +18,9 @@
 /tools/papa-ikukyu/*   https://chiisanasenmonka.jp/tools/papa-ikukyu/   301!
 /tools/yukyu-fuyo      https://chiisanasenmonka.jp/tools/yukyu-fuyo/    301!
 /tools/yukyu-fuyo/*    https://chiisanasenmonka.jp/tools/yukyu-fuyo/    301!
+
+# 最低賃金チェッカーは移行先に令和8年度の答申額まで入っている。
+# 旧ページを残すと10月の発効後も令和7年度の額を見せ続けることになる。
+# 旧URLは /tools/ 配下ではないので、パスが変わる点に注意。
+/minimum-wage          https://chiisanasenmonka.jp/tools/minimum-wage/  301!
+/minimum-wage/*        https://chiisanasenmonka.jp/tools/minimum-wage/  301!
