@@ -36,11 +36,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nagoyasakae.com/minimum-wage/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://nagoyasakae.com/tools/kounenrei/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
