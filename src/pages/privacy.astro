@@ -1,0 +1,245 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// 個人情報保護方針。
+//
+// 書き方の方針（2026-09-09 決定）:
+// 同業の大手（社会保険労務士法人 大野事務所、同 大槻経営労務管理事務所ほか）の
+// 公表内容に合わせ、包括的な文言にとどめる。細かく具体的に書くほど、
+// 書いたとおりに運用する義務が生じ、守れなかったときに公表した約束を
+// 破ったことになる。要配慮個人情報の個別条項は、調べた範囲でどの事務所も
+// 置いていないため設けない。
+//
+// 文体は である調。個人情報保護法が公表を求める事項（利用目的、
+// 保有個人データの取扱い、開示等の手続、窓口）を過不足なく満たすことを基準とし、
+// それを超えた約束はしない。
+//
+// 対象は当事務所の業務全体。事業者は1つなので、サイトが2つ
+// （nagoyasakae.com / chiisanasenmonka.jp）でも方針は1本にまとめる。
+// 小さな専門家.jp 側の /privacy/ はここへ 301 で寄せる。
+
+const revised = '2026年9月9日';
+
+// 利用目的。大分類にとどめる。細分化すると、目的の追加のたびに改訂が要る。
+const purposes = [
+  '社会保険労務士法に定める業務及びこれに関連する業務の遂行',
+  '給与計算その他の受託業務の遂行',
+  '労務管理及び人事に関する相談、指導並びにコンサルティング',
+  'セミナー、研修その他の催しの運営及び案内',
+  '当事務所が提供するサービス、ツール及び情報の提供、改善並びに案内',
+  'お問い合わせ、ご依頼及びご請求への対応',
+  '前各号に付随する業務の遂行',
+];
+---
+
+<Layout
+  title="個人情報保護方針"
+  description="おびかわ社労士事務所の個人情報保護方針及び特定個人情報等の適正な取扱いに関する基本方針です。"
+>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-primary-800 to-primary-600 text-white py-16 px-4">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="text-primary-200 text-sm font-medium tracking-widest uppercase mb-3">Privacy Policy</p>
+      <h1 class="text-4xl font-bold">個人情報保護方針</h1>
+    </div>
+  </section>
+
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+    <p class="text-gray-700 leading-relaxed">
+      おびかわ社労士事務所（以下「当事務所」という。）は、業務の遂行にあたり多くの個人情報を
+      取り扱う。当事務所は、個人情報の保護を社会的責務と認識し、個人情報の保護に関する法律
+      その他の関係法令及びガイドラインを遵守するとともに、次のとおり個人情報保護方針を定め、
+      これを実行し、維持するものとする。
+    </p>
+
+    <div class="mt-12 space-y-10">
+
+      <section>
+        <h2 class="text-lg font-bold text-gray-900 border-l-4 border-accent-500 pl-4">1. 事業者の名称等</h2>
+        <dl class="mt-4 border border-gray-200 rounded-lg divide-y divide-gray-200 text-sm">
+          <div class="flex flex-col sm:flex-row">
+            <dt class="sm:w-36 shrink-0 bg-gray-50 px-4 py-3 font-semibold text-gray-700">名称</dt>
+            <dd class="px-4 py-3 text-gray-800">おびかわ社労士事務所</dd>
+          </div>
+          <div class="flex flex-col sm:flex-row">
+            <dt class="sm:w-36 shrink-0 bg-gray-50 px-4 py-3 font-semibold text-gray-700">代表者</dt>
+            <dd class="px-4 py-3 text-gray-800">社会保険労務士　大日川 聡一</dd>
+          </div>
+          <div class="flex flex-col sm:flex-row">
+            <dt class="sm:w-36 shrink-0 bg-gray-50 px-4 py-3 font-semibold text-gray-700">所在地</dt>
+            <dd class="px-4 py-3 text-gray-800">〒460-0008　愛知県名古屋市中区栄5-26-39　GS栄ビル3F</dd>
+          </div>
+        </dl>
+        <p class="mt-4 text-sm text-gray-700 leading-relaxed">
+          本方針は、当事務所の業務全般に適用する。当事務所が運営するウェブサイト
+          （<span class="font-mono text-xs">nagoyasakae.com</span> 及び
+          <span class="font-mono text-xs">chiisanasenmonka.jp</span>）を含む。
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-bold text-gray-900 border-l-4 border-accent-500 pl-4">2. 個人情報の利用目的</h2>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          当事務所は、次の目的の達成に必要な範囲において個人情報を取得し、利用する。
+          あらかじめ本人の同意を得た場合又は法令に基づく場合を除き、これらの目的以外には利用しない。
+        </p>
+        <ol class="mt-4 space-y-2 text-gray-700 leading-relaxed list-decimal list-outside pl-6">
+          {purposes.map((p) => <li>{p}</li>)}
+        </ol>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          顧問先その他の委託者から提供を受けた従業員等の個人データについては、
+          委託された業務の遂行に必要な範囲においてのみ取り扱う。
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-bold text-gray-900 border-l-4 border-accent-500 pl-4">3. 個人情報の取得</h2>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          当事務所は、適法かつ公正な手段により個人情報を取得する。
+          個人情報は、本人から直接取得するほか、顧問先その他の委託者からの提供により取得する。
+        </p>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          当事務所は、業務の正確な記録及び事後の確認のため、打合せ、会議又は通話の内容を
+          録音又は録画することがある。
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-bold text-gray-900 border-l-4 border-accent-500 pl-4">4. 安全管理措置</h2>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          当事務所は、個人情報への不正アクセス、個人情報の紛失、破壊、改ざん及び漏えい等を
+          防止するため、組織的、人的、物理的及び技術的な安全管理措置を講じ、
+          必要に応じて是正するものとする。
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-bold text-gray-900 border-l-4 border-accent-500 pl-4">5. 第三者への提供</h2>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          当事務所は、次の場合を除き、あらかじめ本人の同意を得ることなく個人データを
+          第三者に提供しない。
+        </p>
+        <ol class="mt-4 space-y-2 text-gray-700 leading-relaxed list-decimal list-outside pl-6">
+          <li>法令に基づく場合</li>
+          <li>人の生命、身体又は財産の保護のために必要がある場合であって、本人の同意を得ることが困難であるとき</li>
+          <li>国の機関若しくは地方公共団体又はその委託を受けた者が法令の定める事務を遂行することに対して協力する必要がある場合であって、本人の同意を得ることにより当該事務の遂行に支障を及ぼすおそれがあるとき</li>
+        </ol>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          なお、依頼に基づき行政機関等に対して申請書、届出書その他の書類を提出することは、
+          手続の代理又は代行であり、第三者への提供に該当しない。
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-bold text-gray-900 border-l-4 border-accent-500 pl-4">6. 個人情報の取扱いの委託</h2>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          当事務所は、業務の遂行上必要な範囲において、個人情報の取扱いを外部に委託することがある。
+          この場合、委託先について適切な選定を行い、必要かつ適切な監督を行うものとする。
+        </p>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          委託先には外国にある事業者が含まれることがある。この場合、当該外国の個人情報の保護に
+          関する制度は日本と同一ではないが、当事務所は委託先に対し必要かつ適切な監督を行う。
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-bold text-gray-900 border-l-4 border-accent-500 pl-4">7. 開示等の求めへの対応</h2>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          当事務所は、保有個人データに関し、利用目的の通知、開示、内容の訂正、追加又は削除、
+          利用の停止、消去及び第三者への提供の停止の求めに対し、法令に従い対応する。
+        </p>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          求めは、下記10のお問い合わせ窓口において受け付ける。受付にあたっては、
+          本人又は代理人であることを確認するものとする。
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-bold text-gray-900 border-l-4 border-accent-500 pl-4">8. ウェブサイトにおける情報の取得</h2>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          当事務所が運営するウェブサイトでは、閲覧状況の把握及びサイトの改善のため、
+          Google LLC が提供する Google アナリティクスを利用している。同サービスは Cookie を
+          用いて閲覧に関する情報を収集するが、氏名その他個人を直接特定する情報は取得しない。
+        </p>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          データの取扱いについては
+          <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer" class="text-primary-700 underline hover:no-underline">Google のポリシーと規約</a>
+          による。収集を希望しない場合は、
+          <a href="https://tools.google.com/dlpage/gaoptout?hl=ja" target="_blank" rel="noopener noreferrer" class="text-primary-700 underline hover:no-underline">Google アナリティクス オプトアウト アドオン</a>
+          の利用又はブラウザの設定により、これを無効にすることができる。
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-bold text-gray-900 border-l-4 border-accent-500 pl-4">9. 特定個人情報等の適正な取扱いに関する基本方針</h2>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          当事務所は、特定個人情報等（個人番号及び個人番号をその内容に含む個人情報をいう。）の
+          適正な取扱いの確保について組織として取り組むため、次のとおり基本方針を定める。
+        </p>
+        <dl class="mt-4 space-y-4 text-gray-700 leading-relaxed">
+          <div>
+            <dt class="font-semibold text-gray-900">(1) 事業者の名称</dt>
+            <dd class="mt-1">おびかわ社労士事務所</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-gray-900">(2) 関係法令・ガイドライン等の遵守</dt>
+            <dd class="mt-1">
+              行政手続における特定の個人を識別するための番号の利用等に関する法律、
+              個人情報の保護に関する法律その他の関係法令並びに
+              特定個人情報の適正な取扱いに関するガイドラインを遵守し、
+              特定個人情報等を適正に取り扱う。
+            </dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-gray-900">(3) 安全管理措置に関する事項</dt>
+            <dd class="mt-1">
+              特定個人情報等の漏えい、滅失又は毀損の防止その他の適切な管理のため、
+              取扱担当者及び取扱区域を限定するほか、必要かつ適切な安全管理措置を講ずる。
+              法令に定める保存期間を経過した特定個人情報等は、速やかに廃棄又は削除する。
+            </dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-gray-900">(4) 質問及び苦情処理の窓口</dt>
+            <dd class="mt-1">下記10のとおりとする。</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-bold text-gray-900 border-l-4 border-accent-500 pl-4">10. お問い合わせ窓口</h2>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          個人情報の取扱いに関するお問い合わせ、苦情及び開示等の求めは、次の窓口において受け付ける。
+        </p>
+        <div class="mt-4 border border-gray-200 rounded-lg p-5 text-sm text-gray-800 leading-relaxed">
+          <p>おびかわ社労士事務所</p>
+          <p class="mt-2">〒460-0008　愛知県名古屋市中区栄5-26-39　GS栄ビル3F</p>
+          <p class="mt-2">
+            <a href="/contact/" class="text-primary-700 underline hover:no-underline">お問い合わせフォーム</a>
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-bold text-gray-900 border-l-4 border-accent-500 pl-4">11. 本方針の改訂</h2>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          当事務所は、法令の改正、業務内容の変更その他の事情に応じ、本方針を改訂することがある。
+          改訂した場合は、本ページにおいて公表する。
+        </p>
+      </section>
+
+    </div>
+
+    <p class="mt-12 pt-6 border-t border-gray-200 text-sm text-gray-500">
+      制定日：{revised}
+    </p>
+
+    <div class="mt-10 text-center">
+      <a href="/contact/" class="inline-block bg-primary-700 text-white font-bold py-3 px-8 rounded-lg hover:bg-primary-800 transition-colors">
+        お問い合わせはこちら
+      </a>
+    </div>
+
+  </div>
+</Layout>
