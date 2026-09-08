@@ -3,30 +3,43 @@ import Layout from '../layouts/Layout.astro';
 
 // 個人情報保護方針。
 //
-// 当事務所が運営する2サイト（nagoyasakae.com / chiisanasenmonka.jp）を
-// まとめて対象にする。個人情報を取り扱う事業者は「おびかわ社労士事務所」1つで、
-// サイトが2つでも方針は1つ。小さな専門家.jp 側の /privacy/ はここへ 301 で寄せる。
-// 2か所に置くと、必ず片方が古くなるため。
+// 対象は「当事務所の業務全体」であって、ウェブサイトだけではない。
+// 社労士事務所が実際に扱う個人情報の大半は、名刺・顧問先からお預かりする
+// 従業員データ・マイナンバー・打ち合わせの記録であり、サイト経由はごく一部。
+//
+// 事業者は「おびかわ社労士事務所」1つ。サイトが2つ（nagoyasakae.com /
+// chiisanasenmonka.jp）でも方針は1本にまとめる。小さな専門家.jp 側の
+// /privacy/ はここへ 301 で寄せる。2か所に置くと必ず片方が古くなるため。
 
 const revised = '2026年9月8日';
 
-// 取得する情報と利用目的。場面ごとに分けて書く。
-// フォームの項目を変えたら、この表も必ず合わせること。
-const purposes = [
+// 当事務所が自ら取得する情報。場面ごとに分ける。
+// フォームの項目や業務のやり方を変えたら、この表も必ず合わせること。
+const collected = [
   {
-    scene: 'お問い合わせフォーム（当サイト）',
-    items: 'お名前、ふりがな、会社名、メールアドレス、電話番号、ご相談の種別、お問い合わせ内容',
+    scene: '名刺の交換、ご紹介',
+    items: 'お名前、会社名、部署、役職、連絡先',
+    purpose: 'ご連絡、ご挨拶、サービスのご案内',
+  },
+  {
+    scene: 'お問い合わせ・ご相談',
+    items: 'お名前、ふりがな、会社名、メールアドレス、電話番号、ご相談の種別、内容',
     purpose: 'ご返信、ご相談への対応、ご依頼をいただいた業務の遂行',
   },
   {
-    scene: 'お問い合わせフォーム（小さな専門家.jp）',
-    items: 'メールアドレス、お名前（任意）、ご用件、内容',
-    purpose: 'ご返信、ツールの改善の検討',
+    scene: 'セミナー・研修のお申し込み',
+    items: 'お名前、会社名、連絡先、お申し込みの内容',
+    purpose: '受講のご案内、当日の運営、次回以降のご案内',
   },
   {
-    scene: 'ツールに関するご案内のお申し込み',
-    items: 'メールアドレス、ご関心のあるツール、ご記入いただいた内容',
-    purpose: '新しいツールや有料版のご案内、開発の優先順位の検討',
+    scene: '打ち合わせ・お電話',
+    items: 'お話しいただいた内容、録音・録画した記録',
+    purpose: '議事録の作成、伺った内容の確認、業務の遂行（詳しくは4）',
+  },
+  {
+    scene: 'ウェブサイトのフォーム',
+    items: 'メールアドレス、お名前（任意）、ご用件、内容、ご関心のあるツール',
+    purpose: 'ご返信、ツールの改善の検討、ご希望に応じたご案内',
   },
   {
     scene: 'アクセス解析',
@@ -38,7 +51,7 @@ const purposes = [
 
 <Layout
   title="個人情報保護方針"
-  description="おびかわ社労士事務所の個人情報保護方針です。nagoyasakae.com と 小さな専門家.jp（chiisanasenmonka.jp）の両サイトを対象に、取得する情報・利用目的・第三者提供・開示等の請求について定めています。"
+  description="おびかわ社労士事務所の個人情報保護方針です。名刺・お問い合わせ・打ち合わせの録音・顧問先からお預かりする従業員の個人データ・マイナンバー・ウェブサイトまで、業務全体を対象に、取得する情報と利用目的、第三者提供、開示等の請求について定めています。"
 >
 
   <!-- Hero -->
@@ -47,7 +60,7 @@ const purposes = [
       <p class="text-primary-200 text-sm font-medium tracking-widest uppercase mb-3">Privacy Policy</p>
       <h1 class="text-4xl font-bold">個人情報保護方針</h1>
       <p class="mt-4 text-primary-100 max-w-xl mx-auto">
-        おびかわ社労士事務所が運営する2つのサイトに共通の方針です。
+        当事務所の業務全体を対象とした方針です。
       </p>
     </div>
   </section>
@@ -56,8 +69,13 @@ const purposes = [
 
     <p class="text-gray-700 leading-relaxed">
       おびかわ社労士事務所（以下「当事務所」といいます）は、社会保険労務士として、
-      お預かりした個人情報を適切に取り扱います。この方針は、当事務所が運営するウェブサイトで
-      取得する情報について定めたものです。
+      多くの個人情報をお預かりしています。とくに、顧問先からお預かりする
+      従業員の方の情報には、給与・家族・健康・マイナンバーといった、
+      取り扱いを誤ればご本人に直接の不利益が生じるものが含まれます。
+    </p>
+    <p class="mt-4 text-gray-700 leading-relaxed">
+      この方針は、ウェブサイトに限らず、<span class="font-semibold">当事務所の業務全体で取り扱う
+      個人情報について</span>定めたものです。
     </p>
 
     <div class="mt-12 space-y-12">
@@ -87,20 +105,26 @@ const purposes = [
       </section>
 
       <section>
-        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">2. この方針が対象とするサイト</h2>
-        <ul class="mt-5 space-y-2 text-gray-700 leading-relaxed">
+        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">2. この方針が対象とする範囲</h2>
+        <p class="mt-5 text-gray-700 leading-relaxed">
+          当事務所が業務のなかで取り扱うすべての個人情報が対象です。
+          対面・書面・電話・メール・ウェブサイトのいずれで取得したかを問いません。
+        </p>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          当事務所が運営するウェブサイトは次の2つです。運営しているのはどちらも当事務所であり、
+          個人情報を取り扱う事業者は1つなので、方針もこの1本にまとめています。
+        </p>
+        <ul class="mt-4 space-y-2 text-gray-700 leading-relaxed">
           <li>・おびかわ社労士事務所（<span class="font-mono text-sm">nagoyasakae.com</span>）</li>
           <li>・小さな専門家.jp（<span class="font-mono text-sm">chiisanasenmonka.jp</span>）</li>
         </ul>
-        <p class="mt-4 text-gray-700 leading-relaxed">
-          運営しているのは、どちらも当事務所です。サイトは2つですが、個人情報を取り扱う事業者は1つなので、
-          方針もこの1本にまとめています。
-        </p>
       </section>
 
       <section>
-        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">3. 取得する情報と利用目的</h2>
-        <div class="mt-5 overflow-x-auto">
+        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">3. 取得する個人情報と利用目的</h2>
+
+        <h3 class="mt-6 font-bold text-gray-900">3-1. 当事務所が自ら取得する情報</h3>
+        <div class="mt-4 overflow-x-auto">
           <table class="w-full text-sm border border-gray-200">
             <thead>
               <tr class="bg-primary-700 text-white text-left">
@@ -110,7 +134,7 @@ const purposes = [
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200">
-              {purposes.map((row) => (
+              {collected.map((row) => (
                 <tr class="align-top">
                   <td class="px-4 py-3 text-gray-800 font-medium">{row.scene}</td>
                   <td class="px-4 py-3 text-gray-700">{row.items}</td>
@@ -120,9 +144,9 @@ const purposes = [
             </tbody>
           </table>
         </div>
-        <p class="mt-5 text-gray-700 leading-relaxed">
-          上記の目的以外には使いません。取得した情報は、目的を達成するために必要な期間だけ保管し、
-          不要になったものは削除します。
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          上記の目的以外には使いません。取得した情報は、目的を達成するために必要な期間と、
+          法令で保存が義務づけられている期間だけ保管し、不要になったものは削除・廃棄します。
         </p>
         <p class="mt-4 text-gray-700 leading-relaxed">
           <strong class="font-semibold">ご案内のメールは、受信に同意をいただいた方にだけお送りします。</strong>
@@ -130,10 +154,95 @@ const purposes = [
           <a href="/contact/" class="text-primary-700 underline hover:no-underline">お問い合わせフォーム</a>
           から、いつでもお申し付けいただけます。
         </p>
+
+        <h3 class="mt-8 font-bold text-gray-900">3-2. 顧問先等からお預かりする情報</h3>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          社会保険労務士の業務として、顧問先やご依頼者から、その従業員・役員・ご家族の方の
+          個人データをお預かりします。
+        </p>
+        <div class="mt-4 border border-gray-200 rounded-lg p-5 text-sm">
+          <p class="text-gray-700 leading-relaxed">
+            <span class="font-semibold">お預かりする情報の例：</span>
+            氏名、生年月日、住所、連絡先、家族の情報、入退社の日付、雇用契約の内容、
+            賃金・賞与・控除の額、労働時間、出退勤の記録、社会保険や雇用保険の記号番号、
+            金融機関の口座、健康診断や傷病に関する情報、個人番号（マイナンバー）など。
+          </p>
+          <p class="mt-4 text-gray-700 leading-relaxed">
+            <span class="font-semibold">利用目的：</span>
+            労働社会保険諸法令に基づく申請書・届出書等の作成と提出の代行、
+            給与計算、就業規則や労使協定の作成・変更、
+            労務管理や助成金に関するご相談への対応、その他ご依頼いただいた業務の遂行。
+          </p>
+        </div>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          これらの情報は、<span class="font-semibold">顧問先等からの委託に基づいてお預かりしているもの</span>です。
+          ご依頼いただいた業務の範囲を超えて使うことはありません。
+        </p>
       </section>
 
       <section>
-        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">4. ツールに入力した内容の扱い</h2>
+        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">4. 打ち合わせ・お電話の記録</h2>
+        <p class="mt-5 text-gray-700 leading-relaxed">
+          ご相談やお打ち合わせでうかがった内容を正確に記録し、後から確認できるようにするため、
+          <strong class="font-semibold">対面・オンラインを問わず、打ち合わせやお電話の内容を
+          録音・録画させていただくことがあります。</strong>
+        </p>
+        <p class="mt-4 text-gray-700 leading-relaxed">利用目的は次のとおりです。</p>
+        <ul class="mt-3 space-y-2 text-gray-700 leading-relaxed">
+          <li>・議事録の作成と、うかがった内容の正確な記録</li>
+          <li>・ご依頼いただいた業務を進めるうえでの確認</li>
+          <li>・回答の正確さを確かめ、対応の質を高めるため</li>
+        </ul>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          記録したデータは当事務所の中でのみ利用し、第三者へ提供しません。
+          目的を達成するために必要な期間だけ保管し、不要になったものは削除します。
+        </p>
+
+        <div class="mt-6 border-l-4 border-accent-500 bg-warm-50 rounded-r-lg p-5">
+          <p class="text-gray-800 leading-relaxed text-sm">
+            <span class="font-bold">録音しない場面があります。</span>
+            健康状態、病歴、心身の障害、労働災害の状況など、法律上とくに配慮を要する情報
+            （要配慮個人情報）が話題になる場面では、
+            <span class="font-semibold">ご本人の同意をいただいていないかぎり録音しません。</span>
+            個人番号（マイナンバー）についても同様です。
+          </p>
+          <p class="mt-3 text-gray-800 leading-relaxed text-sm">
+            また、録音を望まれない場合は、その場でお申し付けください。すぐに停止します。
+            録音しないことによって、ご相談の内容や対応が不利になることはありません。
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">5. 要配慮個人情報の取り扱い</h2>
+        <p class="mt-5 text-gray-700 leading-relaxed">
+          健康診断の結果、傷病や通院の記録、心身の障害に関する情報などは、
+          法律上「要配慮個人情報」として、通常の個人情報より厳しく扱うことが求められています。
+        </p>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          当事務所は、傷病手当金や労災、休職や復職、障害者雇用に関する手続などで
+          これらの情報を取り扱います。取得するのは、
+          <span class="font-semibold">法令に基づく場合か、ご本人の同意をいただいた場合に限ります。</span>
+          利用するのは、その手続に必要な範囲だけです。
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">6. 個人番号（マイナンバー）の取り扱い</h2>
+        <p class="mt-5 text-gray-700 leading-relaxed">
+          個人番号を含む情報（特定個人情報）は、
+          <span class="font-semibold">番号法によって利用できる範囲が法律で定められており、
+          それ以外の目的に使うことは、ご本人の同意があってもできません。</span>
+        </p>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          当事務所は、顧問先からの委託を受けて、社会保険や税に関する手続のためにのみ
+          個人番号を取り扱います。取り扱う場所と担当者を限定し、
+          手続に必要な期間と法令で定められた保存期間を過ぎたものは、速やかに廃棄します。
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">7. ウェブサイトのツールに入力した内容</h2>
         <p class="mt-5 text-gray-700 leading-relaxed">
           当事務所が公開しているツールには、処理の仕方が2種類あります。
           <strong class="font-semibold">どちらに当たるかは、各ツールのページに明記します。</strong>
@@ -173,7 +282,7 @@ const purposes = [
       </section>
 
       <section>
-        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">5. アクセス解析</h2>
+        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">8. アクセス解析</h2>
         <p class="mt-5 text-gray-700 leading-relaxed">
           サイトの改善のために、Google LLC が提供する Google アナリティクス（GA4）を使っています。
           2つのサイトでは、それぞれ別の測定IDを使っています。
@@ -194,60 +303,78 @@ const purposes = [
       </section>
 
       <section>
-        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">6. 第三者への提供と業務の委託</h2>
+        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">9. 第三者への提供</h2>
         <p class="mt-5 text-gray-700 leading-relaxed">
           お預かりした個人情報を第三者へ提供することはありません。
-          ただし、法令に基づき開示を求められた場合を除きます。
-        </p>
-        <p class="mt-4 text-gray-700 leading-relaxed">
-          サイトの運営にあたり、次の事業者に業務を委託しています。
-          委託先とは必要な取り決めを行い、適切に取り扱われるよう監督します。
+          ただし、次の場合を除きます。
         </p>
         <ul class="mt-4 space-y-2 text-gray-700 leading-relaxed">
-          <li>・<span class="font-semibold">Netlify, Inc.</span>（サイトの配信、お問い合わせフォームの受信と保管）</li>
-          <li>・<span class="font-semibold">Google LLC</span>（アクセス解析）</li>
-          <li>・<span class="font-semibold">Google Cloud</span>（サーバーで処理するツールの実行）</li>
+          <li>・ご本人の同意をいただいた場合</li>
+          <li>・法令に基づき、提供が求められた場合</li>
+          <li>・人の生命、身体または財産の保護のために必要で、ご本人の同意を得ることが難しい場合</li>
         </ul>
+        <p class="mt-4 text-gray-700 leading-relaxed">
+          なお、<span class="font-semibold">年金事務所・労働基準監督署・ハローワークなどの行政機関へ
+          申請書や届出書を提出することは、ご依頼に基づく手続の代行であり、
+          第三者への提供にはあたりません。</span>
+        </p>
       </section>
 
       <section>
-        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">7. 外国にある事業者への委託について</h2>
+        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">10. 業務の委託と、外国にある事業者</h2>
         <p class="mt-5 text-gray-700 leading-relaxed">
+          業務の一部を外部の事業者に委託することがあります。
+          委託先とは必要な取り決めを行い、適切に取り扱われるよう監督します。
+        </p>
+        <ul class="mt-4 space-y-2 text-gray-700 leading-relaxed">
+          <li>・<span class="font-semibold">Netlify, Inc.</span>（ウェブサイトの配信、フォームの受信と保管）</li>
+          <li>・<span class="font-semibold">Google LLC</span>（アクセス解析、業務用のメールとファイル保管）</li>
+          <li>・<span class="font-semibold">Google Cloud</span>（サーバーで処理するツールの実行）</li>
+        </ul>
+        <p class="mt-4 text-gray-700 leading-relaxed">
           上記の委託先はいずれも<span class="font-semibold">アメリカ合衆国</span>に所在する事業者であり、
           お預かりした情報が同国のサーバーで取り扱われることがあります。
           同国の個人情報の保護に関する制度は日本と同一ではありませんが、
           当事務所は委託先として必要な監督を行います。
-        </p>
-        <p class="mt-4 text-gray-700 leading-relaxed">
-          各社における個人情報の取り扱いは、それぞれのプライバシーポリシーでご確認いただけます。
+          各社における取り扱いは、それぞれのプライバシーポリシーでご確認いただけます。
         </p>
       </section>
 
       <section>
-        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">8. 安全管理のために行っていること</h2>
+        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">11. 安全管理のために行っていること</h2>
         <ul class="mt-5 space-y-2 text-gray-700 leading-relaxed">
-          <li>・サイトとの通信をすべて暗号化しています（HTTPS）。</li>
-          <li>・お問い合わせの内容を閲覧できる者を、当事務所の代表者に限定しています。</li>
+          <li>・個人情報を取り扱う者を、当事務所の代表者と、業務上必要な担当者に限定しています。</li>
+          <li>・個人番号を含む書類とデータは、取り扱う場所を限定して保管しています。</li>
+          <li>・書類は施錠できる場所に保管し、保存期間を過ぎたものは復元できない方法で廃棄します。</li>
+          <li>・業務で使う端末とサービスにパスワードを設定し、通信を暗号化しています。</li>
+          <li>・ウェブサイトとの通信をすべて暗号化しています（HTTPS）。</li>
           <li>・ツールで処理したファイルの内容を、サーバーに保存しない設計にしています。</li>
           <li>・取得する情報を、目的に必要な範囲にとどめています。</li>
         </ul>
       </section>
 
       <section>
-        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">9. 開示・訂正・利用停止などのご請求</h2>
+        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">12. 開示・訂正・利用停止などのご請求</h2>
         <p class="mt-5 text-gray-700 leading-relaxed">
           ご本人から、保有している個人データの利用目的の通知、開示、内容の訂正・追加・削除、
           利用の停止・消去、第三者への提供の停止をお求めいただけます。
-        </p>
-        <p class="mt-4 text-gray-700 leading-relaxed">
           <a href="/contact/" class="text-primary-700 underline hover:no-underline">お問い合わせフォーム</a>
           からお申し出ください。ご請求の内容を確認のうえ、法令に従って対応します。
           その際、ご本人であることを確認させていただきます。
         </p>
+        <div class="mt-5 border border-gray-200 rounded-lg p-5">
+          <p class="text-gray-800 leading-relaxed text-sm">
+            <span class="font-bold">お勤め先を通じてお預かりしている情報について。</span>
+            顧問先の従業員の方など、勤務先からの委託により当事務所がお預かりしている情報については、
+            <span class="font-semibold">まずお勤め先へお申し出ください。</span>
+            当事務所は委託を受けて取り扱っている立場のため、勤務先を通じて対応することになります。
+            お申し出をいただいた場合は、当事務所から勤務先へお取り次ぎします。
+          </p>
+        </div>
       </section>
 
       <section>
-        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">10. 社会保険労務士の守秘義務</h2>
+        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">13. 社会保険労務士の守秘義務</h2>
         <p class="mt-5 text-gray-700 leading-relaxed">
           当事務所の代表者は社会保険労務士であり、社会保険労務士法第21条により、
           <span class="font-semibold">正当な理由がなく、業務に関して知り得た秘密を他に漏らし、
@@ -260,9 +387,9 @@ const purposes = [
       </section>
 
       <section>
-        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">11. この方針の変更</h2>
+        <h2 class="text-xl font-bold text-gray-900 border-l-4 border-accent-500 pl-4">14. この方針の変更</h2>
         <p class="mt-5 text-gray-700 leading-relaxed">
-          法令の改正やサービスの追加にあわせて、この方針を変更することがあります。
+          法令の改正や業務の変更にあわせて、この方針を変更することがあります。
           変更したときは、このページに掲載します。
         </p>
       </section>
