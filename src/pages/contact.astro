@@ -207,7 +207,9 @@ import Layout from '../layouts/Layout.astro';
       <!-- Office address note -->
       <div class="mt-8 text-center text-sm text-gray-500">
         <p>〒460-0008 愛知県名古屋市中区栄5-26-39 GS栄ビル3F</p>
-        <p class="mt-1">営業時間：平日 9:00〜18:00（要予約）</p>
+        {/* 電話番号は画像で載せる（テキストで検索されないように）。alt に番号は入れない。
+            営業時間は書かない。書けばそのとおりに対応する義務が生じるため */}
+        <p class="mt-2"><img src="/tel-dark.png" alt="お電話でのお問い合わせ" class="inline-block h-[17px] w-auto" loading="lazy" decoding="async" /></p>
       </div>
 
     </div>
