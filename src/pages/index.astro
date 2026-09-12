@@ -1,31 +1,110 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-// よくあるご質問(表示とFAQPageスキーマで共用)
+// 事務所サイトのトップ（2026-09-12 全面改修）。
+//
+// 軸の置き方：
+//   商品        … 顧問契約。会社の事情を知り、日々の労務判断を続けて支える
+//   選ばれる理由 … 両立支援・健康経営の資格と、県からの依頼実績、制度を運用する側の経験
+//   入口        … 「なぜその制度なのか」を社員に説明できる会社にする
+//
+// AI・RPA・小さな専門家の話はここでは主役にしない。そちらは小さな専門家.jp に任せる。
+// 差別化（かつては AI、いまは両立支援）を商品そのものにすると、何屋か分からなくなる。
+// 両立支援は単発の依頼になりやすく、事務所が欲しいのは顧問先なので、
+// 両立支援は「顧問を選ぶ理由」として置く。
+//
+// 書かないと決めたもの：家族の事情（実名と並べると誰の健康状態か特定される）、
+// 対応する曜日・時間帯（書けば守る義務が生じる）、「11,000円〜」の前面掲出。
+
+// こんな場面でご相談ください。両立支援を制度の説明ではなく、経営者の判断場面で見せる
+const scenes = [
+  { title: '親の介護で、働き方を変えたいと言われた', body: '本人の希望と、現場の人員配置と、周囲の社員の負担。三つを同時に見ないと決められません。' },
+  { title: '治療を続けながら働く社員の勤務を、どう調整するか', body: '通院の頻度も体調も変わります。一度決めて終わりではなく、見直しの前提で組みます。' },
+  { title: '男性社員が育休を取る。引き継ぎと周囲をどうするか', body: '制度はあっても、取れる空気と段取りがなければ使われません。' },
+  { title: '就業規則はあるが、実際の運用と合っていない', body: '規程と現場のずれは、裁判になっていないから問題になっていないだけ、ということがよくあります。' },
+  { title: '手当や休暇の理由を、社員にきちんと説明できない', body: '「なぜその手当か」を答えられない制度は、不公平に見えた瞬間に信頼を失います。' },
+];
+
+// お手伝いできること。3本に絞る
+const services = [
+  {
+    title: '両立支援の制度と運用',
+    lead: '育児・介護・治療と、仕事を続けること。',
+    body: '相談窓口の置き方、勤務制度と休暇、休職から復職までの流れ。社員本人への配慮と、周囲の負担と、事業の継続を、いっしょに見て整えます。2026年4月から、治療と仕事の両立支援は事業主の努力義務になりました。',
+    icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
+  },
+  {
+    title: '就業規則と関連制度の整備',
+    lead: '「なぜその制度なのか」を、説明できる規程に。',
+    body: '手当・休暇・賃金の一つひとつに理由があるか。法令に合い、目的に合い、扱いに一貫性があり、現場で続けられるか。作ることより、説明できることを優先します。法改正への対応も含みます。',
+    icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+  },
+  {
+    title: '継続的な労務相談（顧問）',
+    lead: '日々の判断を、会社の事情を知ったうえで。',
+    body: '労働時間、休暇、社員への対応、規則の運用。判断が必要な場面は毎月出てきます。一度きりの制度整備ではなく、会社の経緯を知っている相手に次も相談できる、という形で支えます。',
+    icon: 'M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z',
+  },
+];
+
+// 顧問契約の2つの形。料金は料金表へ。ここでは金額を出さない
+const retainers = [
+  {
+    name: '手続き＋相談顧問',
+    who: '社会保険の手続きも、判断も、まとめて任せたい会社に',
+    items: ['入退社・保険の手続き代行', '労務相談', '就業規則の運用と見直し'],
+  },
+  {
+    name: '相談顧問',
+    who: '社内に手続き担当者がいて、判断だけを外部に相談したい会社に',
+    items: ['労務相談', '就業規則の運用と見直し', '休職・復職などの個別対応の整理'],
+  },
+];
+
+// 顧問の進め方。「相談できます」だけでは毎月払う理由にならないので、何が起きるかを書く
+const steps = [
+  { title: '契約開始時', body: '会社の状況、いまの規則、抱えている課題を確認し、整える順番を決めます。' },
+  { title: '相談のたびに', body: '法的な制約、取り得る選択肢、現場への影響、判断の理由を整理してお返しします。' },
+  { title: '定期的に', body: '決めた対応が機能しているか、次に整える制度は何かを見直します。' },
+];
+
+// なぜこの事務所か。資格を並べるのではなく、顧問で何に生きるかに翻訳する
+const reasons = [
+  { label: '愛知働き方改革推進支援センター　専門家', body: '中小企業の制度づくりと運用を、公的な支援の場で担当しています。' },
+  { label: '愛知県男性育児休業取得促進アドバイザー', body: '男性育休を「制度がある」から「実際に取れる」へ進める支援を、県の事業で行っています。' },
+  { label: '両立支援コーディネーター／健康経営エキスパートアドバイザー', body: '治療と仕事の両立、育児・介護との両立を、会社全体の方針と体制につなげます。健康経営優良法人2026では、これらの両立支援が評価項目に加わりました。' },
+  { label: '企業の役員・管理職としての実務', body: '制度を作る側だけでなく、運用する側にいます。人員配置、管理職の負担、費用。現場で回るかどうかを、その目で見ます。' },
+];
+
+// よくあるご質問（表示と FAQPage スキーマで共用）
 const faqs = [
   {
-    q: 'AIに強い社労士とは、普通の社労士と何が違うのですか？',
-    a: '制度をつくって終わりではなく、AIの実装まで自分の手で行うことです。当事務所は事務所運営そのものにAIを全面的に取り入れ、AIに任せられる仕事はすべてAIに任せています。無料公開中の「小さな専門家アプリ」も、このサイトも、AIを駆使して自らつくったものです。業務を細かく分解し、AIのできること・できないことを見極めたうえで「どの仕事にAIを使うべきか」を具体的に提案できます。',
+    q: '社員が何人からお願いできますか？',
+    a: '規模は問いません。中心にしているのは従業員10〜49人程度の会社です。社内に手続きの担当者がいて、難しい判断だけを外部に相談したい場合は「相談顧問」が向いています。',
   },
   {
-    q: 'AIを導入したのに成果が出ていません。相談できますか？',
-    a: 'ご相談いただけます。ROIが出ないのは失敗ではなく、まだ「さぐる」段階にいるだけです。当事務所が提唱する4段階（さぐる→そだてる→まかせる→めぐる）のどこにいるかを無料相談で診断し、次に進む道筋をご提案します。',
+    q: '一人の社員への対応だけでも相談できますか？',
+    a: 'できます。まずその対応を整理するところから始め、同じ相談が次に来たときに困らないよう、制度と運用を整えるところまで進めます。',
   },
   {
-    q: '「小さな専門家」とは何ですか？',
-    a: '業務ごとに共用し、その会社の承認済みの知識・指示・修正・評価を複数人で蓄積して育てる専門AI（またはアプリ）のことです。一人ひとりが大きな汎用AIを「使う」のではなく、自社専用の小さな専門家をみんなで「育てて、仕事をさせる」という考え方で、当事務所が提唱し商標出願中です（商願2026-077510）。',
+    q: '就業規則はあります。運用だけ相談できますか？',
+    a: 'できます。規程と実際の運用にずれがある、判断の基準が共有されていない、という相談は多くあります。既存の規則の解釈と運用は顧問の範囲で、新規作成や大幅な改定は別途お見積りします。',
   },
   {
-    q: 'どんな会社に向いていますか？',
-    a: '「人を育てる時間がない」中小企業のためのモデルです。名古屋を中心に、オンラインで全国のご相談に対応しています。',
+    q: '治療と仕事の両立支援は、何から始めればよいですか？',
+    a: '2026年4月から事業主の努力義務になりました。相談窓口をはっきりさせること、管理職への周知、勤務制度の確認。この順で、会社の規模に合う形を整えます。',
+  },
+  {
+    q: '健康経営優良法人の認定を目指しています。',
+    a: '2026年の認定要件に、育児・介護との両立支援や、治療と仕事の両立が評価項目として加わりました。両立支援コーディネーターと健康経営エキスパートアドバイザーの両方の立場から、認定に向けた体制づくりをお手伝いします。',
   },
   {
     q: '費用はどれくらいかかりますか？',
-    a: '無料相談と現状診断のうえ、必要な支援だけを組み合わせて必ず事前にお見積りします。顧問契約や小さな専門家アプリの開発費の目安は料金表をご覧ください。',
+    a: '顧問料は、会社の規模と契約の形で決まります。目安は料金表をご覧ください。契約前に必ずお見積りします。初回のご相談は無料です。',
   },
   {
-    q: 'セミナーや講演だけの依頼もできますか？',
-    a: '可能です。「小さな専門家のつくり方」「AI×人事戦略」など、商工会議所・金融機関・企業研修のご依頼に、会場・オンラインどちらでも対応します。',
+    q: '連絡はどのように取れますか？',
+    a: 'お問い合わせフォームとメールで受け付けています。受付後、原則2営業日以内に一次回答をお返しします。調査が必要なご相談は、その旨と目安をお伝えします。面談はオンラインと対面のどちらにも対応します。',
   },
 ];
 
@@ -41,15 +120,14 @@ const faqSchema = {
 ---
 
 <Layout
-  title="AIに仕事をさせて、本業に専念しよう｜名古屋のAIに強い社労士"
-  description="AIに仕事をさせて、本業に専念しよう。AIは使うものじゃなく、仕事をさせるもの。小さな専門家AIと小さな専門家アプリの2本立てで、中小企業が本業に専念できる仕組みをつくる、名古屋のAIに強い社労士事務所です。"
+  fullTitle="おびかわ社労士事務所｜名古屋の労務顧問。両立支援を入口に、社員に説明できる制度を"
+  description="名古屋の社労士事務所。育児・介護・治療と仕事の両立支援を入口に、社員に説明できる制度と現場で回る運用を、顧問として続けて支えます。従業員10〜49人の会社を中心に。"
 >
-  <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <!-- ===== HERO ===== -->
   <section class="relative min-h-[92vh] bg-primary-900 flex items-center overflow-hidden">
 
-    <!-- Background: subtle grid pattern -->
     <div class="hero-fade absolute inset-0 opacity-[0.04]">
       <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -60,59 +138,48 @@ const faqSchema = {
         <rect width="100%" height="100%" fill="url(#hero-grid)"/>
       </svg>
     </div>
-
-    <!-- Background: diagonal accent band -->
     <div class="hero-fade absolute top-0 right-0 h-full w-[45%] opacity-20"
          style="background: linear-gradient(135deg, transparent 30%, #1e3970 30%);"></div>
-
-    <!-- Gold vertical accent line -->
     <div class="hero-fade absolute top-[15%] bottom-[15%] right-[35%] w-px bg-accent-500/30 hidden lg:block"></div>
 
     <div class="relative max-w-5xl mx-auto px-6 lg:px-8 py-28 lg:py-36 w-full">
       <div class="max-w-2xl">
 
-        <!-- Overline -->
         <div class="hero-line-1 flex items-center gap-3 mb-8">
           <div class="w-8 h-px bg-accent-500"></div>
           <p class="text-accent-400 text-xs font-semibold tracking-[0.3em] uppercase">Obikawa SR Office</p>
         </div>
 
-        <!-- Main heading -->
         <h1 class="hero-line-2 font-display font-bold text-white leading-[1.25] mb-6"
-            style="font-size: clamp(2.4rem, 5.5vw, 4.2rem);">
-          AIに仕事をさせて、<br/>
-          <em class="not-italic text-accent-400">本業に専念しよう</em>。
+            style="font-size: clamp(2.2rem, 5vw, 3.8rem);">
+          日々の労務判断に、<br/>
+          <em class="not-italic text-accent-400">会社の事情を知る相談相手</em>を。
         </h1>
 
-        <!-- Gold rule -->
         <div class="hero-line-3 w-14 h-0.5 bg-accent-500 mb-6"></div>
 
-        <!-- Body text -->
-        <p class="hero-line-3 text-primary-200 text-xl leading-loose mb-10 max-w-xl">
-          AIは「使う」ものじゃない。「仕事をさせる」もの。<br/>
-          AIは、買うものではなく育てるもの。<br/>
-          あなたの会社だけの<span class="text-white font-semibold">小さな専門家</span>を育てませんか。
+        <p class="hero-line-3 text-primary-200 text-lg sm:text-xl leading-loose mb-10 max-w-xl">
+          日常の労務相談から、就業規則の運用、休職・復職、育児・介護・治療との両立まで。<br class="hidden sm:block"/>
+          経営と現場の事情を整理し、<span class="text-white font-semibold">社員に説明できる判断と制度づくり</span>を、顧問として続けて支えます。
         </p>
 
-        <!-- CTAs -->
         <div class="hero-line-4 flex flex-col sm:flex-row gap-4">
-          <a href="/contact"
+          <a href="/contact/"
              class="inline-flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-400 text-white font-bold px-8 py-4 transition-colors duration-200">
-            無料相談はこちら
+            顧問契約について相談する
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
             </svg>
           </a>
           <a href="#services"
              class="inline-flex items-center justify-center gap-2 border border-primary-600 text-primary-300 hover:border-accent-500 hover:text-accent-400 font-semibold px-8 py-4 transition-colors duration-200">
-            サービスを見る
+            支援内容を見る
           </a>
         </div>
 
       </div>
     </div>
 
-    <!-- Scroll indicator -->
     <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
       <span class="text-primary-500 text-[10px] tracking-[0.25em] font-semibold">SCROLL</span>
       <div class="scroll-bar w-px h-8 bg-accent-500"></div>
@@ -121,174 +188,28 @@ const faqSchema = {
   </section>
 
 
-  <!-- ===== お悩みセクション ===== -->
-  <section class="py-24 px-4 bg-warm-50">
+  <!-- ===== こんな場面でご相談ください ===== -->
+  <section id="support" class="py-24 px-4 bg-warm-50">
     <div class="max-w-5xl mx-auto">
 
       <div class="mb-14">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-6 h-px bg-accent-500"></div>
-          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Problems</p>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Scenes</p>
         </div>
-        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">
-          こんなお悩みは<br/>ありませんか？
-        </h2>
-      </div>
-
-      <div class="grid gap-3 max-w-3xl">
-        {[
-          '雑務に追われて、本来やりたい本業に集中できない',
-          'AIに興味はあるが、自社の何を任せればいいかわからない',
-          '制度は作ったものの、現場で運用が回っていない',
-          '人を増やす余裕はないのに、こなすべき作業は増える一方',
-        ].map((problem, i) => (
-          <div class="group flex items-center gap-6 bg-white border border-warm-200 px-7 py-5 hover:border-accent-300 hover:shadow-sm transition-all duration-200 cursor-default">
-            <span class="font-display text-3xl font-bold text-warm-200 group-hover:text-accent-300 transition-colors duration-200 shrink-0 select-none w-10">
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <p class="text-primary-800 leading-relaxed flex-1">{problem}</p>
-            <svg class="w-5 h-5 text-accent-400 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-            </svg>
-          </div>
-        ))}
-      </div>
-
-      <div class="mt-12 flex items-center gap-4">
-        <div class="w-8 h-px bg-accent-500"></div>
-        <p class="font-display text-lg text-primary-800 font-semibold">
-          その作業、小さな専門家に任せて、本業に専念しませんか。
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">こんな場面で、<br class="sm:hidden"/>ご相談ください。</h2>
+        <p class="mt-4 text-primary-500 text-base max-w-2xl">
+          制度の名前より先に、判断に迷う場面から。どれも、本人の事情と、周囲の負担と、会社の運営を同時に見ないと決められないものです。
         </p>
       </div>
 
-    </div>
-  </section>
-
-
-  <!-- ===== AIの社会実装という考え方 ===== -->
-  <section class="py-24 px-4 bg-white">
-    <div class="max-w-5xl mx-auto">
-
-      <div class="mb-10">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-6 h-px bg-accent-500"></div>
-          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">AI × HR</p>
-        </div>
-        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">
-          人がAIを育て、<br/>AIが人を育てる。
-        </h2>
-      </div>
-
-      <p class="text-primary-700 text-lg leading-loose max-w-3xl mb-10">
-        AIは、一人で使う道具から、みんなで育てる仲間へ。業務ごとに同じAIを共用し、<br class="hidden sm:block"/>
-        複数人で知識・指示・修正・評価を蓄積すると、育ったAIが次の社員を育てる。<br class="hidden sm:block"/>
-        この循環をつくることが、<span class="font-semibold text-primary-900">AIの社会実装</span>です。その第一歩が、小さな専門家づくり。
-      </p>
-
-      <div class="bg-warm-50 border border-warm-200 p-3 sm:p-5 overflow-x-auto mb-2">
-        <img src="/concepts/concept3_junkan.svg"
-             alt="人がAIを育て、AIが人を育てる成長の好循環の図。新人が教師AIに学び、業務ごとに同じAIを共用して複数人で共同育成し、スペシャリストが分身AIを通じて小さな専門家と人を采配する"
-             class="w-full h-auto min-w-[720px]" width="1600" height="680" loading="lazy" />
-      </div>
-      <p class="text-xs text-primary-400 mb-8 sm:hidden">※ 図は横にスクロールできます</p>
-
-      <a href="/shakai-jisso/" class="inline-flex items-center gap-2 text-base font-semibold text-primary-700 hover:text-accent-600 transition-colors group">
-        「AIの社会実装」について詳しく見る
-        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-        </svg>
-      </a>
-
-    </div>
-  </section>
-
-
-  <!-- ===== ROIが出ないのは、まだ「さぐる」段階だから ===== -->
-  <section class="py-24 px-4 bg-warm-50">
-    <div class="max-w-5xl mx-auto">
-
-      <div class="mb-10">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-6 h-px bg-accent-500"></div>
-          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Roadmap</p>
-        </div>
-        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">
-          ROIが出ないのは、<br/>まだ「さぐる」段階だから。
-        </h2>
-      </div>
-
-      <p class="text-primary-700 text-lg leading-loose max-w-3xl mb-10">
-        AIを入れたのに元が取れない──それは失敗ではなく、まだ「さぐる」段階にいるだけです。<br class="hidden sm:block"/>
-        次の「そだてる」で、業務ごとに同じAIを共用し、みんなで磨けば、投資は回収に向かいます。私たちは、その進め方を教えます。
-      </p>
-
-      <div class="bg-white border border-warm-200 p-3 sm:p-5 overflow-x-auto mb-2">
-        <img src="/concepts/concept4_roadmap.svg"
-             alt="AIの成長ロードマップの図。さぐる、そだてる、まかせる、めぐるの4段階。そだてる段階は、業務ごとに同じAIを共用する工程と、複数人で共同育成する工程に分かれる"
-             class="w-full h-auto min-w-[720px]" width="1600" height="800" loading="lazy" />
-      </div>
-      <p class="text-xs text-primary-400 mb-8 sm:hidden">※ 図は横にスクロールできます</p>
-
-      <a href="/consulting/" class="inline-flex items-center gap-2 text-base font-semibold text-primary-700 hover:text-accent-600 transition-colors group">
-        進め方を教わる（AI社会実装コンサルティング）
-        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-        </svg>
-      </a>
-
-    </div>
-  </section>
-
-
-  <!-- ===== 強みセクション ===== -->
-  <section class="py-24 px-4 bg-primary-900">
-    <div class="max-w-5xl mx-auto">
-
-      <div class="mb-14">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-6 h-px bg-accent-500"></div>
-          <p class="text-accent-400 text-xs font-semibold tracking-[0.2em] uppercase">Strengths</p>
-        </div>
-        <h2 class="font-display text-4xl sm:text-5xl font-bold text-white">当事務所の強み</h2>
-      </div>
-
-      <div class="divide-y divide-primary-800">
-        {[
-          {
-            icon: 'M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 7h10v10H7V7zM10 10h4v4h-4v-4z',
-            title: 'AIとアプリの使い分けで自動化',
-            desc: '判断はAIに、定型作業はアプリに。「小さな専門家AI」と「小さな専門家アプリ」を使い分け、本業以外の仕事を引き受けます。大がかりな導入は不要、現場ですぐ使える形でお届けします。',
-          },
-          {
-            icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
-            title: '制度設計の専門家',
-            desc: 'リスク回避だけでなく、「働きやすさ」と「企業成長」を両立する制度を設計します。男性育休・就業規則・法改正対応までトータルに支援します。',
-          },
-          {
-            icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15',
-            title: 'RPA導入で年間1,200時間削減の実績',
-            desc: '事業会社の情報システム部門でRPA導入を手がけ、年間1,200時間の業務削減を実現。「何を自動化すべきか」を現場目線で見極めます。',
-          },
-          {
-            icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
-            title: '愛知働き方改革推進支援センター実績',
-            desc: '愛知働き方改革推進支援センターの専門家として、多数の中小企業を支援。公的機関との連携実績が、確かな信頼の証です。',
-          },
-        ].map((s, i) => (
-          <div class="py-9 grid grid-cols-[3rem_1fr] sm:grid-cols-[4rem_auto_1fr] gap-x-6 gap-y-2 items-start">
-            <span class="font-display text-2xl font-bold text-accent-500 pt-0.5">
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <div class="sm:w-40 shrink-0">
-              <div class="w-11 h-11 bg-accent-500/10 border border-accent-500/60 flex items-center justify-center">
-                <svg class="w-6 h-6 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={s.icon} />
-                </svg>
-              </div>
-            </div>
-            <div class="col-span-2 sm:col-span-1">
-              <h3 class="font-bold text-white text-xl mb-2">{s.title}</h3>
-              <p class="text-primary-300 text-base leading-relaxed">{s.desc}</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {scenes.map((s, i) => (
+          <div class="bg-white border border-warm-200 p-7 flex gap-5">
+            <span class="font-display text-3xl font-bold text-accent-500 leading-none shrink-0 w-10">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3 class="font-bold text-primary-900 text-lg mb-2 leading-snug">{s.title}</h3>
+              <p class="text-sm text-primary-600 leading-relaxed">{s.body}</p>
             </div>
           </div>
         ))}
@@ -298,8 +219,8 @@ const faqSchema = {
   </section>
 
 
-  <!-- ===== サービスセクション ===== -->
-  <section id="services" class="py-24 px-4 bg-warm-50">
+  <!-- ===== お手伝いできること ===== -->
+  <section id="services" class="py-24 px-4 bg-white">
     <div class="max-w-5xl mx-auto">
 
       <div class="mb-14">
@@ -307,137 +228,131 @@ const faqSchema = {
           <div class="w-6 h-px bg-accent-500"></div>
           <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Services</p>
         </div>
-        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">サービス</h2>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">お手伝いできること</h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-        <!-- Service 1 -->
-        <a href="https://chiisanasenmonka.jp/about/" class="group bg-white border border-warm-200 hover:border-accent-300 hover:shadow-md transition-all duration-200 flex flex-col overflow-hidden">
-          <div class="h-1 bg-accent-500"></div>
-          <div class="px-7 py-7 flex-1 flex flex-col">
-            <div class="w-10 h-10 bg-accent-50 flex items-center justify-center mb-5">
-              <svg class="w-5 h-5 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        {services.map((s) => (
+          <div class="border border-warm-200 p-8 flex flex-col">
+            <div class="w-12 h-12 bg-primary-900 flex items-center justify-center mb-6">
+              <svg class="w-6 h-6 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d={s.icon}/>
               </svg>
             </div>
-            <h3 class="font-bold text-primary-900 text-xl mb-4">小さな専門家（AI＋アプリ）</h3>
-            <ul class="space-y-2.5 mb-6 flex-1">
-              {['判断・対応を任せる「専門家AI」', '定型作業をこなす「専門家アプリ」', '現場ですぐ使える形で提供'].map((item) => (
-                <li class="flex items-center gap-2.5 text-base text-primary-700">
-                  <span class="w-1 h-4 bg-accent-400 shrink-0"></span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <p class="text-xs text-accent-600 font-semibold pt-4 border-t border-warm-200 mt-auto">
-              本業に専念できる仕組みをつくります →
-            </p>
+            <h3 class="font-bold text-primary-900 text-xl mb-2">{s.title}</h3>
+            <p class="font-display text-accent-600 font-semibold text-sm mb-4">{s.lead}</p>
+            <p class="text-sm text-primary-600 leading-relaxed flex-1">{s.body}</p>
           </div>
-        </a>
-
-        <!-- Service 2 -->
-        <div class="group bg-white border border-warm-200 hover:border-accent-300 hover:shadow-md transition-all duration-200 flex flex-col overflow-hidden">
-          <div class="h-1 bg-pink-500"></div>
-          <div class="px-7 py-7 flex-1 flex flex-col">
-            <div class="w-10 h-10 bg-pink-50 flex items-center justify-center mb-5">
-              <svg class="w-5 h-5 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
-            </div>
-            <h3 class="font-bold text-primary-900 text-xl mb-4">男性育休・両立支援</h3>
-            <ul class="space-y-2.5 mb-6 flex-1">
-              {['制度設計（就業規則改定）', '社内説明・面談支援', '助成金活用サポート'].map((item) => (
-                <li class="flex items-center gap-2.5 text-base text-primary-700">
-                  <span class="w-1 h-4 bg-pink-400 shrink-0"></span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <p class="text-xs text-pink-600 font-semibold pt-4 border-t border-warm-200 mt-auto">
-              「制度だけ」で終わらず、取得できる会社へ
-            </p>
-          </div>
-        </div>
-
-        <!-- Service 3 -->
-        <div class="group bg-white border border-warm-200 hover:border-accent-300 hover:shadow-md transition-all duration-200 flex flex-col overflow-hidden">
-          <div class="h-1 bg-primary-700"></div>
-          <div class="px-7 py-7 flex-1 flex flex-col">
-            <div class="w-10 h-10 bg-primary-50 flex items-center justify-center mb-5">
-              <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </div>
-            <h3 class="font-bold text-primary-900 text-xl mb-4">就業規則・働き方改革</h3>
-            <ul class="space-y-2.5 mb-6 flex-1">
-              {['多様な働き方（短時間正社員・週休3日など）', '両立支援（育児・治療）', '法改正対応'].map((item) => (
-                <li class="flex items-center gap-2.5 text-base text-primary-700">
-                  <span class="w-1 h-4 bg-primary-400 shrink-0"></span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <p class="text-xs text-primary-600 font-semibold pt-4 border-t border-warm-200 mt-auto">
-              リスク回避＋働きやすさを両立
-            </p>
-          </div>
-        </div>
-
-        <!-- Service 4 -->
-        <a href="/consulting/" class="group bg-white border border-warm-200 hover:border-accent-300 hover:shadow-md transition-all duration-200 flex flex-col overflow-hidden">
-          <div class="h-1 bg-teal-600"></div>
-          <div class="px-7 py-7 flex-1 flex flex-col">
-            <div class="w-10 h-10 bg-teal-50 flex items-center justify-center mb-5">
-              <svg class="w-5 h-5 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
-            </div>
-            <h3 class="font-bold text-primary-900 text-xl mb-4">AI社会実装コンサルティング</h3>
-            <ul class="space-y-2.5 mb-6 flex-1">
-              {['業務ごとのAIを「共用する」設計', '同じAIを「共同で育てる」伴走', 'AIと社員の最適配置を制度に落とし込む'].map((item) => (
-                <li class="flex items-center gap-2.5 text-base text-primary-700">
-                  <span class="w-1 h-4 bg-teal-500 shrink-0"></span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <p class="text-xs text-teal-700 font-semibold pt-4 border-t border-warm-200 mt-auto">
-              小さな専門家が育つまで伴走します →
-            </p>
-          </div>
-        </a>
-
-        <!-- Service 5 -->
-        <a href="/seminar/" class="group bg-white border border-warm-200 hover:border-accent-300 hover:shadow-md transition-all duration-200 flex flex-col overflow-hidden">
-          <div class="h-1 bg-amber-500"></div>
-          <div class="px-7 py-7 flex-1 flex flex-col">
-            <div class="w-10 h-10 bg-amber-50 flex items-center justify-center mb-5">
-              <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-              </svg>
-            </div>
-            <h3 class="font-bold text-primary-900 text-xl mb-4">セミナー・研修</h3>
-            <ul class="space-y-2.5 mb-6 flex-1">
-              {['「小さな専門家のつくり方」セミナー', '「AI×人事戦略」セミナー', '男性育休・働き方改革・労務管理も'].map((item) => (
-                <li class="flex items-center gap-2.5 text-base text-primary-700">
-                  <span class="w-1 h-4 bg-amber-400 shrink-0"></span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <p class="text-xs text-amber-600 font-semibold pt-4 border-t border-warm-200 mt-auto">
-              商工会議所・金融機関・企業研修に対応 →
-            </p>
-          </div>
-        </a>
-
+        ))}
       </div>
 
-      <div class="mt-10">
-        <a href="/price" class="inline-flex items-center gap-2 text-base font-semibold text-primary-700 hover:text-accent-600 transition-colors group">
+    </div>
+  </section>
+
+
+  <!-- ===== 大切にしている考え方 ===== -->
+  <section class="py-24 px-4 bg-primary-900 text-white">
+    <div class="max-w-5xl mx-auto">
+
+      <div class="mb-12">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-400 text-xs font-semibold tracking-[0.2em] uppercase">Principle</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold">「なぜその制度なのか」を、<br/>社員に説明できる会社に。</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl">
+        <div class="space-y-5 text-primary-200 text-base leading-loose">
+          <p>
+            なぜその賃金なのか。なぜその手当があるのか。なぜその休暇なのか。理由を答えられる制度は、社員に信じてもらえます。答えられない制度は、不公平に見えた瞬間に信頼を失います。
+          </p>
+          <p>
+            規程はあるのに、実際の運用と合っていない。判断の基準が、担当者の頭の中にしかない。そういう会社は珍しくありません。裁判になっていないから、問題になっていないだけです。
+          </p>
+        </div>
+        <div class="space-y-4">
+          {[
+            ['法令に合っている', '最低限の条件です。ここから始めます。'],
+            ['目的に合っている', 'その制度は、何のためにあるのか。'],
+            ['扱いに一貫性がある', '同じ事情の社員に、同じ答えを返せるか。'],
+            ['現場で続けられる', '作った制度を、管理職が回せるか。'],
+          ].map(([t, d]) => (
+            <div class="border-l-2 border-accent-500 pl-5">
+              <p class="font-bold text-white">{t}</p>
+              <p class="text-sm text-primary-300">{d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <p class="mt-12 text-primary-300 text-base leading-relaxed max-w-3xl">
+        社員それぞれの事情に向き合いながら、周囲の負担と事業の継続も踏まえて、働き続けられる仕組みを整える。それが、両立支援を入口にしている理由です。
+      </p>
+
+    </div>
+  </section>
+
+
+  <!-- ===== 顧問契約 ===== -->
+  <section id="retainer" class="py-24 px-4 bg-warm-50">
+    <div class="max-w-5xl mx-auto">
+
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Retainer</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">顧問契約</h2>
+        <p class="mt-4 text-primary-500 text-base max-w-2xl">
+          従業員10〜49人程度の会社を中心にお受けしています。会社の経緯を知っている相手に、次も相談できる。それが顧問の価値だと考えています。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14">
+        {retainers.map((r) => (
+          <div class="bg-white border border-warm-200 overflow-hidden">
+            <div class="h-1 bg-accent-500"></div>
+            <div class="p-8">
+              <h3 class="font-display text-2xl font-bold text-primary-900 mb-2">{r.name}</h3>
+              <p class="text-sm text-primary-500 mb-6">{r.who}</p>
+              <ul class="space-y-2.5">
+                {r.items.map((it) => (
+                  <li class="flex items-start gap-3 text-base text-primary-700">
+                    <span class="w-1.5 h-1.5 bg-accent-500 rounded-full mt-2.5 shrink-0"></span>
+                    {it}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="bg-white border border-warm-200 p-8 md:p-10 mb-10">
+        <h3 class="font-bold text-primary-900 text-lg mb-6">顧問として、何をするか</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {steps.map((s, i) => (
+            <div>
+              <p class="text-xs font-semibold text-accent-600 tracking-[0.15em] mb-2">{String(i + 1).padStart(2, '0')}</p>
+              <h4 class="font-bold text-primary-900 mb-2">{s.title}</h4>
+              <p class="text-sm text-primary-600 leading-relaxed">{s.body}</p>
+            </div>
+          ))}
+        </div>
+        <p class="mt-8 pt-6 border-t border-warm-200 text-sm text-primary-500 leading-relaxed">
+          既存の規則の解釈と運用は顧問の範囲です。就業規則の新規作成や大幅な改定、社内説明会、認定申請の支援は、範囲を決めて別途お見積りします。
+        </p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 justify-between">
+        <p class="text-sm text-primary-600 leading-relaxed max-w-xl">
+          受付はお問い合わせフォームとメール。受付後、原則2営業日以内に一次回答をお返しします。面談はオンラインと対面のどちらにも対応します。
+        </p>
+        <a href="/price/"
+           class="inline-flex items-center gap-2 border border-primary-900 text-primary-900 hover:bg-primary-900 hover:text-white font-bold px-6 py-3 transition-colors duration-200 shrink-0">
           料金表を見る
-          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
           </svg>
         </a>
@@ -447,83 +362,32 @@ const faqSchema = {
   </section>
 
 
-  <!-- ===== 小さな専門家ができること（before/after） ===== -->
+  <!-- ===== なぜこの事務所か ===== -->
   <section class="py-24 px-4 bg-white">
     <div class="max-w-5xl mx-auto">
 
       <div class="mb-14">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-6 h-px bg-accent-500"></div>
-          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Before &amp; After</p>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Why</p>
         </div>
-        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">
-          本業以外は、<br/>小さな専門家に任せる。
-        </h2>
-        <p class="mt-3 text-primary-500 text-base">任せたぶんだけ、本業に専念できる。</p>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">なぜ、この事務所か</h2>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        {[
-          {
-            title: '毎月の集計・転記作業',
-            kind: 'アプリ',
-            before: 'Excelに手入力で何時間もかかり、転記ミスも起きる',
-            after: '専用アプリが自動集計。数分で正確に完了',
-          },
-          {
-            title: '制度・要件の都度確認',
-            kind: 'アプリ',
-            before: '法令や社内ルールを毎回調べ直して時間を浪費',
-            after: '専用アプリに入力するだけで、その場で判定',
-          },
-          {
-            title: '書類作成・文章づくり',
-            kind: 'AI',
-            before: 'ひな形を探し、手作業で作っては見直しの繰り返し',
-            after: '要点を伝えるだけで、AIが整った文章を作成',
-          },
-          {
-            title: '問い合わせ対応',
-            kind: 'AI',
-            before: '同じ質問に何度も対応し、本業が止まる',
-            after: 'よくある質問はAIが一次対応。判断だけに集中',
-          },
-        ].map((c) => (
-          <div class="bg-warm-50 border border-warm-200 p-7 hover:border-accent-300 hover:shadow-sm transition-all duration-200">
-            <div class="flex items-center gap-3 mb-5">
-              <h3 class="font-bold text-primary-900 text-lg">{c.title}</h3>
-              <span class="text-[11px] font-semibold text-primary-600 bg-primary-50 border border-primary-100 px-2 py-0.5 shrink-0">専門家{c.kind}</span>
-            </div>
-            <div class="space-y-4">
-              <div class="flex items-start gap-3">
-                <span class="text-xs font-semibold text-primary-400 border border-warm-300 px-2 py-0.5 shrink-0 mt-0.5">Before</span>
-                <p class="text-base text-primary-500 leading-relaxed">{c.before}</p>
-              </div>
-              <div class="flex items-start gap-3">
-                <span class="text-xs font-semibold text-white bg-accent-500 px-2 py-0.5 shrink-0 mt-0.5">After</span>
-                <p class="text-base text-primary-800 font-medium leading-relaxed">{c.after}</p>
-              </div>
-            </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 max-w-4xl">
+        {reasons.map((r) => (
+          <div>
+            <h3 class="font-bold text-primary-900 text-base mb-2 leading-snug">{r.label}</h3>
+            <p class="text-sm text-primary-600 leading-relaxed">{r.body}</p>
           </div>
         ))}
-      </div>
-
-      <div class="mt-10">
-        <a href="https://chiisanasenmonka.jp/about/" class="inline-flex items-center gap-2 text-base font-semibold text-primary-700 hover:text-accent-600 transition-colors group">
-          小さな専門家について詳しく見る
-          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
-        </a>
       </div>
 
     </div>
   </section>
 
 
-  <!-- ===== お役立ちツール ===== -->
-  <!-- ツールの一覧は小さな専門家.jp に一本化する。
-       ここにカードを再掲すると、あちらが増えるたびに本数が食い違う。案内は1本だけ置く -->
+  <!-- ===== 日々の計算ツール（小さな専門家.jp へ） ===== -->
   <section class="py-24 px-4 bg-warm-50">
     <div class="max-w-5xl mx-auto">
       <div class="flex items-center gap-3 mb-4">
@@ -532,7 +396,7 @@ const faqSchema = {
       </div>
       <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">日々の計算は、小さな専門家.jp へ</h2>
       <p class="mt-4 text-primary-600 text-base leading-relaxed max-w-2xl">
-        有給の日数、最低賃金、育休中の手取り、高年齢雇用継続給付。当事務所の代表が企画・監修する計算ツールを、別サイトで公開しています。
+        有給の日数、最低賃金、育休中の手取り、高年齢雇用継続給付。当事務所の代表が企画・監修する計算ツールを、別サイトで公開しています。面倒な計算はそちらに任せて、ここでは会社と社員のことを考えます。
       </p>
       <a href="https://chiisanasenmonka.jp/"
          class="mt-8 inline-flex items-center gap-2 bg-primary-900 text-white font-bold py-4 px-8 rounded-lg hover:bg-accent-500 transition-colors duration-200">
@@ -546,7 +410,7 @@ const faqSchema = {
 
 
   <!-- ===== プロフィール ===== -->
-  <section class="py-24 px-4 bg-white">
+  <section id="profile" class="py-24 px-4 bg-white">
     <div class="max-w-5xl mx-auto">
 
       <div class="mb-14">
@@ -554,15 +418,13 @@ const faqSchema = {
           <div class="w-6 h-px bg-accent-500"></div>
           <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Profile</p>
         </div>
-        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">プロフィール</h2>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">代表紹介</h2>
       </div>
 
       <div class="bg-white border border-warm-200 overflow-hidden max-w-3xl">
-        <!-- Gold top bar -->
         <div class="h-1 bg-accent-500"></div>
         <div class="flex flex-col sm:flex-row">
 
-          <!-- Photo -->
           <div class="sm:w-52 shrink-0 flex items-center justify-center bg-warm-50 p-8 border-b sm:border-b-0 sm:border-r border-warm-200">
             <img
               src="/profile.png"
@@ -571,7 +433,6 @@ const faqSchema = {
             />
           </div>
 
-          <!-- Text -->
           <div class="flex-1 px-8 py-8">
             <p class="text-xs font-semibold text-accent-600 tracking-[0.15em] mb-1">社会保険労務士</p>
             <h3 class="font-display text-2xl font-bold text-primary-900 mb-0.5">大日川 聡一</h3>
@@ -584,93 +445,33 @@ const faqSchema = {
             </div>
 
             <div class="space-y-3 text-base text-primary-700 leading-relaxed">
-              <p>AIに強い社労士として、AIを駆使し、その会社だけの「小さな専門家」をつくるのが得意です。かつて事業会社でRPA導入を手がけ、年間1,200時間の業務削減を実現した実装経験があります。</p>
+              <p>企業の役員・管理職としての実務と、社会保険労務士の業務を兼務しています。制度を作る側と、運用する側の両方にいることが、「なぜその制度なのか」を説明できる制度づくりに生きています。</p>
               <p class="font-display text-base font-semibold text-accent-600">
-                「人を増やさなくても、仕組みで解決できる」
+                「なぜその制度なのか」を、社員に説明できる会社に。
               </p>
-              <p>労務の専門家として、男性育休の取得支援・仕事と家庭の両立支援・就業規則の整備も得意分野。制度を「作る」だけでなく、AIとアプリで現場が実際に回る仕組みまで一緒につくることにこだわっています。</p>
+              <p>立場によって、使える裁量や支援は異なります。自分の経験だけで判断せず、ご相談者の会社の状況を伺うことを大切にしています。</p>
             </div>
 
-            <div class="mt-5 flex items-center gap-2 text-xs text-primary-400">
-              <svg class="w-4 h-4 text-accent-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-              </svg>
-              <span>愛知働き方改革推進支援センター 専門家</span>
+            <div class="mt-5 space-y-2 text-xs text-primary-400">
+              {['愛知働き方改革推進支援センター　専門家', '愛知県男性育児休業取得促進アドバイザー'].map((c) => (
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-accent-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                  <span>{c}</span>
+                </div>
+              ))}
             </div>
           </div>
 
         </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ===== セミナー・研修実績 ===== -->
-  <section class="py-24 px-4 bg-warm-50">
-    <div class="max-w-5xl mx-auto">
-
-      <div class="mb-14">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-6 h-px bg-accent-500"></div>
-          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Seminar &amp; Training</p>
-        </div>
-        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">セミナー・研修</h2>
-        <p class="mt-3 text-primary-500 text-base">実務に直結する内容でご好評をいただいています。ご依頼も承ります。</p>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl">
-        {[
-          {
-            title: '働き方改革 × DX・AI セミナー',
-            desc: 'AIや自動化ツールを活用した業務改善と、法令対応を組み合わせた実践的な内容をご提供しています。',
-            icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2h-2',
-            color: 'border-t-accent-500',
-            iconBg: 'bg-accent-50',
-            iconColor: 'text-accent-600',
-          },
-          {
-            title: '男性育休導入セミナー',
-            desc: '取得率向上のための制度・運用・文化づくりを、法改正の最新情報を交えて解説します。',
-            icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
-            color: 'border-t-pink-500',
-            iconBg: 'bg-pink-50',
-            iconColor: 'text-pink-600',
-          },
-          {
-            title: '採用・労務管理セミナー',
-            desc: '中小企業が実践できる採用力強化と、トラブルを未然に防ぐ労務管理のポイントをお伝えします。',
-            icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
-            color: 'border-t-primary-600',
-            iconBg: 'bg-primary-50',
-            iconColor: 'text-primary-600',
-          },
-        ].map((seminar) => (
-          <div class={`bg-warm-50 border border-warm-200 border-t-2 ${seminar.color} p-7 hover:shadow-sm transition-shadow duration-200`}>
-            <div class={`w-10 h-10 ${seminar.iconBg} flex items-center justify-center mb-5`}>
-              <svg class={`w-5 h-5 ${seminar.iconColor}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={seminar.icon} />
-              </svg>
-            </div>
-            <h3 class="font-bold text-primary-900 mb-3">{seminar.title}</h3>
-            <p class="text-base text-primary-600 leading-relaxed">{seminar.desc}</p>
-          </div>
-        ))}
-      </div>
-
-      <div class="mt-10">
-        <a href="/seminar/" class="inline-flex items-center gap-2 text-base font-semibold text-primary-700 hover:text-accent-600 transition-colors group">
-          「小さな専門家のつくり方」など、ご依頼いただける講座を見る
-          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
-        </a>
       </div>
     </div>
   </section>
 
 
   <!-- ===== ご相談の流れ ===== -->
-  <section class="py-24 px-4 bg-white">
+  <section class="py-24 px-4 bg-warm-50">
     <div class="max-w-5xl mx-auto">
 
       <div class="mb-14">
@@ -682,15 +483,14 @@ const faqSchema = {
       </div>
 
       <div class="max-w-3xl relative">
-        <!-- Connector line (desktop) -->
         <div class="hidden sm:block absolute top-8 left-[calc(12.5%+16px)] right-[calc(12.5%+16px)] h-px bg-accent-200 z-0"></div>
 
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-8 sm:gap-4">
           {[
             { step: '01', title: 'お問い合わせ', desc: 'フォームまたはお電話でご連絡ください' },
-            { step: '02', title: 'ヒアリング',   desc: '現状の課題や目標を丁寧にお聞きします' },
-            { step: '03', title: 'ご提案',       desc: '最適な支援内容とお見積りをご提示します' },
-            { step: '04', title: '支援開始',     desc: 'ご契約後、速やかに支援をスタートします' },
+            { step: '02', title: 'ヒアリング',   desc: '会社の状況と、いま困っている場面を伺います' },
+            { step: '03', title: 'ご提案',       desc: '支援の内容と範囲、お見積りをご提示します' },
+            { step: '04', title: '支援開始',     desc: 'ご契約後、現状の確認から始めます' },
           ].map((flow) => (
             <div class="flex flex-col items-center text-center relative z-10">
               <div class="w-16 h-16 bg-primary-900 border-2 border-accent-500 flex flex-col items-center justify-center mb-4">
@@ -709,7 +509,7 @@ const faqSchema = {
 
 
   <!-- ===== よくあるご質問 ===== -->
-  <section class="py-24 px-4 bg-warm-50">
+  <section class="py-24 px-4 bg-white">
     <div class="max-w-5xl mx-auto">
 
       <div class="mb-14">
@@ -720,16 +520,16 @@ const faqSchema = {
         <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">よくあるご質問</h2>
       </div>
 
-      <div class="max-w-3xl space-y-4">
+      <div class="max-w-3xl divide-y divide-warm-200 border-t border-b border-warm-200">
         {faqs.map((f) => (
-          <div class="bg-white border border-warm-200 p-7">
-            <h3 class="flex items-start gap-3 font-bold text-primary-900 text-lg mb-3">
+          <div class="py-7">
+            <h3 class="flex items-start gap-4 font-bold text-primary-900 text-base mb-3">
               <span class="font-display text-accent-500 shrink-0">Q.</span>
-              {f.q}
+              <span>{f.q}</span>
             </h3>
-            <p class="flex items-start gap-3 text-primary-700 text-base leading-relaxed">
+            <p class="flex items-start gap-4 text-sm text-primary-600 leading-relaxed">
               <span class="font-display font-bold text-primary-400 shrink-0">A.</span>
-              {f.a}
+              <span>{f.a}</span>
             </p>
           </div>
         ))}
@@ -742,7 +542,6 @@ const faqSchema = {
   <!-- ===== CTA ===== -->
   <section class="py-24 px-4 bg-primary-900 text-white relative overflow-hidden">
 
-    <!-- Subtle background pattern -->
     <div class="absolute inset-0 opacity-[0.03]">
       <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -758,14 +557,14 @@ const faqSchema = {
 
       <div class="flex items-center justify-center gap-3 mb-6">
         <div class="w-8 h-px bg-accent-500"></div>
-        <p class="text-accent-400 text-xs font-semibold tracking-[0.3em] uppercase">Free Consultation</p>
+        <p class="text-accent-400 text-xs font-semibold tracking-[0.3em] uppercase">Contact</p>
         <div class="w-8 h-px bg-accent-500"></div>
       </div>
 
-      <h2 class="font-display text-4xl sm:text-5xl font-bold mb-8">無料相談受付中</h2>
+      <h2 class="font-display text-3xl sm:text-5xl font-bold mb-8 leading-tight">まずは、いまの状況を<br class="sm:hidden"/>聞かせてください。</h2>
 
       <div class="flex flex-wrap justify-center gap-3 mb-10 text-base">
-        {['男性育休を進めたい', '就業規則を見直したい', '業務を効率化したい'].map((item) => (
+        {['両立支援の制度を整えたい', '就業規則の運用を見直したい', '顧問契約を検討している'].map((item) => (
           <span class="inline-flex items-center gap-2 border border-primary-700 px-5 py-2.5 text-primary-200">
             <span class="w-1.5 h-1.5 bg-accent-500 rounded-full shrink-0"></span>
             {item}
@@ -773,9 +572,9 @@ const faqSchema = {
         ))}
       </div>
 
-      <p class="text-primary-300 mb-10 text-base">まずはお気軽にご相談ください。</p>
+      <p class="text-primary-300 mb-10 text-base">初回のご相談は無料です。</p>
 
-      <a href="/contact"
+      <a href="/contact/"
          class="inline-flex items-center gap-3 bg-accent-500 hover:bg-accent-400 text-white font-bold px-12 py-4 text-lg transition-colors duration-200">
         お問い合わせはこちら
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
