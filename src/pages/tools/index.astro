@@ -1,60 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
-// 無料でつかえる小さな専門家アプリ
-const freeTools = [
-  {
-    href: 'https://chiisanasenmonka.jp/tools/minimum-wage/',
-    icon: '💰',
-    color: 'primary',
-    series: '最低賃金の小さな専門家',
-    title: '最低賃金チェッカー',
-    desc: '月給・日給・歩合給を時間額に換算し、都道府県の最低賃金をクリアしているか判定します。都道府県ごとの発効日に対応。',
-    cta: 'チェックする →',
-    ai: false,
-  },
-  {
-    href: 'https://chiisanasenmonka.jp/tools/papa-ikukyu/',
-    icon: '👶',
-    color: 'pink',
-    series: 'パパ育休の小さな専門家',
-    title: '産後パパ育休<br />社会保険料免除チェッカー',
-    desc: 'カレンダーで育休期間を選ぶだけで、社会保険料が免除されるか自動判定。2ヶ月分の免除を狙う最適な取り方もわかります。',
-    cta: 'チェックする →',
-    ai: false,
-  },
-  {
-    href: 'https://chiisanasenmonka.jp/tools/wage-sim/',
-    icon: '💴',
-    color: 'purple',
-    series: '育休手取りの小さな専門家',
-    title: '産後パパ育休<br />賃金シミュレーター',
-    desc: '育休期間を選ぶだけで、育児休業給付金・社会保険料免除を踏まえた2ヶ月分の手取りをシミュレーション。欠勤控除・給付金・源泉所得税まで一括計算。',
-    cta: 'シミュレーションする →',
-    ai: false,
-  },
-  {
-    href: '/tools/kounenrei/',
-    icon: '🎓',
-    color: 'amber',
-    series: '定年後の小さな専門家',
-    title: '高年齢雇用継続給付<br />シミュレーター',
-    desc: '60歳以降の賃金がいくら下がると給付金がいくら出るかを、賃金証明書と同じ形式で計算。低下率・支給率の計算過程をすべて表示し、特別支給の老齢厚生年金との併給調整（年金がいくら減るか）まで確認できます。',
-    cta: 'シミュレーションする →',
-    ai: false,
-  },
-  {
-    href: 'https://chiisanasenmonka.jp/tools/yukyu-fuyo/',
-    icon: '📅',
-    color: 'primary',
-    series: '有給の小さな専門家',
-    title: '有給休暇<br />付与確認ツール',
-    desc: '入社日と付与パターンを選ぶだけで、初回・2回目以降の有給付与日と日数を自動計算。8種類の付与ルールに対応し、印刷・PDF保存にも対応。',
-    cta: '確認する →',
-    ai: false,
-  },
-];
-
 // 開発実績・導入支援（紹介のみ）
 const showcaseTools = [
   {
@@ -100,7 +46,7 @@ const ctaColor = {
 
 <Layout
   title="小さな専門家アプリ"
-  description="おびかわ社労士事務所の「小さな専門家アプリ」。最低賃金の小さな専門家・パパ育休の小さな専門家・育休手取りの小さな専門家・定年後の小さな専門家・有給の小さな専門家など、定型作業を任せて本業に専念できる無料ツールをご利用いただけます。"
+  description="おびかわ社労士事務所の「小さな専門家アプリ」。日々の計算ツール（小さな専門家.jp）と、顧問先向けに開発した業務アプリの実績をご紹介します。"
 >
 
   <section class="bg-gradient-to-br from-primary-800 to-primary-600 text-white py-16 px-4">
@@ -109,36 +55,24 @@ const ctaColor = {
       <h1 class="text-4xl font-bold">小さな専門家アプリ</h1>
       <p class="mt-4 text-primary-100 max-w-xl mx-auto">
         社労士が監修した、定型作業を任せて本業に専念するための専用ツール。<br />
-        無料でつかえるアプリと、開発・導入支援の実績をご紹介します。
+        日々の計算ツールと、開発・導入支援の実績をご紹介します。
       </p>
     </div>
   </section>
 
-  <!-- ===== 無料でつかえるアプリ ===== -->
+  <!-- ツールの一覧は小さな専門家.jp に一本化する。ここに再掲すると本数が食い違う -->
   <section class="py-16 px-4">
     <div class="max-w-3xl mx-auto">
-      <div class="mb-8">
-        <span class="inline-block text-xs font-bold text-primary-700 bg-primary-50 border border-primary-100 px-3 py-1 rounded-full mb-3">無料でつかえる</span>
-        <h2 class="text-2xl font-bold text-gray-900">無料アプリ</h2>
-        <p class="text-sm text-gray-600 mt-2">どなたでもその場でご利用いただけます。計算・判定はこれに任せて、本業に専念しましょう。</p>
+      <div class="mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">日々の計算ツール</h2>
+        <p class="text-sm text-gray-600 mt-2">
+          有給の日数、最低賃金、育休中の手取り、高年齢雇用継続給付。当事務所の代表が企画・監修する計算ツールは、別サイト「小さな専門家.jp」で公開しています。
+        </p>
       </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {freeTools.map((t) => (
-          <a href={t.href} class="group bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col">
-            <div class="flex items-center justify-between mb-4">
-              <div class={`w-12 h-12 ${iconBg[t.color]} rounded-xl flex items-center justify-center text-2xl`}>{t.icon}</div>
-              {t.ai && (
-                <span class="inline-flex items-center gap-1 text-[10px] font-bold text-white bg-gradient-to-r from-accent-500 to-accent-600 px-2.5 py-1 rounded-full tracking-wide">AI活用</span>
-              )}
-            </div>
-            <p class={`text-xs font-semibold ${seriesColor[t.color]} mb-1`}>{t.series}</p>
-            <h3 class="text-lg font-bold text-gray-900 mb-2" set:html={t.title} />
-            <p class="text-sm text-gray-600 leading-relaxed flex-1">{t.desc}</p>
-            <span class={`mt-5 ${ctaColor[t.color]} text-sm font-semibold group-hover:underline`}>{t.cta}</span>
-          </a>
-        ))}
-      </div>
+      <a href="https://chiisanasenmonka.jp/"
+         class="inline-flex items-center gap-2 bg-primary-900 text-white font-bold py-3 px-6 rounded-lg hover:bg-accent-500 transition-colors duration-200">
+        小さな専門家.jp でツール一覧を見る →
+      </a>
     </div>
   </section>
 
