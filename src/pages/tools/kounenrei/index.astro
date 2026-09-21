@@ -172,6 +172,9 @@ const breadcrumbSchema = {
         <p class="kn-note-sm">
           社会保険労務士が制度の条文と厚生労働省の資料をもとに作成しています。入力した内容がサーバーに送信されることはありません。
         </p>
+        <p class="kn-note-sm kn-seealso">
+          低下率ごとの支給率だけを一覧で確かめたいときは、<a href="https://chiisanasenmonka.jp/tools/kounenrei/hayamihyo/">高年齢雇用継続給付金 支給率早見表</a>（小さな専門家.jp）が早いです。
+        </p>
       </div>
 
       <!-- ===== ① 受給資格 ===== -->
@@ -457,6 +460,7 @@ const breadcrumbSchema = {
         <div class="kn-related">
           <h3>関連ページ</h3>
           <ul>
+            <li><a href="https://chiisanasenmonka.jp/tools/kounenrei/hayamihyo/">低下率ごとの支給率を一覧で見る（高年齢雇用継続給付金 支給率早見表｜小さな専門家.jp）</a></li>
             <li><a href="/tools/">ほかの無料ツールを見る（最低賃金・産後パパ育休・有給休暇）</a></li>
             <li><a href="/price/">顧問契約・手続き業務の料金表</a></li>
             <li><a href="/contact/">高年齢雇用継続給付の手続きについて相談する</a></li>
@@ -681,8 +685,8 @@ const breadcrumbSchema = {
   .kn-root .kn-related { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--kn-line); }
   .kn-root .kn-related h3 { font-size: 14px; font-weight: 700; margin: 0 0 8px; }
   .kn-root .kn-related ul { margin: 0; padding-left: 20px; font-size: 13.5px; line-height: 2; }
-  .kn-root .kn-related a { color: var(--kn-primary); text-decoration: underline; }
-  .kn-root .kn-related a:hover { color: #17418a; }
+  .kn-root .kn-related a, .kn-root .kn-seealso a { color: var(--kn-primary); text-decoration: underline; }
+  .kn-root .kn-related a:hover, .kn-root .kn-seealso a:hover { color: #17418a; }
 
   @media (max-width: 700px) {
     .kn-root .kn-container { padding: 22px 12px 48px; }
