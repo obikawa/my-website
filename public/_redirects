@@ -24,3 +24,8 @@
 # 旧URLは /tools/ 配下ではないので、パスが変わる点に注意。
 /minimum-wage          https://chiisanasenmonka.jp/tools/minimum-wage/  301!
 /minimum-wage/*        https://chiisanasenmonka.jp/tools/minimum-wage/  301!
+
+# 「AI社会実装コンサルティング」（/consulting/）は、顧問契約のオプション「AI活用支援」に
+# 置き換えた（2026-09-29）。旧URLは新ページへ寄せる。
+/consulting            /ai-support/    301!
+/consulting/*          /ai-support/    301!
