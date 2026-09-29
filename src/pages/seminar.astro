@@ -1,56 +1,88 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-// 新規の目玉講座
-const featuredSeminars = [
+// セミナー・研修（2026-09-29 実績ベースに置き換え）。
+// 以前は「小さな専門家のつくり方」「AI×人事戦略」という企画段階の講座を目玉にしていたが、
+// 実際に登壇した講座と、決まっている登壇予定だけを載せる。
+// 実施済みと予定は分ける。年月が確認できていない講座には年月を書かない（「確認中」とも書かない）。
+
+// 登壇予定
+const upcoming = {
+  date: '2026年10月7日',
+  host: '愛知県',
+  title: '男性育児休業取得促進セミナー',
+  sub: '業務の属人化を減らし、組織力を高める職場づくり',
+  time: '120分・会場＋オンライン',
+  desc: '前半は、育休の日程を決めて仕事を引き継ぐ段取り。同じ日数の育休でも、置き方で手取りと給付がどれだけ違うかを数字で見ます。後半はAI活用ワークショップ。「引き継ぐ業務・誰に・注意点」の3つを書くだけで、AIに引き継ぎアプリ（ブラウザで開く1ファイル）を作らせるところまで、その場でやります。',
+};
+
+// 登壇した講座。date は確認できているものだけ
+const seminars = [
   {
-    tag: 'NEW・経営者向け',
-    title: '「小さな専門家のつくり方」セミナー',
+    date: '2026年2月26日',
+    host: '愛知働き方改革推進支援センター',
+    theme: 'AI・働き方改革',
+    title: '1200時間削減の秘訣！DX・AI活用で変わる現場の生産性',
     time: '90分',
-    desc: 'AIの社会実装とは何か。成長の好循環と、さぐる→そだてる→まかせる→めぐるの4段階を、経営者向けに90分で解説します。「AIを入れたのに元が取れない」の正体が分かり、明日から何をすべきかが見えます。',
-    points: ['AIの社会実装(成長の好循環)の全体像', '4段階ロードマップと「いま自社がいる段階」', '最初の小さな専門家のつくり方'],
+    desc: '人手不足を精神論で乗り切ろうとする「静かな倒産」の危機から始めて、仕事を工程に分解してAIと自動化に渡す方法、道具の選び方、AI導入に使える助成金まで。会社員時代に「印刷・配布」の工程分解で年1,200時間を減らした経験をもとに話します。',
+    points: ['DXの鍵「プロセス分解」の極意', 'AI活用のポイントと道具', 'AI導入を支援する助成金'],
   },
   {
-    tag: 'NEW・人事担当者向け',
-    title: '「AI×人事戦略」セミナー',
+    date: '2026年2月26日',
+    host: '愛知働き方改革推進支援センター',
+    theme: '就業規則・両立支援',
+    title: '辞めない組織を作る！多様な働き方導入と就業規則のリスク管理',
     time: '90分',
-    desc: 'AIを育てる会社は、人手不足に強くなる。AIと人の分担を前提にした働き方改革の進め方と、「AIが仕事をしてくれる会社」として選ばれる採用戦略を、社労士の視点で解説します。',
-    points: ['人手不足をAIと人の分担で解消する考え方', '働き方改革へのAI活用の組み込み方', '採用戦略と就業規則・運用ルールの整備'],
+    desc: '2025年・2026年の育児・介護休業法の改正と、治療と仕事の両立支援の努力義務化に、古い就業規則が追いつかないリスク。育児・介護・治療を支える働き方の設計と、助成金を使った制度づくりの進め方。',
+    points: ['古い就業規則に潜むリスクと法改正の全貌', '育児・介護・治療を支える多様な働き方の設計', 'コストを抑えて制度を構築する助成金活用'],
+  },
+  {
+    date: '',
+    host: '愛知働き方改革推進支援センター',
+    theme: 'AI・人材育成',
+    title: 'AI×人材育成で進める働き方改革',
+    time: '',
+    desc: '書類作成・チェックなど、AIで変わる仕事の現場を事例で見せ、AI人材を社内で育てる進め方と、人材開発支援助成金（事業展開等リスキリング支援コース）の使い方を解説します。',
+    points: ['働き方改革とAIの関係', 'AIで変わる仕事の現場（事例）', 'AI人材育成に使える助成金'],
+  },
+  {
+    date: '',
+    host: '愛知働き方改革推進支援センター',
+    theme: '人手不足・制度設計',
+    title: '人手不足を解消する新たな一手！短時間正社員制度の導入',
+    time: '',
+    desc: '求人を出しても集まらない会社に、無期・直接雇用でフルタイムより短い「短時間正社員」という選択肢を。制度の定義、導入のメリット、進め方とポイント。',
+    points: ['短時間正社員制度とは', '制度導入のメリット', '導入の進め方とポイント'],
+  },
+  {
+    date: '2024年12月18日',
+    host: '蒲郡商工会議所',
+    theme: '採用・人材確保',
+    title: '人材確保 ハローワーク・SNSの活用方法',
+    time: '',
+    desc: 'ハローワークの求人の出し方と、自社サイト・SNS・動画での発信の使い分け。人手不足の中小企業が、お金をかけずに応募を増やす方法。',
+    points: [],
   },
 ];
 
-// 既存の3講座
-const regularSeminars = [
+// 厚生労働省委託事業の動画
+const videos = [
   {
-    title: '働き方改革 × DX・AI セミナー',
-    desc: 'AIや自動化ツールを活用した業務改善と、法令対応を組み合わせた実践的な内容をご提供しています。',
-    icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2h-2',
-    color: 'border-t-accent-500',
-    iconBg: 'bg-accent-50',
-    iconColor: 'text-accent-600',
+    title: '職場の健康診断と全国労働衛生週間',
+    time: '30分',
+    desc: '9月の職場の健康診断実施強化月間と、10月の全国労働衛生週間。健康診断は福利厚生ではなく法律上の義務であること、対象者、受けた後にやること、産業医がいない会社の相談先。',
   },
   {
-    title: '男性育休導入セミナー',
-    desc: '取得率向上のための制度・運用・文化づくりを、法改正の最新情報を交えて解説します。',
-    icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
-    color: 'border-t-pink-500',
-    iconBg: 'bg-pink-50',
-    iconColor: 'text-pink-600',
-  },
-  {
-    title: '採用・労務管理セミナー',
-    desc: '中小企業が実践できる採用力強化と、トラブルを未然に防ぐ労務管理のポイントをお伝えします。',
-    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
-    color: 'border-t-primary-600',
-    iconBg: 'bg-primary-50',
-    iconColor: 'text-primary-600',
+    title: '同一労働同一賃金ガイドライン等の改正 ― その手当は、なぜ払っているのか',
+    time: '15分',
+    desc: '2026年10月施行。労働条件通知書に足す項目、ガイドラインに書き加えられた手当・休暇、10月までにやること。',
   },
 ];
 ---
 
 <Layout
-  title="セミナー・研修｜小さな専門家のつくり方・AI×人事戦略"
-  description="おびかわ社労士事務所のセミナー・研修。経営者向け「小さな専門家のつくり方」、人事向け「AI×人事戦略」のほか、働き方改革×DX・AI、男性育休導入、採用・労務管理まで。商工会議所・金融機関・企業研修に対応、会場・オンラインどちらも可能です。"
+  title="セミナー・研修｜AI活用・働き方改革、男性育休、就業規則"
+  description="おびかわ社労士事務所のセミナー・研修。愛知働き方改革推進支援センター、愛知県、商工会議所、厚生労働省委託事業での登壇実績。AI活用で手作業を減らす働き方改革、男性育休、就業規則と法改正、人材確保。会場・オンラインどちらも可能です。"
 >
 
   <!-- ===== 1. ヒーロー ===== -->
@@ -59,60 +91,39 @@ const regularSeminars = [
       <p class="text-primary-200 text-sm font-medium tracking-widest uppercase mb-3">Seminar &amp; Training</p>
       <h1 class="text-4xl font-bold">セミナー・研修</h1>
       <p class="mt-4 text-primary-100 max-w-xl mx-auto">
-        AI×人事から、男性育休・労務管理まで。<br />
-        実務に直結する内容で、商工会議所・金融機関・企業研修にお応えします。
+        AI活用で手作業を減らす働き方改革から、男性育休、就業規則と法改正、人材確保まで。<br />
+        愛知県、愛知働き方改革推進支援センター、商工会議所などで登壇しています。
       </p>
     </div>
   </section>
 
 
-  <!-- ===== 2. 目玉講座 ===== -->
+  <!-- ===== 2. 登壇予定 ===== -->
   <section class="py-24 px-4 bg-warm-50">
     <div class="max-w-5xl mx-auto">
-      <div class="mb-14">
+      <div class="mb-10">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-6 h-px bg-accent-500"></div>
-          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Featured</p>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Upcoming</p>
         </div>
-        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">
-          AIの社会実装を、<br/>語れる講師として。
-        </h2>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">登壇予定</h2>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {featuredSeminars.map((s) => (
-          <div class="bg-white border border-warm-200 border-t-2 border-t-accent-500 p-8 flex flex-col shadow-sm">
-            <div class="flex items-center gap-3 mb-4 flex-wrap">
-              <span class="text-xs font-bold text-white bg-accent-500 px-2.5 py-1">{s.tag}</span>
-              <span class="text-xs font-semibold text-primary-500 border border-warm-300 px-2.5 py-1">{s.time}</span>
-            </div>
-            <h3 class="font-bold text-primary-900 text-xl mb-4">{s.title}</h3>
-            <p class="text-primary-700 text-base leading-relaxed mb-6">{s.desc}</p>
-            <ul class="space-y-2.5 mt-auto">
-              {s.points.map((p) => (
-                <li class="flex items-start gap-2.5 text-base text-primary-700">
-                  <span class="w-1 h-4 bg-accent-400 shrink-0 mt-1.5"></span>
-                  {p}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-
-      <div class="mt-10">
-        <a href="/shakai-jisso/" class="inline-flex items-center gap-2 text-base font-semibold text-primary-700 hover:text-accent-600 transition-colors group">
-          「AIの社会実装」の考え方を見る
-          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
-        </a>
+      <div class="bg-white border border-warm-200 border-t-2 border-t-accent-500 p-8 md:p-10 shadow-sm">
+        <div class="flex items-center gap-3 mb-4 flex-wrap">
+          <span class="text-xs font-bold text-white bg-accent-500 px-2.5 py-1">{upcoming.date}</span>
+          <span class="text-xs font-semibold text-primary-700 border border-warm-300 px-2.5 py-1">主催：{upcoming.host}</span>
+          <span class="text-xs font-semibold text-primary-500 border border-warm-300 px-2.5 py-1">{upcoming.time}</span>
+        </div>
+        <h3 class="font-bold text-primary-900 text-2xl mb-1">{upcoming.title}</h3>
+        <p class="font-display text-accent-600 font-semibold text-base mb-5">{upcoming.sub}</p>
+        <p class="text-primary-700 text-base leading-relaxed max-w-3xl">{upcoming.desc}</p>
       </div>
     </div>
   </section>
 
 
-  <!-- ===== 3. 定番講座 ===== -->
+  <!-- ===== 3. 登壇した講座 ===== -->
   <section class="py-24 px-4 bg-white">
     <div class="max-w-5xl mx-auto">
       <div class="mb-14">
@@ -120,20 +131,31 @@ const regularSeminars = [
           <div class="w-6 h-px bg-accent-500"></div>
           <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Programs</p>
         </div>
-        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">定番の講座</h2>
-        <p class="mt-3 text-primary-500 text-base">実務に直結する内容でご好評をいただいています</p>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">登壇した講座</h2>
+        <p class="mt-3 text-primary-500 text-base">同じ内容を、御社向け・会員向けに時間と内容を合わせてお話しできます</p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl">
-        {regularSeminars.map((seminar) => (
-          <div class={`bg-warm-50 border border-warm-200 border-t-2 ${seminar.color} p-7 hover:shadow-sm transition-shadow duration-200`}>
-            <div class={`w-10 h-10 ${seminar.iconBg} flex items-center justify-center mb-5`}>
-              <svg class={`w-5 h-5 ${seminar.iconColor}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={seminar.icon} />
-              </svg>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {seminars.map((s) => (
+          <div class="bg-warm-50 border border-warm-200 p-8 flex flex-col">
+            <div class="flex items-center gap-2 mb-4 flex-wrap">
+              <span class="text-xs font-bold text-white bg-primary-900 px-2.5 py-1">{s.theme}</span>
+              {s.date && <span class="text-xs font-semibold text-primary-500 border border-warm-300 px-2.5 py-1">{s.date}</span>}
+              {s.time && <span class="text-xs font-semibold text-primary-500 border border-warm-300 px-2.5 py-1">{s.time}</span>}
             </div>
-            <h3 class="font-bold text-primary-900 mb-3">{seminar.title}</h3>
-            <p class="text-base text-primary-600 leading-relaxed">{seminar.desc}</p>
+            <h3 class="font-bold text-primary-900 text-xl leading-snug mb-2">{s.title}</h3>
+            <p class="text-xs text-primary-500 mb-4">主催：{s.host}</p>
+            <p class="text-primary-700 text-base leading-relaxed mb-6">{s.desc}</p>
+            {s.points.length > 0 && (
+              <ul class="space-y-2.5 mt-auto">
+                {s.points.map((p) => (
+                  <li class="flex items-start gap-2.5 text-sm text-primary-700">
+                    <span class="w-1 h-4 bg-accent-400 shrink-0 mt-1"></span>
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         ))}
       </div>
@@ -141,8 +163,38 @@ const regularSeminars = [
   </section>
 
 
-  <!-- ===== 4. 対象・形式 ===== -->
+  <!-- ===== 4. 動画 ===== -->
   <section class="py-24 px-4 bg-warm-50">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Videos</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">解説動画</h2>
+        <p class="mt-3 text-primary-500 text-base">厚生労働省委託事業（愛知働き方改革推進支援センター）の専門家として制作</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl">
+        {videos.map((v) => (
+          <div class="bg-white border border-warm-200 p-7">
+            <div class="flex items-center gap-2 mb-3">
+              <svg class="w-5 h-5 text-accent-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+              <span class="text-xs font-semibold text-primary-500">動画 {v.time}</span>
+            </div>
+            <h3 class="font-bold text-primary-900 mb-3 leading-snug">{v.title}</h3>
+            <p class="text-sm text-primary-600 leading-relaxed">{v.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 5. 対象・形式 ===== -->
+  <section class="py-24 px-4 bg-white">
     <div class="max-w-5xl mx-auto">
       <div class="mb-14">
         <div class="flex items-center gap-3 mb-4">
@@ -153,10 +205,10 @@ const regularSeminars = [
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl">
-        <div class="bg-white border border-warm-200 p-8">
+        <div class="bg-warm-50 border border-warm-200 p-8">
           <h3 class="font-bold text-primary-900 text-lg mb-5">こんなご依頼にお応えします</h3>
           <ul class="space-y-3">
-            {['商工会議所・商工会の会員向けセミナー', '金融機関の取引先向けセミナー', '企業の社内研修(管理職・人事・全社員向け)', 'その他、団体・グループでの勉強会'].map((item) => (
+            {['商工会議所・商工会の会員向けセミナー', '金融機関の取引先向けセミナー', '企業の社内研修（管理職・人事・全社員向け）', 'その他、団体・グループでの勉強会'].map((item) => (
               <li class="flex items-start gap-2.5 text-base text-primary-700">
                 <span class="w-1 h-4 bg-accent-400 shrink-0 mt-1.5"></span>
                 {item}
@@ -164,10 +216,10 @@ const regularSeminars = [
             ))}
           </ul>
         </div>
-        <div class="bg-white border border-warm-200 p-8">
+        <div class="bg-warm-50 border border-warm-200 p-8">
           <h3 class="font-bold text-primary-900 text-lg mb-5">開催形式</h3>
           <ul class="space-y-3">
-            {['会場開催(名古屋近郊のほか、全国出張も相談可)', 'オンライン開催(Zoom等)', '時間・内容はご要望に合わせて調整できます', '料金はお問い合わせください(内容・時間により変動)'].map((item) => (
+            {['会場開催（名古屋近郊のほか、全国出張も相談可）', 'オンライン開催（Zoom等）', '時間・内容はご要望に合わせて調整できます', 'AI活用の講座は、参加者が手を動かすワークショップ形式にもできます', '料金は内容・時間によりお見積りします'].map((item) => (
               <li class="flex items-start gap-2.5 text-base text-primary-700">
                 <span class="w-1 h-4 bg-accent-400 shrink-0 mt-1.5"></span>
                 {item}
@@ -180,7 +232,7 @@ const regularSeminars = [
   </section>
 
 
-  <!-- ===== 5. CTA ===== -->
+  <!-- ===== 6. CTA ===== -->
   <section class="py-24 px-4 bg-primary-900 text-white">
     <div class="max-w-3xl mx-auto text-center">
       <div class="flex items-center justify-center gap-3 mb-6">
@@ -198,7 +250,7 @@ const regularSeminars = [
         内容のご提案からお手伝いします。
       </p>
 
-      <a href="/contact"
+      <a href="/contact/"
          class="inline-flex items-center gap-3 bg-accent-500 hover:bg-accent-400 text-white font-bold px-12 py-4 text-lg transition-colors duration-200">
         セミナーの依頼・相談をする
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
