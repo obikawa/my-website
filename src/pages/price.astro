@@ -35,7 +35,14 @@ const appRows = [
   { name: 'カスタマイズ・大規模な追加要件',           fee: '人日 55,000円で別途お見積り' },
 ];
 
-const procedureRows = [
+const procedureRows: {
+  category: string;
+  detail: string;
+  fee: string;
+  note: string;
+  /** 関連する無料ツールへの案内（あれば） */
+  link?: { href: string; label: string };
+}[] = [
   { category: '入退社時',       detail: '入社・退社の社会保険・雇用保険手続き、離職票作成', fee: '5,500円/件',  note: '入社と退社それぞれ個別にカウント' },
   { category: '扶養に関する手続き', detail: '健康保険被扶養者（追加・削除）手続き',        fee: '5,500円/件',  note: '家族1名ごとに1件' },
   { category: '氏名・住所変更', detail: '社会保険・雇用保険の氏名・住所変更届',           fee: '5,500円/件',  note: '変更内容ごとに1件' },
@@ -45,7 +52,8 @@ const procedureRows = [
   { category: '介護休業',       detail: '介護休業申出書、給付金申請等',                   fee: '5,500円/件',  note: '各手続きごとに1件' },
   { category: '長期病気休業',   detail: '健康保険傷病手当金支給申請',                     fee: '11,000円/件', note: '長期休業の場合' },
   { category: '労災手続き',     detail: '療養・休業補償給付申請、通勤災害給付申請等',     fee: '11,000円/件', note: '各手続きごとに1件' },
-  { category: '定年・再雇用',   detail: '60歳到達時賃金登録証明書、高年齢雇用継続給付金申請', fee: '11,000円/件', note: '各手続きごとに1件' },
+  { category: '定年・再雇用',   detail: '60歳到達時賃金登録証明書、高年齢雇用継続給付金申請', fee: '11,000円/件', note: '各手続きごとに1件',
+    link: { href: '/tools/kounenrei/', label: '支給額の試算は高年齢雇用継続給付シミュレーターで' } },
   { category: '36協定届',       detail: '時間外労働・休日労働に関する協定届',             fee: '11,000円/件', note: '各手続きごとに1件' },
 ];
 ---
@@ -135,7 +143,7 @@ const procedureRows = [
         <div class="bg-indigo-50 rounded-2xl p-6 border border-indigo-100">
           <h3 class="font-bold text-gray-900 mb-3 flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-indigo-500 inline-block"></span>
-            相談業務の内容（A・B 共通）
+            相談業務の内容（手続き＋相談顧問・相談顧問 共通）
           </h3>
           <ul class="space-y-2 text-sm text-gray-700">
             <li class="flex items-start gap-2">
@@ -301,6 +309,11 @@ const procedureRows = [
             </div>
             <p class="text-sm text-gray-700 leading-relaxed flex-1">{row.detail}</p>
             <p class="text-xs text-gray-400 mt-2">{row.note}</p>
+            {row.link && (
+              <a href={row.link.href} class="text-xs text-purple-700 underline underline-offset-2 mt-2 hover:text-purple-900">
+                {row.link.label} →
+              </a>
+            )}
           </div>
         ))}
       </div>
