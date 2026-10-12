@@ -1,0 +1,483 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// AI活用支援（2026-09-29 新設。旧 /consulting/ の「AI社会実装コンサルティング」を置き換え）
+//
+// 位置づけ：顧問契約のオプション。月額33,000円。単体では受けない（業務を知らないまま
+// 道具だけ作っても続かない）。他の社労士の顧問先は、その社労士を通して受ける。
+//
+// 書き方の決め事（10人のペルソナ評価 2026-09-29 を反映）：
+//   - 見出しに「AI」を主語にしない。困りごと（手作業・引き継ぎ・勤務表）を主語にする
+//   - 「顧問契約のオプション」と最初に明記する。読む人の時間を省く
+//   - 顧問の月1回訪問（相談）との違いは「90分の実作業」
+//   - 修正・不具合対応は月額に含む。月単位で解約できる。報告書は作らない
+//   - 年1,200時間は会社員時代のRPAの成果だと明記する。顧問先の実績として読ませない
+//   - 個人情報の線引きは「原則」で逃げず、何を入れないか、何から始めるかを書く
+//   - 使うAIは、入力が学習に使われない設定の業務用プラン（会社契約）を前提にする
+//   - 音声入力の話は書かない（現場は騒がしい、という指摘）
+
+const jobs = [
+  { title: '総務・経理の転記と集計', body: '給与の締め、請求、Excel から Excel への手入力。準備と照合まで含めて、何分減ったかを毎月数えます。' },
+  { title: '勤務表・シフトの下書き', body: '必要人数、育休復帰者の勤務条件、再雇用者の契約時間。条件を入れて、たたき台を出すところまで。' },
+  { title: '引き継ぎ', body: '育休・介護休業・退職で「その人にしかできない仕事」を、渡せる形にします。残してよい情報の線引きは、社労士が引きます。' },
+  { title: '手順書と、社内の問い合わせ', body: '「あれ、どうやるんでしたっけ」への答えを、担当者の頭の外に出します。' },
+  { title: '日報・検査記録・安全書類', body: '現場からスマホで入れて、事務所での書き直しをなくします。元請ごとに違う書式は、対応する範囲を先に決めます。' },
+  { title: '計画書・報告書の文面', body: '助成金・加算の計画書や実績報告の下書き。「渡した仕事」と「減った時間」の記録は、生産性向上の取り組みとして残せる形にします。' },
+];
+
+const works = [
+  {
+    n: '01',
+    title: '仕事を分解して、渡す工程を選ぶ',
+    body: '面倒な仕事を最小の工程に分け、AIや自動化に渡せる工程を選びます。会社員時代、情報システム部門で「印刷・配布」を5つの工程に分けてRPA化し、年1,200時間を減らした方法です。報告書は作りません。最初の月に、1つ動かします。',
+  },
+  {
+    n: '02',
+    title: '社員の方と一緒に、AIに道具を作らせる',
+    body: '手順書、チェックリスト、引き継ぎの一覧、小さな計算アプリ。最初の1つは私が目の前で作って動かし、2つ目からは社員の方が手を動かします。作り方が社内に残るので、次からは自分たちで作れます。',
+  },
+  {
+    n: '03',
+    title: '直して、続ける',
+    body: '翌月に違う結果が出た。動かなくなった。そういう修正と不具合対応は、月額に含みます。どのくらい時間が減ったかを数え、次に渡す仕事を決めます。',
+  },
+  {
+    n: '04',
+    title: '線を引いて、ルールにする',
+    body: 'AIに入れてよい情報・入れない情報の線引きを決め、社内規程に足すところまで含みます（就業規則の大幅な改定は別途）。社員研修が人材開発支援助成金（事業展開等リスキリング支援コース）の対象になる場合は、その活用も見ます。',
+  },
+];
+
+const styles = [
+  {
+    name: '一緒に作る',
+    tag: '標準・月額に含む',
+    who: '手を動かせる社員が一人でもいる会社に',
+    items: [
+      '社員の方が手を動かし、作り方が社内に残る',
+      'Excel・Notion・Slack など、いま使っている道具の中に置く',
+      '作ったものを、労務の目でチェックする',
+    ],
+  },
+  {
+    name: '事務所が作る',
+    tag: '別途お見積り',
+    who: '手を動かせる社員がいない、毎日使う専用アプリが要る会社に',
+    items: [
+      '実物の帳票と仕事の順番を見て、使える形まで作る',
+      '発注書管理、ファイル名変換などの実績',
+      '買い切りではなく、法改正対応と修正を含む月額保守つき',
+    ],
+  },
+];
+
+const steps = [
+  { step: '01', title: '無料相談',   desc: 'いまの仕事と、困りごとを聞きます。顧問先の方は、いつもの相談として' },
+  { step: '02', title: '最初の月',   desc: '渡す仕事を1つ決め、目の前で動かします。報告書は作りません' },
+  { step: '03', title: '毎月',       desc: '作る → 試す → 直す。次に渡す仕事を決めます' },
+  { step: '04', title: '3か月ごと',  desc: '渡した仕事と、減った時間を数えます。動くものが1つもなければ、月単位でやめられます' },
+];
+
+const included = [
+  '月1回・90分の実作業（訪問またはオンライン）',
+  '間のチャット相談（受付後、原則2営業日以内に一次回答）',
+  '作った道具の修正・不具合対応',
+  'AIの利用ルールを社内規程に足すところまで',
+];
+
+const excluded = [
+  '専用アプリの開発と月額保守（料金表）',
+  '就業規則の大幅な改定',
+  '半日以上の社員研修（内容・時間により別途お見積り）',
+];
+
+const reasons = [
+  {
+    title: '会社の側で、システムを入れてきました',
+    body: '会社員時代、情報システム部門で基幹システム・人事給与システム・RPAの導入を担当しました。締め日と数字を間違えられない仕事の重さを、入れる側として知っています。',
+  },
+  {
+    title: '自分で作っています',
+    body: '小さな専門家.jp の計算ツールは、すべて自分で設計・実装したものです。作れる人かどうかは、そこで確かめられます。',
+  },
+  {
+    title: '労務の線引きができます',
+    body: '引き継ぎで残してよい情報、勤務表で守る条件、AIに入れてはいけない情報。道具を作る前に、社労士として線を引きます。',
+  },
+  {
+    title: '人に教えてきました',
+    body: '愛知働き方改革推進支援センターの専門家として、「1200時間削減の秘訣！DX・AI活用で変わる現場の生産性」などに登壇しています。',
+  },
+];
+
+const faqs = [
+  {
+    q: 'AIが苦手な社員ばかりです。',
+    a: '最初の1つは私が目の前で作って動かします。2つ目から、社員の方と一緒に作ります。手を動かせる社員がいない会社は、事務所が作る形（別途お見積り）にします。',
+  },
+  {
+    q: '会社の情報をAIに入れて大丈夫ですか？',
+    a: '使うAIは、入力が学習に使われない設定の業務用プラン（会社契約）を前提にします。患者・利用者・顧客の個人情報は入れません。職員の情報の扱いと、人が確認する範囲を最初に決めて、社内ルールにします。個人情報を渡さずにできる仕事（勤務表の下書き、手順書、引き継ぎ、計画書の文面）から始めます。',
+  },
+  {
+    q: '顧問の月1回の訪問と、何が違うのですか？',
+    a: '顧問の相談は、判断を整理してお返しするものです。AI活用支援は、90分で実際に道具を作って動かす実作業です。相談の時間を、AIの打ち合わせで削ることはしません。',
+  },
+  {
+    q: '顧問契約なしで、AI活用支援だけ頼めますか？',
+    a: '原則お受けしていません。業務を知らないまま道具だけ作っても、続かないからです。他の社労士と顧問契約中の会社は、その社労士を通してご相談ください。',
+  },
+  {
+    q: '愛知働き方改革推進支援センターの無料相談と、何が違いますか？',
+    a: 'センターの相談は、公的な無料の支援です。まずそちらをお使いいただくのも一つの方法です。AI活用支援は、顧問先の業務を知ったうえで毎月続ける実作業で、作った道具の修正まで含みます。',
+  },
+  {
+    q: 'どのくらいで効果が出ますか？',
+    a: '最初の月に、1つ動かします。効果は「減った時間」で数え、3か月ごとに見直します。動くものがなければ、月単位でやめられます。',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<Layout
+  title="AI活用支援｜顧問契約のオプション。毎月ひとつ、手作業を減らす"
+  description="顧問先向けのAI活用支援。月1回90分の実作業で、転記・集計・勤務表の下書き・引き継ぎといった手作業をAIと自動化に渡します。作った道具の修正まで含めて月額33,000円（税込）。顧問契約のオプションとしてお受けします。"
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- ===== 1. ヒーロー ===== -->
+  <section class="relative bg-primary-900 flex items-center overflow-hidden py-24 lg:py-32">
+    <div class="absolute inset-0 opacity-[0.04]">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="ai-grid" width="64" height="64" patternUnits="userSpaceOnUse">
+            <path d="M 64 0 L 0 0 0 64" fill="none" stroke="white" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#ai-grid)"/>
+      </svg>
+    </div>
+
+    <div class="relative max-w-5xl mx-auto px-6 lg:px-8 w-full">
+      <div class="max-w-2xl">
+        <div class="flex items-center gap-3 mb-8">
+          <div class="w-8 h-px bg-accent-500"></div>
+          <p class="text-accent-400 text-xs font-semibold tracking-[0.3em] uppercase">AI Support</p>
+        </div>
+        <p class="text-primary-300 text-sm font-semibold tracking-wide mb-4">AI活用支援 ── 顧問契約のオプション</p>
+        <h1 class="font-display font-bold text-white leading-[1.3] mb-6"
+            style="font-size: clamp(2rem, 4.5vw, 3.4rem);">
+          毎月ひとつ、<br/>
+          <em class="not-italic text-accent-400">手作業</em>を減らす。
+        </h1>
+        <div class="w-14 h-0.5 bg-accent-500 mb-6"></div>
+        <p class="text-primary-200 text-lg sm:text-xl leading-loose mb-6 max-w-xl">
+          AIを入れること自体が目的ではありません。転記、集計、勤務表の下書き、引き継ぎ、社内の問い合わせ。人がやらなくていい仕事をAIと自動化に渡して、社員の時間を本業に戻す。それを、御社の業務を知っている顧問社労士が、月に1回、社員の方と一緒に手を動かしてやります。
+        </p>
+        <p class="text-primary-400 text-sm leading-relaxed mb-10 max-w-xl">
+          顧問契約（手続き＋相談顧問・相談顧問）のお客様向けです。顧問料に月額33,000円（税込）を加えて、月単位でやめられます。
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="/contact/"
+             class="inline-flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-400 text-white font-bold px-8 py-4 transition-colors duration-200">
+            無料相談はこちら
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+          <a href="#price"
+             class="inline-flex items-center justify-center gap-2 border border-primary-600 text-primary-300 hover:border-accent-500 hover:text-accent-400 font-semibold px-8 py-4 transition-colors duration-200">
+            料金と含まれるもの
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 2. こんな仕事を渡します ===== -->
+  <section class="py-24 px-4 bg-warm-50">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Jobs</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">こんな仕事を、<br class="sm:hidden"/>渡します。</h2>
+        <p class="mt-4 text-primary-500 text-base max-w-2xl">
+          総務・経理を1〜2人が兼務していて、毎月同じ作業に追われている。そういう会社で、まず減らせる仕事です。どれも、個人情報を渡さずに始められるものから選びます。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {jobs.map((j, i) => (
+          <div class="bg-white border border-warm-200 p-7 flex gap-5">
+            <span class="font-display text-3xl font-bold text-accent-500 leading-none shrink-0 w-10">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3 class="font-bold text-primary-900 text-lg mb-2 leading-snug">{j.title}</h3>
+              <p class="text-sm text-primary-600 leading-relaxed">{j.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 3. やること ===== -->
+  <section class="py-24 px-4 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">What we do</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">月に1回、90分。<br/>やることは4つ。</h2>
+        <p class="mt-4 text-primary-500 text-base max-w-2xl">
+          顧問の訪問（労務の相談）とは別に、AI活用支援では毎月90分の実作業をします。訪問でもオンラインでも。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {works.map((w) => (
+          <div class="border border-warm-200 p-8 flex flex-col">
+            <p class="font-display text-accent-500 text-sm font-bold tracking-[0.2em] mb-3">{w.n}</p>
+            <h3 class="font-bold text-primary-900 text-xl mb-3 leading-snug">{w.title}</h3>
+            <p class="text-sm text-primary-600 leading-relaxed">{w.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 4. 二つのやり方 ===== -->
+  <section class="py-24 px-4 bg-warm-50">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Two ways</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">一緒に作るか、<br class="sm:hidden"/>事務所が作るか。</h2>
+        <p class="mt-4 text-primary-500 text-base max-w-2xl">
+          基本は一緒に作ります。作り方が社内に残り、事務所に依存しないからです。手を動かせる社員がいない会社は、事務所が作る形にします。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {styles.map((s) => (
+          <div class="bg-white border border-warm-200 overflow-hidden">
+            <div class="h-1 bg-accent-500"></div>
+            <div class="p-8">
+              <div class="flex items-center gap-3 mb-2 flex-wrap">
+                <h3 class="font-display text-2xl font-bold text-primary-900">{s.name}</h3>
+                <span class="text-xs font-semibold text-primary-500 border border-warm-300 px-2.5 py-1">{s.tag}</span>
+              </div>
+              <p class="text-sm text-primary-500 mb-6">{s.who}</p>
+              <ul class="space-y-2.5">
+                {s.items.map((it) => (
+                  <li class="flex items-start gap-3 text-base text-primary-700">
+                    <span class="w-1.5 h-1.5 bg-accent-500 rounded-full mt-2.5 shrink-0"></span>
+                    {it}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 5. 進め方 ===== -->
+  <section class="py-24 px-4 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Flow</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">進め方</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-8 sm:gap-6">
+        {steps.map((flow) => (
+          <div class="flex flex-col items-start">
+            <div class="w-16 h-16 bg-primary-900 border-2 border-accent-500 flex flex-col items-center justify-center mb-5">
+              <span class="text-[10px] font-semibold text-accent-400 leading-none tracking-widest">STEP</span>
+              <span class="font-display text-xl font-bold text-white">{flow.step}</span>
+            </div>
+            <h3 class="font-bold text-primary-900 text-lg mb-2">{flow.title}</h3>
+            <p class="text-base text-primary-600 leading-relaxed">{flow.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 6. 料金 ===== -->
+  <section id="price" class="py-24 px-4 bg-warm-50">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">Price</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">料金</h2>
+      </div>
+
+      <div class="bg-white border border-warm-200 p-8 md:p-10 mb-6">
+        <div class="flex flex-col md:flex-row md:items-end gap-4 md:gap-8 mb-8 pb-8 border-b border-warm-200">
+          <div>
+            <p class="text-xs font-semibold text-accent-600 tracking-[0.15em] mb-2">顧問料に加えて</p>
+            <p class="font-display text-4xl sm:text-5xl font-bold text-primary-900 leading-none">
+              月額 33,000<span class="text-2xl">円</span>
+            </p>
+            <p class="text-sm text-primary-500 mt-2">消費税込み。月単位で解約できます</p>
+          </div>
+          <p class="text-sm text-primary-600 leading-relaxed md:max-w-sm">
+            顧問契約（手続き＋相談顧問・相談顧問）とセットでお受けします。顧問料は<a href="/price/" class="text-accent-600 font-semibold hover:underline">料金表</a>をご覧ください。
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="font-bold text-primary-900 mb-4">含まれるもの</h3>
+            <ul class="space-y-2.5">
+              {included.map((it) => (
+                <li class="flex items-start gap-3 text-base text-primary-700">
+                  <span class="w-1.5 h-1.5 bg-accent-500 rounded-full mt-2.5 shrink-0"></span>
+                  {it}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-bold text-primary-900 mb-4">別途お見積り</h3>
+            <ul class="space-y-2.5">
+              {excluded.map((it) => (
+                <li class="flex items-start gap-3 text-base text-primary-700">
+                  <span class="w-1.5 h-1.5 bg-warm-300 rounded-full mt-2.5 shrink-0"></span>
+                  {it}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-sm text-primary-500 leading-relaxed max-w-3xl">
+        AI活用支援だけの契約は、原則お受けしていません。業務を知らないまま道具だけ作っても、続かないからです。他の社労士と顧問契約中の会社は、その社労士を通してご相談ください。
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ===== 7. なぜ社労士がやるのか ===== -->
+  <section class="py-24 px-4 bg-primary-900 text-white">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-12">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-400 text-xs font-semibold tracking-[0.2em] uppercase">Why</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold">なぜ、社労士が<br/>これをやるのか。</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 max-w-4xl">
+        {reasons.map((r) => (
+          <div class="border-l-2 border-accent-500 pl-5">
+            <h3 class="font-bold text-white text-base mb-2 leading-snug">{r.title}</h3>
+            <p class="text-sm text-primary-300 leading-relaxed">{r.body}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-primary-800 max-w-4xl flex flex-col sm:flex-row gap-4 sm:gap-10 text-sm">
+        <a href="https://chiisanasenmonka.jp/" class="inline-flex items-center gap-2 text-primary-200 hover:text-accent-400 transition-colors group">
+          小さな専門家.jp の計算ツールを見る
+          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+        <a href="/seminar/" class="inline-flex items-center gap-2 text-primary-200 hover:text-accent-400 transition-colors group">
+          セミナー・研修の実績を見る
+          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 8. よくあるご質問 ===== -->
+  <section class="py-24 px-4 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-14">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-px bg-accent-500"></div>
+          <p class="text-accent-600 text-xs font-semibold tracking-[0.2em] uppercase">FAQ</p>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-primary-900">よくあるご質問</h2>
+      </div>
+
+      <div class="max-w-3xl divide-y divide-warm-200 border-t border-b border-warm-200">
+        {faqs.map((f) => (
+          <div class="py-7">
+            <h3 class="flex items-start gap-4 font-bold text-primary-900 text-base mb-3">
+              <span class="font-display text-accent-500 shrink-0">Q.</span>
+              <span>{f.q}</span>
+            </h3>
+            <p class="flex items-start gap-4 text-sm text-primary-600 leading-relaxed">
+              <span class="font-display font-bold text-primary-400 shrink-0">A.</span>
+              <span>{f.a}</span>
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 9. CTA ===== -->
+  <section class="py-24 px-4 bg-primary-900 text-white">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="flex items-center justify-center gap-3 mb-6">
+        <div class="w-8 h-px bg-accent-500"></div>
+        <p class="text-accent-400 text-xs font-semibold tracking-[0.3em] uppercase">Free Consultation</p>
+        <div class="w-8 h-px bg-accent-500"></div>
+      </div>
+
+      <h2 class="font-display text-4xl sm:text-5xl font-bold mb-8">
+        最初のひとつを、<br/>いっしょに決めましょう。
+      </h2>
+
+      <p class="text-primary-300 mb-10 text-lg leading-loose">
+        いま、いちばん時間を食っている手作業は何か。<br/>
+        それを聞かせていただくところから始めます。初回のご相談は無料です。
+      </p>
+
+      <a href="/contact/"
+         class="inline-flex items-center gap-3 bg-accent-500 hover:bg-accent-400 text-white font-bold px-12 py-4 text-lg transition-colors duration-200">
+        無料相談はこちら
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+</Layout>

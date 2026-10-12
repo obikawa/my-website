@@ -10,6 +10,8 @@ import Layout from '../layouts/Layout.astro';
 //
 // AI・RPA・小さな専門家の話はここでは主役にしない。そちらは小さな専門家.jp に任せる。
 // 差別化（かつては AI、いまは両立支援）を商品そのものにすると、何屋か分からなくなる。
+// AI活用支援（2026-09-29 新設）は顧問契約のオプションとして、顧問契約の節の直後に1節だけ置く。
+// 詳しい説明は /ai-support/ に寄せ、ここでは何を減らすか・いくらか・顧問先向けであることだけ書く。
 // 両立支援は単発の依頼になりやすく、事務所が欲しいのは顧問先なので、
 // 両立支援は「顧問を選ぶ理由」として置く。
 //
@@ -99,6 +101,10 @@ const faqs = [
   {
     q: '健康経営優良法人の認定を目指しています。',
     a: '認定要件の「法令遵守・リスクマネジメント」は必須で、定期健診の実施、50人以上の事業場でのストレスチェック、労働基準法・労働安全衛生法の違反で送検されていないことを申告します。つまり、健康診断の受診率、ストレスチェック、規模に応じた衛生管理者・衛生推進者や産業医の選任といった労働安全衛生法上の体制を、まず法令どおりに整えていることが前提です。評価項目には、仕事と育児・介護の両立支援（2026年に追加）、治療と仕事の両立支援、高年齢従業員への配慮も含まれます。認定は毎年の更新なので、体制は作って終わりではありません。顧問として、法令上の体制の確認から、両立支援の整備、更新時の見直しまで続けてお手伝いします。',
+  },
+  {
+    q: 'AIで、事務の手作業を減らしたい。相談できますか？',
+    a: '顧問先向けに「AI活用支援」をオプションでお受けしています。月1回90分、社員の方と一緒に道具を作って動かし、修正まで含めて月額33,000円（税込）です。転記・集計・勤務表の下書き・引き継ぎといった、個人情報を渡さずにできる仕事から始めます。AI活用支援だけの契約は、原則お受けしていません。',
   },
   {
     q: '費用はどれくらいかかりますか？',
@@ -360,6 +366,51 @@ const faqSchema = {
         </a>
       </div>
 
+    </div>
+  </section>
+
+
+  <!-- ===== AI活用支援（顧問契約のオプション） ===== -->
+  <section id="ai-support" class="py-20 px-4 bg-primary-900 text-white">
+    <div class="max-w-5xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-14 items-start">
+
+        <div class="md:col-span-3">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-6 h-px bg-accent-500"></div>
+            <p class="text-accent-400 text-xs font-semibold tracking-[0.2em] uppercase">Option</p>
+          </div>
+          <h2 class="font-display text-4xl sm:text-5xl font-bold leading-tight">顧問契約に、<br/>AI活用支援を。</h2>
+          <p class="mt-6 text-primary-200 text-base leading-loose max-w-xl">
+            転記、集計、勤務表の下書き、引き継ぎ。人がやらなくていい仕事をAIと自動化に渡して、社員の時間を本業に戻します。御社の業務を知っている社労士が、月に1回90分、社員の方と一緒に手を動かします。報告書は作りません。最初の月に、1つ動かします。
+          </p>
+          <a href="/ai-support/"
+             class="mt-8 inline-flex items-center gap-2 border border-primary-600 text-primary-200 hover:border-accent-500 hover:text-accent-400 font-semibold px-6 py-3 transition-colors duration-200">
+            AI活用支援を詳しく見る
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="md:col-span-2 border border-primary-700 p-8">
+          <p class="text-xs font-semibold text-accent-400 tracking-[0.15em] mb-2">顧問料に加えて</p>
+          <p class="font-display text-3xl font-bold text-white leading-none">月額 33,000<span class="text-lg">円</span></p>
+          <p class="text-xs text-primary-400 mt-2 mb-6">消費税込み。月単位で解約できます</p>
+          <ul class="space-y-2.5">
+            {['月1回90分の実作業（訪問またはオンライン）', '間のチャット相談', '作った道具の修正・不具合対応', 'AIの利用ルールを社内規程に'].map((it) => (
+              <li class="flex items-start gap-3 text-sm text-primary-200">
+                <span class="w-1.5 h-1.5 bg-accent-500 rounded-full mt-2 shrink-0"></span>
+                {it}
+              </li>
+            ))}
+          </ul>
+          <p class="mt-6 pt-5 border-t border-primary-800 text-xs text-primary-400 leading-relaxed">
+            顧問契約（手続き＋相談顧問・相談顧問）のお客様向けです。
+          </p>
+        </div>
+
+      </div>
     </div>
   </section>
 
